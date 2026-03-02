@@ -1,0 +1,91 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Pokédex",
+  "@appTitle": { "description": "Application title" },
+
+  "navPokemonList": "Pokémon",
+  "@navPokemonList": { "description": "Bottom nav label for the Pokémon list tab" },
+
+  "navFavorites": "Favorites",
+  "@navFavorites": { "description": "Bottom nav label for the favorites tab" },
+
+  "searchHint": "Search Pokémon...",
+  "@searchHint": { "description": "Hint text inside the search bar" },
+
+  "favoritesTitle": "My Favorites",
+  "@favoritesTitle": { "description": "Title of the favorites screen" },
+
+  "favoritesEmpty": "No favorites yet.\nTap the ♥ on any Pokémon to save it.",
+  "@favoritesEmpty": { "description": "Empty-state message on the favorites screen" },
+
+  "detailAbout": "About",
+  "@detailAbout": { "description": "Section label in detail screen" },
+
+  "detailBaseStats": "Base Stats",
+  "@detailBaseStats": { "description": "Section label in detail screen" },
+
+  "detailAbilities": "Abilities",
+  "@detailAbilities": { "description": "Section label in detail screen" },
+
+  "detailHeight": "Height",
+  "@detailHeight": { "description": "Label for the height field" },
+
+  "detailWeight": "Weight",
+  "@detailWeight": { "description": "Label for the weight field" },
+
+  "detailBaseExp": "Base Exp.",
+  "@detailBaseExp": { "description": "Label for the base experience field" },
+
+  "statHp": "HP",
+  "statAttack": "Attack",
+  "statDefense": "Defense",
+  "statSpAtk": "Sp. Atk",
+  "statSpDef": "Sp. Def",
+  "statSpeed": "Speed",
+
+  "errorGeneric": "Something went wrong.",
+  "@errorGeneric": { "description": "Generic error message" },
+
+  "errorNoInternet": "No internet connection.",
+  "@errorNoInternet": { "description": "Shown when the device is offline" },
+
+  "errorNotFound": "Pokémon not found.",
+  "@errorNotFound": { "description": "Shown when the API returns 404" },
+
+  "errorTimeout": "Request timed out. Please try again.",
+  "@errorTimeout": { "description": "Shown on connection timeout" },
+
+  "errorServer": "Server error. Please try again later.",
+  "@errorServer": { "description": "Shown on 5xx errors" },
+
+  "retryButton": "Retry",
+  "@retryButton": { "description": "Label for the retry button" },
+
+  "loadingText": "Loading...",
+  "@loadingText": { "description": "Generic loading indicator label" },
+
+  "pokemonNumber": "#{id}",
+  "@pokemonNumber": {
+    "description": "Formatted Pokémon number, e.g. #025",
+    "placeholders": {
+      "id": { "type": "String" }
+    }
+  },
+
+  "addedToFavorites": "{name} added to favorites!",
+  "@addedToFavorites": {
+    "description": "Snackbar when a Pokémon is favorited",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "removedFromFavorites": "{name} removed from favorites.",
+  "@removedFromFavorites": {
+    "description": "Snackbar when a Pokémon is unfavorited",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  }
+}
