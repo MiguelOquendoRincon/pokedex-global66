@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokedex_global66/core/security/secure_local_storage.dart';
 import 'package:pokedex_global66/core/storage/local_storage.dart';
 import 'package:pokedex_global66/pokedex_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,10 +49,12 @@ Future<void> bootstrap() async {
   // ── 3. Async dependencies ──────────────────────────────────────────────────
   final prefs = await SharedPreferences.getInstance();
 
-  // ── 4. Talker ──────────────────────────────────────────────────────────────
-  final talker = TalkerFlutter.init(
-    settings: TalkerSettings(enabled: true, useConsoleLogs: true),
-  );
+  // Secure storage instance — uses EncryptedSharedPreferences (Android)
+  // and Keychain (iOS). Created once and injected via DI.
+  final secureStorage = SecureLocalStorage();
+
+  // ── 4. Talker — build-mode aware (silent in release) ──────────────────────
+  final talker = buildTalker();
   talker.info('Bootstrap started');
 
   // ── 5. ProviderContainer ───────────────────────────────────────────────────
@@ -64,8 +67,10 @@ Future<void> bootstrap() async {
       // SharedPreferences — exposed to OnboardingProvider & ThemeNotifier
       sharedPrefsProvider.overrideWithValue(prefs),
 
-      // Local storage abstraction — used by FavoritesRepository
-      localStorageProvider.overrideWithValue(SharedPrefsLocalStorage(prefs)),
+      // Local storage — SecureLocalStorage (encrypted) instead of plain
+      // SharedPreferences. Same ILocalStorage interface → zero changes
+      // in repositories or use cases.
+      localStorageProvider.overrideWithValue(secureStorage),
     ],
   );
 

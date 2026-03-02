@@ -73,9 +73,14 @@ dependencies:
   # ─── Internationalisation ────────────────────────────────────────────────
   intl: ^0.20.2
 
+  # ─── Security ────────────────────────────────────────────────────────────
+  pointycastle: ^4.0.0  # for SHA-256 in production
+  flutter_secure_storage: ^10.0.0 # for storing sensitive data
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  crypto: ^3.0.7
 
 dev_dependencies:
   flutter_test:
