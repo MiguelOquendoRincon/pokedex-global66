@@ -1,68 +1,142 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../error/app_exception.dart';
+
+part 'local_storage.g.dart';
 
 /// Enum to represent font size preferences
 /// This enum defines different font size options that can be used in the application.
 enum FontSizePreference { small, medium, large, extraLarge }
 
-/// UserPreferences class to manage user preferences
-/// This class provides methods to get and set user preferences such as font size and screen width.
-class UserPreferences {
-  static const _fontSizeKey = 'font_size';
-  static const _screenWidthKey = 'screen_width';
+/// Interface so we can swap SharedPreferences for Hive/Isar in tests or future.
+abstract interface class ILocalStorage {
+  TaskEither<AppException, Unit> saveStringList(String key, List<String> value);
+  TaskEither<AppException, List<String>> getStringList(String key);
+  TaskEither<AppException, String> getUserName();
+  TaskEither<AppException, bool> setUserName(String key, String value);
+  TaskEither<AppException, bool> getDarkTheme(String key);
+  TaskEither<AppException, bool> setDarkTheme(String key, bool value);
+  TaskEither<AppException, FontSizePreference> getFontSize(String key);
+  TaskEither<AppException, bool> setFontSize(
+    String key,
+    FontSizePreference value,
+  );
+  TaskEither<AppException, double> getScreenWidth(String key);
+  TaskEither<AppException, bool> setScreenWidth(String key, double width);
+  TaskEither<AppException, bool> getHasOnboarded(String key);
+  TaskEither<AppException, bool> setHasOnboarded(String key, bool value);
+}
 
+class SharedPrefsLocalStorage implements ILocalStorage {
+  const SharedPrefsLocalStorage(this._prefs);
   final SharedPreferences _prefs;
 
-  UserPreferences(this._prefs);
+  @override
+  TaskEither<AppException, Unit> saveStringList(
+    String key,
+    List<String> value,
+  ) => TaskEither.tryCatch(() async {
+    await _prefs.setStringList(key, value);
+    return unit;
+  }, (e, _) => AppException.storage(message: e.toString()));
 
-  //Save User Name.
-  String get userName {
-    return _prefs.getString('userName') ?? "No hay información";
+  @override
+  TaskEither<AppException, List<String>> getStringList(String key) =>
+      TaskEither.tryCatch(
+        () async => _prefs.getStringList(key) ?? [],
+        (e, _) => AppException.storage(message: e.toString()),
+      );
+
+  @override
+  TaskEither<AppException, bool> getDarkTheme(String key) {
+    return TaskEither.tryCatch(
+      () async => _prefs.getBool(key) ?? false,
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  set userName(String value) {
-    _prefs.setString('userName', value);
+  @override
+  TaskEither<AppException, FontSizePreference> getFontSize(String key) {
+    return TaskEither.tryCatch(
+      () async =>
+          FontSizePreference.values.byName(_prefs.getString(key) ?? 'medium'),
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  /// Get dark theme preference
-  bool get darkTheme => _prefs.getBool('dark_theme') ?? false;
-
-  /// Set dark theme preference
-  Future<void> setDarkTheme(bool value) async {
-    await _prefs.setBool('dark_theme', value);
+  @override
+  TaskEither<AppException, bool> getHasOnboarded(String key) {
+    return TaskEither.tryCatch(
+      () async => _prefs.getBool(key) ?? false,
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  /// Get the current font size preference
-  /// This method retrieves the font size preference from shared preferences.
-  FontSizePreference get fontSize {
-    final name = _prefs.getString(_fontSizeKey) ?? 'medium';
-    return FontSizePreference.values.byName(name);
+  @override
+  TaskEither<AppException, double> getScreenWidth(String key) {
+    return TaskEither.tryCatch(
+      () async => _prefs.getDouble(key) ?? 360.0,
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  /// Set the font size preference
-  /// This method saves the font size preference to shared preferences.
-  Future<void> setFontSize(FontSizePreference value) async {
-    await _prefs.setString(_fontSizeKey, value.name);
+  @override
+  TaskEither<AppException, String> getUserName() {
+    return TaskEither.tryCatch(
+      () async => _prefs.getString('userName') ?? "No hay información",
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  /// Get the screen width preference
-  /// This method retrieves the screen width from shared preferences.
-  double get screenWidth => _prefs.getDouble(_screenWidthKey) ?? 360.0;
-
-  /// Set the screen width preference
-  /// This method saves the screen width to shared preferences.
-  Future<void> setScreenWidth(double width) async {
-    await _prefs.setDouble(_screenWidthKey, width);
+  @override
+  TaskEither<AppException, bool> setDarkTheme(String key, bool value) {
+    return TaskEither.tryCatch(
+      () async => await _prefs.setBool(key, value),
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  /// Set if it's the first launch of the app
-  /// This method saves a boolean indicating if the app has been launched before.
-  bool get hasOnboarded {
-    return _prefs.getBool('onboarded') ?? false;
+  @override
+  TaskEither<AppException, bool> setFontSize(
+    String key,
+    FontSizePreference value,
+  ) {
+    return TaskEither.tryCatch(
+      () async => await _prefs.setString(key, value.name),
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 
-  /// Set the onboarded status
-  /// This method saves a boolean indicating if the user has completed onboarding.
-  Future<void> setHasOnboarded(bool value) async {
-    await _prefs.setBool('onboarded', value);
+  @override
+  TaskEither<AppException, bool> setHasOnboarded(String key, bool value) {
+    return TaskEither.tryCatch(
+      () async => await _prefs.setBool(key, value),
+      (e, _) => AppException.storage(message: e.toString()),
+    );
+  }
+
+  @override
+  TaskEither<AppException, bool> setScreenWidth(String key, double width) {
+    return TaskEither.tryCatch(
+      () async => await _prefs.setDouble(key, width),
+      (e, _) => AppException.storage(message: e.toString()),
+    );
+  }
+
+  @override
+  TaskEither<AppException, bool> setUserName(String key, String value) {
+    return TaskEither.tryCatch(
+      () async => await _prefs.setString(key, value),
+      (e, _) => AppException.storage(message: e.toString()),
+    );
   }
 }
+
+/// Eager provider: SharedPreferences must be initialised before runApp.
+/// Overridden in bootstrap.dart after awaiting SharedPreferences.getInstance().
+@Riverpod(keepAlive: true)
+ILocalStorage localStorage(Ref ref) => throw UnimplementedError(
+  'localStorageProvider must be overridden in bootstrap.dart',
+);
