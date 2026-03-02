@@ -1,16 +1,16 @@
 // ══════════════════════════════════════════════════════════════════════════════
-// features/pokemon_list/domain/repositories/i_pokemon_repository.dart
+// features/favorites/domain/repositories/favorites_repository.dart
 // ══════════════════════════════════════════════════════════════════════════════
 import 'package:fpdart/fpdart.dart';
-import 'package:pokedex_global66/core/error/app_exception.dart';
-import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_summary.dart';
 
-/// Contract between domain and data layer.
-/// The domain only knows about [PokemonSummary] and [AppException].
-/// Implementations live in the data layer — DIP satisfied
-abstract interface class IPokemonRepository {
-  TaskEither<AppException, List<PokemonSummary>> getPokemonList({
-    required int limit,
-    required int offset,
-  });
+import 'package:pokedex_global66/core/error/app_exception.dart';
+import 'package:pokedex_global66/features/favorites/domain/entities/favorite_pokemon.dart';
+
+abstract interface class IFavoritesRepository {
+  /// Returns the full list of saved favorites from local storage.
+  TaskEither<AppException, List<FavoritePokemon>> getFavorites();
+
+  /// Persists the complete updated list (overwrite strategy — simpler than
+  /// individual add/remove operations on SharedPreferences).
+  TaskEither<AppException, Unit> saveFavorites(List<FavoritePokemon> favorites);
 }

@@ -1,25 +1,30 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // features/pokemon_list/domain/entities/pokemon_summary.dart
 // ══════════════════════════════════════════════════════════════════════════════
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-/// Lean domain entity – only what the UI/use-cases need from the list endpoint.
-class PokemonSummary {
-  const PokemonSummary({required this.id, required this.name});
+part 'pokemon_summary.freezed.dart';
 
-  final int id;
-  final String name;
+/// Minimal projection of a Pokémon used in the list screen.
+/// The domain entity knows nothing about JSON, Dio, or SharedPrefs.
+@freezed
+abstract class PokemonSummary with _$PokemonSummary {
+  const PokemonSummary._();
+  const factory PokemonSummary({required int id, required String name}) =
+      _PokemonSummary;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is PokemonSummary &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          name == other.name;
+  // ── Derived ───────────────────────────────────────────────────────────────
 
-  @override
-  int get hashCode => Object.hash(id, name);
+  /// Capitalised display name: "bulbasaur" → "Bulbasaur"
+  String get displayName =>
+      name.isEmpty ? name : '${name[0].toUpperCase()}${name.substring(1)}';
 
-  @override
-  String toString() => 'PokemonSummary(id: $id, name: $name)';
+  /// Zero-padded national-dex number: 1 → "001", 25 → "025"
+  String get formattedId => '#${id.toString().padLeft(3, '0')}';
+
+  /// Official artwork URL derived from the Pokémon ID.
+  /// Avoids an extra network call just to get the image on the list screen.
+  String get imageUrl =>
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/'
+      'sprites/pokemon/other/official-artwork/$id.png';
 }
