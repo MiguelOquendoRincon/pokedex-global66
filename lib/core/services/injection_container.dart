@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pokedex_global66/core/storage/local_storage.dart';
+import 'package:pokedex_global66/core/storage/local_preferencess.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service locator instance

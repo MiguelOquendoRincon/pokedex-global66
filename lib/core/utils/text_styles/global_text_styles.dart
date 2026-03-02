@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pokedex_global66/core/services/injection_container.dart';
-import 'package:pokedex_global66/core/storage/local_storage.dart';
+import 'package:pokedex_global66/core/storage/local_preferencess.dart';
 
 /// A utility class that provides globally consistent text styles
 /// with responsive scaling for different screen sizes.

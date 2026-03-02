@@ -1,7 +1,7 @@
 // ─── bootstrap.dart ───────────────────────────────────────────────────────────
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pokedex_global66/core/storage/local_preferences.dart';
+import 'package:pokedex_global66/core/storage/local_storage.dart';
 import 'package:pokedex_global66/pokedex_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_flutter/talker_flutter.dart';
