@@ -29,6 +29,28 @@
   "errorTimeout": "La solicitud tardó demasiado. Intenta de nuevo.",
   "errorServer": "Error del servidor. Intenta más tarde.",
   "retryButton": "Reintentar",
+
+  "navRegions": "Regiones",
+  "navProfile": "Perfil",
+
+  "regionsComingSoon": "Muy pronto disponible",
+  "regionsComingSoonSubtitle": "Explora las regiones Pokémon desde\nKanto hasta Paldea. ¡Próximamente!",
+
+  "profileAppearance": "Apariencia",
+  "profileDarkMode": "Modo oscuro",
+  "profileLanguage": "Idioma",
+  "profileSelectLanguage": "Idioma de la app",
+  "languageEnglish": "EN",
+  "languageSpanish": "ES",
+
+  "onboardingSkip": "Omitir",
+  "onboardingNext": "Siguiente",
+  "onboardingStart": "Comenzar",
+  "onboarding1Title": "Bienvenido a Pokédex",
+  "onboarding1Description": "Descubre y explora el mundo Pokémon. Navega entre cientos de especies con estadísticas y habilidades detalladas.",
+  "onboarding2Title": "Guarda tus Favoritos",
+  "onboarding2Description": "Construye tu Pokédex personal. Toca el corazón en cualquier Pokémon para añadirlo a tu lista de favoritos.",
+
   "loadingText": "Cargando...",
 
   "pokemonNumber": "#{id}",

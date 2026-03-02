@@ -242,6 +242,108 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get retryButton;
 
+  /// Bottom nav label for regions tab
+  ///
+  /// In en, this message translates to:
+  /// **'Regions'**
+  String get navRegions;
+
+  /// Bottom nav label for profile tab
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
+
+  /// Regions screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get regionsComingSoon;
+
+  /// Regions screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Pokémon regions from\nKanto to Paldea. Stay tuned!'**
+  String get regionsComingSoonSubtitle;
+
+  /// Profile section header
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get profileAppearance;
+
+  /// Dark mode toggle label
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get profileDarkMode;
+
+  /// Profile language section header
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profileLanguage;
+
+  /// Language selector label
+  ///
+  /// In en, this message translates to:
+  /// **'App Language'**
+  String get profileSelectLanguage;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'EN'**
+  String get languageEnglish;
+
+  /// Spanish language option
+  ///
+  /// In en, this message translates to:
+  /// **'ES'**
+  String get languageSpanish;
+
+  /// Skip onboarding button
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboardingSkip;
+
+  /// Next onboarding page button
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNext;
+
+  /// Final onboarding CTA button
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get onboardingStart;
+
+  /// First onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Pokédex'**
+  String get onboarding1Title;
+
+  /// First onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Discover and explore the world of Pokémon. Browse hundreds of species with detailed stats and abilities.'**
+  String get onboarding1Description;
+
+  /// Second onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'Save Your Favorites'**
+  String get onboarding2Title;
+
+  /// Second onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Build your personal Pokédex. Tap the heart on any Pokémon to add it to your favorites list.'**
+  String get onboarding2Description;
+
   /// Generic loading indicator label
   ///
   /// In en, this message translates to:

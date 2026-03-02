@@ -82,6 +82,60 @@ class AppLocalizationsEs extends AppLocalizations {
   String get retryButton => 'Reintentar';
 
   @override
+  String get navRegions => 'Regiones';
+
+  @override
+  String get navProfile => 'Perfil';
+
+  @override
+  String get regionsComingSoon => 'Muy pronto disponible';
+
+  @override
+  String get regionsComingSoonSubtitle =>
+      'Explora las regiones Pokémon desde\nKanto hasta Paldea. ¡Próximamente!';
+
+  @override
+  String get profileAppearance => 'Apariencia';
+
+  @override
+  String get profileDarkMode => 'Modo oscuro';
+
+  @override
+  String get profileLanguage => 'Idioma';
+
+  @override
+  String get profileSelectLanguage => 'Idioma de la app';
+
+  @override
+  String get languageEnglish => 'EN';
+
+  @override
+  String get languageSpanish => 'ES';
+
+  @override
+  String get onboardingSkip => 'Omitir';
+
+  @override
+  String get onboardingNext => 'Siguiente';
+
+  @override
+  String get onboardingStart => 'Comenzar';
+
+  @override
+  String get onboarding1Title => 'Bienvenido a Pokédex';
+
+  @override
+  String get onboarding1Description =>
+      'Descubre y explora el mundo Pokémon. Navega entre cientos de especies con estadísticas y habilidades detalladas.';
+
+  @override
+  String get onboarding2Title => 'Guarda tus Favoritos';
+
+  @override
+  String get onboarding2Description =>
+      'Construye tu Pokédex personal. Toca el corazón en cualquier Pokémon para añadirlo a tu lista de favoritos.';
+
+  @override
   String get loadingText => 'Cargando...';
 
   @override
