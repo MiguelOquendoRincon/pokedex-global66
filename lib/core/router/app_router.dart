@@ -49,53 +49,73 @@ GoRouter appRouter(Ref ref) {
         ),
       ),
 
-      // ── Main shell (BottomNavigationBar) ──────────────────────────────────
-      ShellRoute(
-        builder: (context, state, child) => MainShell(child: child),
-        routes: [
+      // ── Main shell (BottomNavigationBar with Persistence) ──────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            MainShell(navigationShell: navigationShell),
+        branches: [
           // Tab 1 — Pokédex
-          GoRoute(
-            path: AppRoutes.pokedex,
-            pageBuilder: (context, state) => _noTransition(
-              key: state.pageKey,
-              // child: PokemonListScreen2(),
-              child: const PokemonListScreen(),
-            ),
+          StatefulShellBranch(
             routes: [
               GoRoute(
-                path: 'detail/:name',
-                pageBuilder: (context, state) {
-                  final name = state.pathParameters['name']!;
-                  return _slideUpTransition(
-                    key: state.pageKey,
-                    child: PokemonDetailScreen(pokemonName: name),
-                  );
-                },
+                path: AppRoutes.pokedex,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const PokemonListScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'detail/:name',
+                    pageBuilder: (context, state) {
+                      final name = state.pathParameters['name']!;
+                      return _slideUpTransition(
+                        key: state.pageKey,
+                        child: PokemonDetailScreen(pokemonName: name),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
 
           // Tab 2 — Regions
-          GoRoute(
-            path: AppRoutes.regions,
-            pageBuilder: (context, state) =>
-                _noTransition(key: state.pageKey, child: const RegionsScreen()),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.regions,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const RegionsScreen(),
+                ),
+              ),
+            ],
           ),
 
           // Tab 3 — Favorites
-          GoRoute(
-            path: AppRoutes.favorites,
-            pageBuilder: (context, state) => _noTransition(
-              key: state.pageKey,
-              child: const FavoritesScreen(),
-            ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.favorites,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const FavoritesScreen(),
+                ),
+              ),
+            ],
           ),
 
           // Tab 4 — Profile
-          GoRoute(
-            path: AppRoutes.profile,
-            pageBuilder: (context, state) =>
-                _noTransition(key: state.pageKey, child: const ProfileScreen()),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.profile,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const ProfileScreen(),
+                ),
+              ),
+            ],
           ),
         ],
       ),

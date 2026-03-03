@@ -68,41 +68,39 @@ class PokemonCard extends ConsumerWidget {
                       horizontal: 16,
                       vertical: 12,
                     ),
-                    child: Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            pokemon.formattedId,
-                            style: context.textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: context.textSubtitle,
-                              fontSize: 12,
-                              letterSpacing: 0.5,
-                            ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          pokemon.formattedId,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: context.textSubtitle,
+                            fontSize: 12,
+                            letterSpacing: 0.5,
                           ),
-                          const SizedBox(height: 2),
-                          Text(
-                            pokemon.displayName,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: context.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 22,
-                            ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          pokemon.displayName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 22,
                           ),
-                          const SizedBox(height: 8),
+                        ),
+                        const SizedBox(height: 8),
 
-                          // Iconized Type Chips
-                          Wrap(
-                            spacing: 6,
-                            children: typesToUse
-                                .map((t) => PokemonTypeChip(type: t))
-                                .toList(),
-                          ),
-                        ],
-                      ),
+                        // Iconized Type Chips
+                        Wrap(
+                          spacing: 6,
+                          children: typesToUse
+                              .map((t) => PokemonTypeChip(type: t))
+                              .toList(),
+                        ),
+                      ],
                     ),
                   ),
                 ),

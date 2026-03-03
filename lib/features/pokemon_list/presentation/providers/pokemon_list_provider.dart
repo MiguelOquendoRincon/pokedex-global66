@@ -43,7 +43,7 @@ sealed class PokemonListState with _$PokemonListState {
 
 // ─── Notifier ─────────────────────────────────────────────────────────────────
 
-@riverpod
+@Riverpod(keepAlive: true)
 class PokemonListNotifier extends _$PokemonListNotifier {
   static const _pageLimit = ApiConstants.defaultPageLimit;
 
