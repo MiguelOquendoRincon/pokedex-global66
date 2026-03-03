@@ -205,9 +205,22 @@ lib/
 test/
 ├── core/network/
 └── features/
-    ├── pokemon_list/domain/
-    ├── pokemon_detail/domain/
-    └── favorites/domain/
+    ├── favorites/
+    │   ├── domain/                  # Lógica de toggle y validación
+    │   └── presentation/providers/  # Notifier de favoritos
+    ├── onboarding/
+    │   └── presentation/providers/  # Notifier de onboarding
+    ├── pokemon_detail/
+    │   ├── data/repositories/       # Repo de detalle (mapping, mappers, etc)
+    │   ├── domain/                  # Entidades de detalle
+    │   └── presentation/providers/  # Notifier de detalle
+    └── pokemon_list/
+        ├── data/repositories/       # Repo de lista (pagination, mappers, etc)
+        ├── domain/                  # Entidades de lista
+        └── presentation/
+            ├── providers/           # PokémonListNotifier & Cache
+            ├── screens/             # Widget tests de pantallas (states)
+            └── widgets/             # Widget tests de búsqueda y cards
 ```
 
 ---
