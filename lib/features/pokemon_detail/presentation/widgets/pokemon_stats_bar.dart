@@ -41,7 +41,7 @@ class PokemonStatsBar extends StatelessWidget {
                 tween: Tween(begin: 0, end: value / _maxStat),
                 duration: const Duration(milliseconds: 700),
                 curve: Curves.easeOut,
-                builder: (_, v, __) => LinearProgressIndicator(
+                builder: (_, v, _) => LinearProgressIndicator(
                   value: v,
                   backgroundColor: color.withValues(alpha: 0.15),
                   valueColor: AlwaysStoppedAnimation(color),

@@ -323,25 +323,25 @@ abstract class AppLocalizations {
   /// First onboarding page title
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Pokédex'**
+  /// **'All Pokémon in one place.'**
   String get onboarding1Title;
 
   /// First onboarding page description
   ///
   /// In en, this message translates to:
-  /// **'Discover and explore the world of Pokémon. Browse hundreds of species with detailed stats and abilities.'**
+  /// **'Access a vast list of Pokémon from every generation created by Nintendo.'**
   String get onboarding1Description;
 
   /// Second onboarding page title
   ///
   /// In en, this message translates to:
-  /// **'Save Your Favorites'**
+  /// **'Keep your Pokédex updated'**
   String get onboarding2Title;
 
   /// Second onboarding page description
   ///
   /// In en, this message translates to:
-  /// **'Build your personal Pokédex. Tap the heart on any Pokémon to add it to your favorites list.'**
+  /// **'Register and save your profile, favorite Pokémon, settings, and more in the app'**
   String get onboarding2Description;
 
   /// Generic loading indicator label

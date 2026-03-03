@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
 abstract final class AppTheme {
@@ -84,7 +85,7 @@ abstract final class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 2,
         shadowColor: Colors.black.withValues(alpha: 0.15),
-        titleTextStyle: TextStyle(
+        titleTextStyle: GoogleFonts.poppins(
           fontSize: 20,
           fontWeight: FontWeight.bold,
           color: appBarFg,
@@ -112,7 +113,7 @@ abstract final class AppTheme {
         }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
-          return TextStyle(
+          return GoogleFonts.poppins(
             fontSize: 11,
             fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
             color: selected ? navBarSelected : navBarUnselected,
@@ -139,7 +140,7 @@ abstract final class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: inputFill,
-        hintStyle: TextStyle(
+        hintStyle: GoogleFonts.poppins(
           color: isDark
               ? AppColorsDark.textSecondary
               : AppColors.textMedium.withValues(alpha: 0.6),
@@ -168,7 +169,7 @@ abstract final class AppTheme {
         backgroundColor: isDark
             ? AppColorsDark.chipBg
             : const Color(0xFFF0F0F0),
-        labelStyle: TextStyle(
+        labelStyle: GoogleFonts.poppins(
           fontSize: 13,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
@@ -201,7 +202,10 @@ abstract final class AppTheme {
             borderRadius: BorderRadius.circular(50),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          textStyle: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
 
@@ -213,12 +217,12 @@ abstract final class AppTheme {
       // ── ListTile ──────────────────────────────────────────────────────────
       listTileTheme: ListTileThemeData(
         iconColor: AppColors.primary,
-        titleTextStyle: TextStyle(
+        titleTextStyle: GoogleFonts.poppins(
           fontSize: 15,
           fontWeight: FontWeight.w500,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        subtitleTextStyle: TextStyle(
+        subtitleTextStyle: GoogleFonts.poppins(
           fontSize: 12,
           color: isDark ? AppColorsDark.textSecondary : AppColors.textMedium,
         ),
@@ -240,94 +244,94 @@ abstract final class AppTheme {
       ),
 
       // ── Typography ────────────────────────────────────────────────────────
-      textTheme: TextTheme().copyWith(
-        displayLarge: TextStyle(
+      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+        displayLarge: GoogleFonts.poppins(
           fontSize: 57,
           fontWeight: FontWeight.w400,
           letterSpacing: -0.25,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        displayMedium: TextStyle(
+        displayMedium: GoogleFonts.poppins(
           fontSize: 45,
           fontWeight: FontWeight.w400,
           letterSpacing: -0.25,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        displaySmall: TextStyle(
+        displaySmall: GoogleFonts.poppins(
           fontSize: 36,
           fontWeight: FontWeight.w400,
           letterSpacing: 0,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        headlineLarge: TextStyle(
+        headlineLarge: GoogleFonts.poppins(
           fontSize: 32,
           fontWeight: FontWeight.w400,
           letterSpacing: 0,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        headlineMedium: TextStyle(
+        headlineMedium: GoogleFonts.poppins(
           fontSize: 28,
           fontWeight: FontWeight.w400,
           letterSpacing: 0,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        headlineSmall: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w400,
+        headlineSmall: GoogleFonts.poppins(
+          fontSize: 26,
+          fontWeight: FontWeight.w500,
           letterSpacing: 0,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        titleLarge: TextStyle(
+        titleLarge: GoogleFonts.poppins(
           fontSize: 22,
           fontWeight: FontWeight.w400,
           letterSpacing: 0,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        titleMedium: TextStyle(
+        titleMedium: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.15,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        titleSmall: TextStyle(
+        titleSmall: GoogleFonts.poppins(
           fontSize: 14,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.1,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        bodyLarge: TextStyle(
+        bodyLarge: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.5,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        bodyMedium: TextStyle(
+        bodyMedium: GoogleFonts.poppins(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.25,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        bodySmall: TextStyle(
+        bodySmall: GoogleFonts.poppins(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.4,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        labelLarge: TextStyle(
+        labelLarge: GoogleFonts.poppins(
           fontSize: 14,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           letterSpacing: 0.1,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        labelMedium: TextStyle(
+        labelMedium: GoogleFonts.poppins(
           fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           letterSpacing: 0.5,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),
-        labelSmall: TextStyle(
+        labelSmall: GoogleFonts.poppins(
           fontSize: 11,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           letterSpacing: 0.5,
           color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
         ),

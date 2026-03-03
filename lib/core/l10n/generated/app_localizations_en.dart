@@ -122,18 +122,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingStart => 'Get Started';
 
   @override
-  String get onboarding1Title => 'Welcome to Pokédex';
+  String get onboarding1Title => 'All Pokémon in one place.';
 
   @override
   String get onboarding1Description =>
-      'Discover and explore the world of Pokémon. Browse hundreds of species with detailed stats and abilities.';
+      'Access a vast list of Pokémon from every generation created by Nintendo.';
 
   @override
-  String get onboarding2Title => 'Save Your Favorites';
+  String get onboarding2Title => 'Keep your Pokédex updated';
 
   @override
   String get onboarding2Description =>
-      'Build your personal Pokédex. Tap the heart on any Pokémon to add it to your favorites list.';
+      'Register and save your profile, favorite Pokémon, settings, and more in the app';
 
   @override
   String get loadingText => 'Loading...';

@@ -324,7 +324,7 @@ Decisiones de simplicidad consciente:
 | `dio` | ^5.4 | Cliente HTTP | Interceptores, cancelación, transformers; más composable que `http` |
 | `go_router` | ^14.2 | Navegación | Paquete oficial Flutter; `ShellRoute`, deep links, redirect reactivo |
 | `talker_flutter` | ^4.3 | Observabilidad | Logger estructurado + viewer in-app + adaptadores para Dio y Riverpod |
-| `flutter_secure_storage` | ^9.2 | Persistencia cifrada | Keychain (iOS) + EncryptedSharedPreferences (Android Keystore) |
+| `flutter_secure_storage` | ^10.0.0 | Persistencia cifrada | Keychain (iOS) + AES-GCM/RSA OAEP (Android Keystore) |
 | `cached_network_image` | ^3.3 | Caché de imágenes | Evita descargas repetidas; shimmer integrado con placeholder |
 | `shimmer` | ^3.0 | Skeleton loaders | UX de carga percibida sin implementación manual |
 | `go_router` | ^14.2 | Navegación declarativa | ShellRoute para bottom nav, deep links, redirect reactivo |
@@ -380,7 +380,7 @@ App  ──HTTPS──►  Servidor
 
 | Plataforma | Mecanismo | Resistencia |
 |---|---|---|
-| Android | `EncryptedSharedPreferences` con clave AES-256-GCM en Android Keystore | Hardware-backed en dispositivos con Secure Element (Android 6+) |
+| Android | Cifrado AES-GCM con clave RSA en Android Keystore | Hardware-backed en dispositivos con Secure Element (Android 6+) |
 | iOS | Keychain con `kSecAttrAccessibleAfterFirstUnlock` | Inaccesible antes del primer desbloqueo tras reinicio |
 
 **Transparencia arquitectural:** La interfaz `ILocalStorage` es idéntica. El único cambio está en `bootstrap.dart`:

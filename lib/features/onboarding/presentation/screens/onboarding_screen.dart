@@ -51,7 +51,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final isLast = _currentPage == _totalPages - 1;
 
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -62,7 +62,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onPressed: _finish,
                 child: Text(
                   l10n.onboardingSkip,
-                  style: const TextStyle(color: AppColors.onPrimary),
+                  style: const TextStyle(color: AppColors.primaryDark),
                 ),
               ),
             ),
@@ -89,17 +89,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
             // ── Indicator dots ────────────────────────────────────────────
             OnboardingIndicator(count: _totalPages, current: _currentPage),
-            const SizedBox(height: 24),
+            const SizedBox(height: 35),
 
             // ── CTA button ────────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: SizedBox(
                 width: double.infinity,
+                height: 58.0,
                 child: FilledButton(
                   style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.onPrimary,
-                    foregroundColor: AppColors.primary,
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.onPrimary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),

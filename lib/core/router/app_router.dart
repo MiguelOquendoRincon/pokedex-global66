@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/shell/main_shell.dart';
 import 'package:pokedex_global66/features/favorites/presentation/screens/favorites_screen.dart';
-import 'package:pokedex_global66/features/onboarding/presentation/providers/screens/onboarding_screen.dart';
+import 'package:pokedex_global66/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/pokemon_detail_screen.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
 import 'package:pokedex_global66/features/profile/presentation/screens/profile_screen.dart';
@@ -10,7 +10,7 @@ import 'package:pokedex_global66/features/regions/presentation/screens/regions_s
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:pokedex_global66/features/onboarding/presentation/providers/onboarding_provider.dart';
-import 'package:pokedex_global66/features/onboarding/presentation/providers/screens/onboarding_screen.dart';
+import 'package:pokedex_global66/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/pokemon_detail_screen.dart';
 import 'package:pokedex_global66/core/shell/main_shell.dart';

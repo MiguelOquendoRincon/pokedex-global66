@@ -101,16 +101,16 @@
   "onboardingStart": "Get Started",
   "@onboardingStart": { "description": "Final onboarding CTA button" },
 
-  "onboarding1Title": "Welcome to Pokédex",
+  "onboarding1Title": "All Pokémon in one place.",
   "@onboarding1Title": { "description": "First onboarding page title" },
 
-  "onboarding1Description": "Discover and explore the world of Pokémon. Browse hundreds of species with detailed stats and abilities.",
+  "onboarding1Description": "Access a vast list of Pokémon from every generation created by Nintendo.",
   "@onboarding1Description": { "description": "First onboarding page description" },
 
-  "onboarding2Title": "Save Your Favorites",
+  "onboarding2Title": "Keep your Pokédex updated",
   "@onboarding2Title": { "description": "Second onboarding page title" },
 
-  "onboarding2Description": "Build your personal Pokédex. Tap the heart on any Pokémon to add it to your favorites list.",
+  "onboarding2Description": "Register and save your profile, favorite Pokémon, settings, and more in the app",
   "@onboarding2Description": { "description": "Second onboarding page description" },
 
   "loadingText": "Loading...",

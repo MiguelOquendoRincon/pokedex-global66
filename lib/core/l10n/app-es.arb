@@ -46,10 +46,10 @@
   "onboardingSkip": "Omitir",
   "onboardingNext": "Siguiente",
   "onboardingStart": "Comenzar",
-  "onboarding1Title": "Bienvenido a Pokédex",
-  "onboarding1Description": "Descubre y explora el mundo Pokémon. Navega entre cientos de especies con estadísticas y habilidades detalladas.",
-  "onboarding2Title": "Guarda tus Favoritos",
-  "onboarding2Description": "Construye tu Pokédex personal. Toca el corazón en cualquier Pokémon para añadirlo a tu lista de favoritos.",
+  "onboarding1Title": "Todos los Pokémon en un solo lugar",
+  "onboarding1Description": "Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo",
+  "onboarding2Title": "Mantén tu Pokédex actualizada",
+  "onboarding2Description": "Regístrate y guarda tu perfil, Pokémon favoritos, configuraciones y mucho más en la aplicación",
 
   "loadingText": "Cargando...",
 

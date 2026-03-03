@@ -7,8 +7,8 @@ import 'package:pokedex_global66/core/storage/local_storage.dart';
 
 /// Secure implementation of [ILocalStorage] using [FlutterSecureStorage].
 ///
-/// On Android: EncryptedSharedPreferences backed by the Android Keystore.
-///   → Keys are hardware-bound on devices with a secure element (Android 6+).
+/// On Android: Secure storage using AES-GCM and RSA key wrapping,
+///   backed by the Android Keystore (replaces deprecated EncryptedSharedPreferences).
 /// On iOS: Keychain Services with kSecAttrAccessibleAfterFirstUnlock.
 ///   → Data survives app restart but is inaccessible before first unlock.
 ///
@@ -20,9 +20,8 @@ import 'package:pokedex_global66/core/storage/local_storage.dart';
 final class SecureLocalStorage implements ILocalStorage {
   SecureLocalStorage()
     : _storage = const FlutterSecureStorage(
-        // Android: force EncryptedSharedPreferences (AES-256-GCM key in Keystore)
+        // Android: Secure storage (AES-GCM + RSA OAEP)
         aOptions: AndroidOptions(
-          encryptedSharedPreferences: true,
           keyCipherAlgorithm:
               KeyCipherAlgorithm.RSA_ECB_OAEPwithSHA_256andMGF1Padding,
           storageCipherAlgorithm: StorageCipherAlgorithm.AES_GCM_NoPadding,
