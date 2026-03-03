@@ -3,7 +3,6 @@
 // ══════════════════════════════════════════════════════════════════════════════
 import 'package:fpdart/fpdart.dart';
 import 'package:pokedex_global66/features/pokemon_list/data/datasource/pokemon_list_remote_datasource.dart';
-import 'package:pokedex_global66/features/pokemon_list/data/models/pokemon_list_response_model.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_summary.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/repositories/i_pokemon_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

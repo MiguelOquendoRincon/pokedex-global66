@@ -8,11 +8,13 @@ class PokemonSearchBar extends StatefulWidget {
   const PokemonSearchBar({
     required this.hint,
     required this.onChanged,
+    this.searchQuery = '',
     this.initialFilters = const {},
     this.onFiltersChanged,
     super.key,
   });
 
+  final String searchQuery;
   final String hint;
   final ValueChanged<String> onChanged;
 
@@ -36,6 +38,7 @@ class _PokemonSearchBarState extends State<PokemonSearchBar> {
   @override
   void initState() {
     super.initState();
+    _controller.text = widget.searchQuery;
     _activeFilters = Set.from(widget.initialFilters);
   }
 
@@ -45,6 +48,10 @@ class _PokemonSearchBarState extends State<PokemonSearchBar> {
     // Sync from provider when parent rebuilds (e.g. after clear-all).
     if (old.initialFilters != widget.initialFilters) {
       _activeFilters = Set.from(widget.initialFilters);
+    }
+    if (old.searchQuery != widget.searchQuery &&
+        widget.searchQuery != _controller.text) {
+      _controller.text = widget.searchQuery;
     }
   }
 

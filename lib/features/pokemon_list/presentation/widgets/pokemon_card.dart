@@ -18,7 +18,7 @@ class PokemonCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ⚡ Reactive Cache: Watch for this pokemon's types in the global cache.
+    // Reactive Cache: Watch for this pokemon's types in the global cache.
     // When the background enrichment completes, this specific card will rebuild.
     final cachedTypes = ref.watch(
       pokemonTypeCacheProvider.select((c) => c[pokemon.name]),
@@ -74,7 +74,7 @@ class PokemonCard extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          pokemon.formattedId,
+                          pokemon.formattedId.replaceAll('#', 'Nº'),
                           style: context.textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: context.textSubtitle,

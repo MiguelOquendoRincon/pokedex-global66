@@ -111,5 +111,8 @@
   "filterTitle": "Filtra por tus preferencias",
   "filterType": "Tipo",
   "filterApply": "Aplicar",
-  "filterCancel": "Cancelar"
+  "filterCancel": "Cancelar",
+  "resultsFound": "{count, plural, =1{Se ha encontrado } other{Se han encontrado }}",
+  "resultsCount": "{count, plural, =1{1 resultado} other{{count} resultados}}",
+  "clearFilter": "Borrar filtro"
 }

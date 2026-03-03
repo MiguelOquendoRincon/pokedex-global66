@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/error/app_exception.dart';
@@ -7,7 +8,7 @@ import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
-import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
+import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/providers/pokemon_detail_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/favorite_button.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/gender_bar.dart';
@@ -99,6 +100,10 @@ class _DetailView extends ConsumerWidget {
             foregroundColor: Colors.white,
             pinned: true,
             elevation: 0,
+            leading: IconButton(
+              icon: const Icon(CupertinoIcons.chevron_left),
+              onPressed: () => Navigator.pop(context),
+            ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
@@ -158,8 +163,11 @@ class _DetailView extends ConsumerWidget {
 
                   // ── Description ───────────────────────────────────────────
                   Text(detail.description, style: context.textTheme.bodyMedium),
-                  const SizedBox(height: 36),
+                  const SizedBox(height: 18),
 
+                  Divider(color: context.borderColor, thickness: 1),
+
+                  const SizedBox(height: 18),
                   // ── Weight / Height ───────────────────────────────────────
                   Row(
                     children: [
@@ -265,7 +273,7 @@ class _HeaderBackground extends StatelessWidget {
         children: [
           // Large translucent type blob
           Positioned(
-            top: -140,
+            top: -180,
             left: -20,
             child: CircleAvatar(
               backgroundColor: typeColor,
@@ -302,7 +310,6 @@ class _HeaderBackground extends StatelessWidget {
           // Pokemon image
           Positioned.fill(
             child: Container(
-              margin: const EdgeInsets.only(left: 50),
               padding: const EdgeInsets.only(top: 90),
               alignment: Alignment.bottomCenter,
               child: Hero(

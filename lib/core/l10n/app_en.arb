@@ -189,5 +189,8 @@
   "filterTitle": "Filter by your preferences",
   "filterType": "Type",
   "filterApply": "Apply",
-  "filterCancel": "Cancel"
+  "filterCancel": "Cancel",
+  "resultsFound": "{count, plural, =1{Found } other{Found }}",
+  "resultsCount": "{count, plural, =1{1 result} other{{count} results}}",
+  "clearFilter": "Clear filter"
 }

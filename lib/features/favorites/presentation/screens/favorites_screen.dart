@@ -43,7 +43,7 @@ class FavoritesScreen extends ConsumerWidget {
                 ),
                 title: Text(
                   l10n.favoritesTitle,
-                  style: context.textTheme.titleLarge?.copyWith(
+                  style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w900,
                     color: context.textPrimary,
                   ),
@@ -153,11 +153,11 @@ class FavoritesScreen extends ConsumerWidget {
                         margin: const EdgeInsets.only(bottom: 12),
                         padding: const EdgeInsets.only(right: 24),
                         decoration: BoxDecoration(
-                          color: Colors.red.shade400,
+                          color: const Color(0xFFCD3131),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: const Icon(
-                          Icons.delete_outline,
+                          CupertinoIcons.trash,
                           color: Colors.white,
                           size: 32,
                         ),

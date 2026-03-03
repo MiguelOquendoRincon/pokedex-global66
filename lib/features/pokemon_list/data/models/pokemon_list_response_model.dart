@@ -1,6 +1,5 @@
 // ─── pokemon_list_response_model.dart ────────────────────────────────────────
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pokedex_global66/features/pokemon_detail/data/models/pokemon_detail_model.dart';
 import 'pokemon_item_model.dart';
 
 part 'pokemon_list_response_model.freezed.dart';
