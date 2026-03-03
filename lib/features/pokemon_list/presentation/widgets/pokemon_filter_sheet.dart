@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pokedex_global66/core/l10n/generated/app_localizations.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -29,27 +30,69 @@ class _PokemonFilterSheet extends StatefulWidget {
 }
 
 class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
-  // All Pokémon types sorted alphabetically (Spanish labels)
-  static const List<({String key, String label})> _types = [
-    (key: 'bug', label: 'Bicho'),
-    (key: 'dark', label: 'Siniestro'),
-    (key: 'dragon', label: 'Dragón'),
-    (key: 'electric', label: 'Eléctrico'),
-    (key: 'fairy', label: 'Hada'),
-    (key: 'fighting', label: 'Lucha'),
-    (key: 'fire', label: 'Fuego'),
-    (key: 'flying', label: 'Volador'),
-    (key: 'ghost', label: 'Fantasma'),
-    (key: 'grass', label: 'Planta'),
-    (key: 'ground', label: 'Tierra'),
-    (key: 'ice', label: 'Hielo'),
-    (key: 'normal', label: 'Normal'),
-    (key: 'poison', label: 'Veneno'),
-    (key: 'psychic', label: 'Psíquico'),
-    (key: 'rock', label: 'Roca'),
-    (key: 'steel', label: 'Acero'),
-    (key: 'water', label: 'Agua'),
+  static const List<String> _types = [
+    'bug',
+    'dark',
+    'dragon',
+    'electric',
+    'fairy',
+    'fighting',
+    'fire',
+    'flying',
+    'ghost',
+    'grass',
+    'ground',
+    'ice',
+    'normal',
+    'poison',
+    'psychic',
+    'rock',
+    'steel',
+    'water',
   ];
+
+  String _getTranslatedType(String type, AppLocalizations l10n) {
+    switch (type) {
+      case 'bug':
+        return l10n.typeBug;
+      case 'dark':
+        return l10n.typeDark;
+      case 'dragon':
+        return l10n.typeDragon;
+      case 'electric':
+        return l10n.typeElectric;
+      case 'fairy':
+        return l10n.typeFairy;
+      case 'fighting':
+        return l10n.typeFighting;
+      case 'fire':
+        return l10n.typeFire;
+      case 'flying':
+        return l10n.typeFlying;
+      case 'ghost':
+        return l10n.typeGhost;
+      case 'grass':
+        return l10n.typeGrass;
+      case 'ground':
+        return l10n.typeGround;
+      case 'ice':
+        return l10n.typeIce;
+      case 'normal':
+        return l10n.typeNormal;
+      case 'poison':
+        return l10n.typePoison;
+      case 'psychic':
+        return l10n.typePsychic;
+      case 'rock':
+        return l10n.typeRock;
+      case 'steel':
+        return l10n.typeSteel;
+      case 'water':
+        return l10n.typeWater;
+      default:
+        return '${type[0].toUpperCase()}${type.substring(1)}';
+    }
+  }
 
   late final Set<String> _selected;
   bool _typeExpanded = true;
@@ -142,7 +185,7 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                         child: Row(
                           children: [
                             Text(
-                              'Tipo',
+                              AppLocalizations.of(context).filterType,
                               style: GoogleFonts.outfit(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,
@@ -168,17 +211,21 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                     // ── Animated type list ───────────────────────────────
                     AnimatedCrossFade(
                       firstChild: Column(
-                        children: _types.map((t) {
-                          final isChecked = _selected.contains(t.key);
-                          final typeColor = AppColors.forType(t.key);
+                        children: _types.map((typeKey) {
+                          final isChecked = _selected.contains(typeKey);
+                          final typeColor = AppColors.forType(typeKey);
+                          final translatedLabel = _getTranslatedType(
+                            typeKey,
+                            AppLocalizations.of(context),
+                          );
                           return Column(
                             children: [
                               InkWell(
                                 onTap: () => setState(() {
                                   if (isChecked) {
-                                    _selected.remove(t.key);
+                                    _selected.remove(typeKey);
                                   } else {
-                                    _selected.add(t.key);
+                                    _selected.add(typeKey);
                                   }
                                 }),
                                 child: Padding(
@@ -188,7 +235,7 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        t.label,
+                                        translatedLabel,
                                         style: GoogleFonts.outfit(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w400,
@@ -278,7 +325,7 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                           ),
                         ),
                         child: Text(
-                          'Aplicar',
+                          AppLocalizations.of(context).filterApply,
                           style: GoogleFonts.outfit(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -301,7 +348,7 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                           ),
                         ),
                         child: Text(
-                          'Cancelar',
+                          AppLocalizations.of(context).filterCancel,
                           style: GoogleFonts.outfit(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

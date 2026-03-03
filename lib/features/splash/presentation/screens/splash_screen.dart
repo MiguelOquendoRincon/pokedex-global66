@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
@@ -129,7 +130,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     return FadeTransition(
       opacity: _screenOpacity,
       child: Scaffold(
-        backgroundColor: AppColors.primary,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -142,20 +142,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   children: [
                     Text(
                       'Pokédex',
-                      style: GoogleFonts.outfit(
-                        fontSize: 36,
+                      style: context.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
-                        color: Colors.white,
                         letterSpacing: -0.5,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Global66',
-                      style: GoogleFonts.outfit(
-                        fontSize: 14,
+                      style: context.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: Colors.white.withValues(alpha: 0.7),
                         letterSpacing: 3,
                       ),
                     ),

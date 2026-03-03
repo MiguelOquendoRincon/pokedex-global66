@@ -451,6 +451,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Joined'**
   String get profileJoined;
+
+  /// No description provided for @typeBug.
+  ///
+  /// In en, this message translates to:
+  /// **'Bug'**
+  String get typeBug;
+
+  /// No description provided for @typeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get typeDark;
+
+  /// No description provided for @typeDragon.
+  ///
+  /// In en, this message translates to:
+  /// **'Dragon'**
+  String get typeDragon;
+
+  /// No description provided for @typeElectric.
+  ///
+  /// In en, this message translates to:
+  /// **'Electric'**
+  String get typeElectric;
+
+  /// No description provided for @typeFairy.
+  ///
+  /// In en, this message translates to:
+  /// **'Fairy'**
+  String get typeFairy;
+
+  /// No description provided for @typeFighting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fighting'**
+  String get typeFighting;
+
+  /// No description provided for @typeFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire'**
+  String get typeFire;
+
+  /// No description provided for @typeFlying.
+  ///
+  /// In en, this message translates to:
+  /// **'Flying'**
+  String get typeFlying;
+
+  /// No description provided for @typeGhost.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghost'**
+  String get typeGhost;
+
+  /// No description provided for @typeGrass.
+  ///
+  /// In en, this message translates to:
+  /// **'Grass'**
+  String get typeGrass;
+
+  /// No description provided for @typeGround.
+  ///
+  /// In en, this message translates to:
+  /// **'Ground'**
+  String get typeGround;
+
+  /// No description provided for @typeIce.
+  ///
+  /// In en, this message translates to:
+  /// **'Ice'**
+  String get typeIce;
+
+  /// No description provided for @typeNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get typeNormal;
+
+  /// No description provided for @typePoison.
+  ///
+  /// In en, this message translates to:
+  /// **'Poison'**
+  String get typePoison;
+
+  /// No description provided for @typePsychic.
+  ///
+  /// In en, this message translates to:
+  /// **'Psychic'**
+  String get typePsychic;
+
+  /// No description provided for @typeRock.
+  ///
+  /// In en, this message translates to:
+  /// **'Rock'**
+  String get typeRock;
+
+  /// No description provided for @typeSteel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steel'**
+  String get typeSteel;
+
+  /// No description provided for @typeWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get typeWater;
+
+  /// No description provided for @filterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by your preferences'**
+  String get filterTitle;
+
+  /// No description provided for @filterType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get filterType;
+
+  /// No description provided for @filterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get filterApply;
+
+  /// No description provided for @filterCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get filterCancel;
 }
 
 class _AppLocalizationsDelegate

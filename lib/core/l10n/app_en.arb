@@ -165,5 +165,29 @@
   "commonDelete": "Remove",
   "profileVersion": "App Version",
   "profileTrainerId": "Trainer ID",
-  "profileJoined": "Joined"
+  "profileJoined": "Joined",
+
+  "typeBug": "Bug",
+  "typeDark": "Dark",
+  "typeDragon": "Dragon",
+  "typeElectric": "Electric",
+  "typeFairy": "Fairy",
+  "typeFighting": "Fighting",
+  "typeFire": "Fire",
+  "typeFlying": "Flying",
+  "typeGhost": "Ghost",
+  "typeGrass": "Grass",
+  "typeGround": "Ground",
+  "typeIce": "Ice",
+  "typeNormal": "Normal",
+  "typePoison": "Poison",
+  "typePsychic": "Psychic",
+  "typeRock": "Rock",
+  "typeSteel": "Steel",
+  "typeWater": "Water",
+  
+  "filterTitle": "Filter by your preferences",
+  "filterType": "Type",
+  "filterApply": "Apply",
+  "filterCancel": "Cancel"
 }

@@ -81,15 +81,6 @@ class PokemonListScreen extends ConsumerWidget {
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
-              // ── Type filter chips ────────────────────────────────────────
-              // SliverToBoxAdapter(
-              //   child: TypeFilterChips(
-              //     selectedType: state.selectedType,
-              //     onSelected: (t) => ref
-              //         .read(pokemonListProvider.notifier)
-              //         .updateTypeFilter(t),
-              //   ),
-              // ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
               // ── Content ──────────────────────────────────────────────────

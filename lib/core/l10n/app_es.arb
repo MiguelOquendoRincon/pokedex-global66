@@ -87,5 +87,29 @@
   "commonDelete": "Eliminar",
   "profileVersion": "Versión de la app",
   "profileTrainerId": "ID de Entrenador",
-  "profileJoined": "Se unió el"
+  "profileJoined": "Se unió el",
+
+  "typeBug": "Bicho",
+  "typeDark": "Siniestro",
+  "typeDragon": "Dragón",
+  "typeElectric": "Eléctrico",
+  "typeFairy": "Hada",
+  "typeFighting": "Lucha",
+  "typeFire": "Fuego",
+  "typeFlying": "Volador",
+  "typeGhost": "Fantasma",
+  "typeGrass": "Planta",
+  "typeGround": "Tierra",
+  "typeIce": "Hielo",
+  "typeNormal": "Normal",
+  "typePoison": "Veneno",
+  "typePsychic": "Psíquico",
+  "typeRock": "Roca",
+  "typeSteel": "Acero",
+  "typeWater": "Agua",
+  
+  "filterTitle": "Filtra por tus preferencias",
+  "filterType": "Tipo",
+  "filterApply": "Aplicar",
+  "filterCancel": "Cancelar"
 }
