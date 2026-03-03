@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/l10n/generated/app_localizations.dart';
-import 'package:pokedex_global66/core/l10n/locale_notifier.dart';
+import 'package:pokedex_global66/core/l10n/locale_provider.dart';
 import 'package:pokedex_global66/core/router/app_router.dart';
 
 import 'core/theme/app_theme.dart';
+import 'core/theme/theme_provider.dart';
 
 /// Root widget of the application.
 ///
@@ -24,45 +25,30 @@ class PokedexApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
     final locale = ref.watch(localeProvider);
+    final themeMode = ref.watch(themeProvider);
 
     return MaterialApp.router(
-      // ── Identity ──────────────────────────────────────────────────────────
       debugShowCheckedModeBanner: false,
-
-      // ── Theming ───────────────────────────────────────────────────────────
       theme: AppTheme.light,
-
-      // ── Navigation ────────────────────────────────────────────────────────
+      darkTheme: AppTheme.dark,
+      themeMode: themeMode,
       routerConfig: router,
-
-      // ── Internationalisation ──────────────────────────────────────────────
-      // null → Flutter resolves from device; explicit Locale overrides it.
       locale: locale,
-
       supportedLocales: AppLocalizations.supportedLocales,
-
       localizationsDelegates: const [
-        AppLocalizations.delegate, // generated ARB delegate
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
-      // Fallback: if device locale isn't supported, default to English.
-      localeResolutionCallback: (deviceLocale, supportedLocales) {
-        if (deviceLocale == null) return supportedLocales.first;
-
-        for (final supported in supportedLocales) {
-          if (supported.languageCode == deviceLocale.languageCode) {
-            return supported;
-          }
+      localeResolutionCallback: (deviceLocale, supported) {
+        if (deviceLocale == null) return supported.first;
+        for (final s in supported) {
+          if (s.languageCode == deviceLocale.languageCode) return s;
         }
-        return supportedLocales.first; // en
+        return supported.first;
       },
-
-      // ── Accessibility ─────────────────────────────────────────────────────
-      // Title is resolved per locale — shown in task switchers.
-      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+      onGenerateTitle: (ctx) => AppLocalizations.of(ctx).appTitle,
     );
   }
 }

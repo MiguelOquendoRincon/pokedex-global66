@@ -1,18 +1,41 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 part 'app_talker.g.dart';
 
-/// Singleton [Talker] instance used across the entire app.
-/// Exposed as a Riverpod provider so it can be injected into
-/// interceptors, use-cases and tested with overrides.
-@Riverpod(keepAlive: true)
-Talker talker(Ref ref) {
+/// Builds a [Talker] instance tuned for the current build mode:
+///
+/// • debug / profile → full logging to console + in-app viewer.
+/// • release         → only errors/warnings logged; console output
+///                     disabled to prevent reverse-engineering exposure.
+Talker buildTalker() {
   return TalkerFlutter.init(
-    settings: TalkerSettings(enabled: true, useConsoleLogs: true),
+    settings: TalkerSettings(
+      enabled: !kReleaseMode,
+      useConsoleLogs: !kReleaseMode,
+    ),
+    filter: kReleaseMode ? _ReleaseLogFilter() : null,
   );
 }
+
+/// Drops verbose, debug and info logs in release builds.
+/// Errors and warnings still pass through for crash reporting.
+final class _ReleaseLogFilter extends TalkerFilter {
+  _ReleaseLogFilter();
+
+  @override
+  bool filter(TalkerData item) {
+    return switch (item.logLevel) {
+      LogLevel.verbose || LogLevel.debug || LogLevel.info => false,
+      _ => true, // warning, error, critical pass through
+    };
+  }
+}
+
+@Riverpod(keepAlive: true)
+Talker talker(Ref ref) => buildTalker();
 
 // ─── Riverpod Observer ────────────────────────────────────────────────────────
 
@@ -28,6 +51,8 @@ final class TalkerRiverpodObserver extends ProviderObserver {
     Object? previousValue,
     Object? newValue,
   ) {
+    // Only log state changes in non-release builds.
+    if (kReleaseMode) return;
     _talker.verbose(
       '[Riverpod] ${context.provider.name ?? context.provider.runtimeType} '
       'updated: $newValue',

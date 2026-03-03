@@ -6,7 +6,9 @@ class AppColors {
   AppColors._(); // prevent instantiation
 
   // Brand
-  static const Color primary = Color(0xFFDC0A2D); // Pokédex red
+  static const Color primary = Color(0xFF1E88E5); // Pokédex red
+  static const Color blueSemiLight = Color(0xFF4565B7);
+  static const Color primaryDark = Color(0xFF173EA5);
   static const Color onPrimary = Color(0xFFFFFFFF);
 
   // Backgrounds
@@ -134,4 +136,32 @@ class AppColors {
   static const blue30 = Color(0xFFCBF5FD);
   static const blue20 = Color(0xFFE7FAFE);
   static const blue10 = Color(0xFFF3FDFF);
+}
+
+abstract final class AppColorsDark {
+  AppColorsDark._();
+
+  // Backgrounds — layered surfaces (Material You elevation model)
+  static const Color background = Color(0xFF121212); // lowest layer
+  static const Color surface = Color(0xFF1E1E1E); // cards, sheets
+  static const Color surfaceVar = Color(0xFF2A2A2A); // elevated cards
+  static const Color appBar = Color(0xFF1A1A1A);
+  static const Color navBar = Color(0xFF1E1E1E);
+
+  // Borders & dividers
+  static const Color cardBorder = Color(0xFF2E2E2E);
+  static const Color divider = Color(0xFF2E2E2E);
+
+  // Text
+  static const Color textPrimary = Color(0xFFEEEEEE);
+  static const Color textSecondary = Color(0xFF9E9E9E);
+
+  // Input
+  static const Color inputFill = Color(0xFF2A2A2A);
+
+  // Chips
+  static const Color chipBg = Color(0xFF2E2E2E);
+
+  // SnackBar
+  static const Color snackBarBg = Color(0xFF323232);
 }

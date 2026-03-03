@@ -29,6 +29,28 @@
   "errorTimeout": "La solicitud tardó demasiado. Intenta de nuevo.",
   "errorServer": "Error del servidor. Intenta más tarde.",
   "retryButton": "Reintentar",
+
+  "navRegions": "Regiones",
+  "navProfile": "Perfil",
+
+  "regionsComingSoon": "Muy pronto disponible",
+  "regionsComingSoonSubtitle": "Explora las regiones Pokémon desde\nKanto hasta Paldea. ¡Próximamente!",
+
+  "profileAppearance": "Apariencia",
+  "profileDarkMode": "Modo oscuro",
+  "profileLanguage": "Idioma",
+  "profileSelectLanguage": "Idioma de la app",
+  "languageEnglish": "EN",
+  "languageSpanish": "ES",
+
+  "onboardingSkip": "Omitir",
+  "onboardingNext": "Siguiente",
+  "onboardingStart": "Comenzar",
+  "onboarding1Title": "Todos los Pokémon en un solo lugar",
+  "onboarding1Description": "Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo",
+  "onboarding2Title": "Mantén tu Pokédex actualizada",
+  "onboarding2Description": "Regístrate y guarda tu perfil, Pokémon favoritos, configuraciones y mucho más en la aplicación",
+
   "loadingText": "Cargando...",
 
   "pokemonNumber": "#{id}",
