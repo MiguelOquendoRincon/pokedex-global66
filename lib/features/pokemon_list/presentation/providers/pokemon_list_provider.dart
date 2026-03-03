@@ -52,17 +52,21 @@ sealed class PokemonListState with _$PokemonListState {
 
 @Riverpod(keepAlive: true)
 class PokemonListNotifier extends _$PokemonListNotifier {
+  static const _splashLimit = ApiConstants.splashPreloadLimit;
   static const _pageLimit = ApiConstants.defaultPageLimit;
 
   @override
   PokemonListState build() {
-    Future.microtask(_fetchPage);
+    // Use the smaller splash limit for the first page so data is ready
+    // before the splash animation ends.
+    Future.microtask(() => _fetchPage(limit: _splashLimit));
     return const PokemonListState(isInitialLoading: true);
   }
 
   // ── Private ────────────────────────────────────────────────────────────────
 
-  Future<void> _fetchPage() async {
+  Future<void> _fetchPage({int? limit}) async {
+    final effectiveLimit = limit ?? _pageLimit;
     final isFirst = state.previews.isEmpty;
 
     state = state.copyWith(
@@ -74,11 +78,9 @@ class PokemonListNotifier extends _$PokemonListNotifier {
     try {
       final useCase = ref.read(getPokemonPageUseCaseProvider);
 
-      // Safety: Add a global timeout for the entire page enrichment.
-      // If the API or enrichment hangs, we should eventually show an error.
       final result =
           await useCase(
-            limit: _pageLimit,
+            limit: effectiveLimit,
             offset: state.previews.length,
           ).run().timeout(
             const Duration(seconds: 20),
@@ -101,7 +103,7 @@ class PokemonListNotifier extends _$PokemonListNotifier {
           isInitialLoading: false,
           isLoadingMore: false,
           previews: [...state.previews, ...newPreviews],
-          hasReachedEnd: newPreviews.length < _pageLimit,
+          hasReachedEnd: newPreviews.length < effectiveLimit,
         ),
       );
     } catch (e) {

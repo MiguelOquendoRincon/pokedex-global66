@@ -1,31 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
 
 /// Full-screen Pokéball splash shown once on cold start.
 ///
-/// Flow:
-///   1. Pokéball spins for [_spinDuration]
-///   2. "Pokédex" title fades in
-///   3. Whole screen fades out over [_fadeOutDuration]
-///   4. [onComplete] is called → router replaces with the real initial route
-class SplashScreen extends StatefulWidget {
+/// Navigation gate: both conditions must be true before leaving splash:
+///   1. [_animationDone] — animation sequence has completed
+///   2. [_dataReady]     — pokemonListProvider has at least one page loaded
+///
+/// Safety net: if neither completes within [_maxWait], we navigate anyway.
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({required this.onComplete, super.key});
 
-  /// Called when the animation finishes. Should navigate away.
+  /// Called when both the animation and the data are ready.
   final VoidCallback onComplete;
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with TickerProviderStateMixin {
+  // ── Durations ──────────────────────────────────────────────────────────────
+
   static const _spinDuration = Duration(milliseconds: 1400);
   static const _titleFadeIn = Duration(milliseconds: 500);
   static const _holdDuration = Duration(milliseconds: 600);
   static const _fadeOutDuration = Duration(milliseconds: 400);
+
+  /// Hard ceiling: if data never arrives, leave splash after this.
+  static const _maxWait = Duration(seconds: 6);
+
+  // ── State ──────────────────────────────────────────────────────────────────
+
+  bool _animationDone = false;
+  bool _dataReady = false;
+  bool _completed = false;
+
+  // ── Animation controllers ──────────────────────────────────────────────────
 
   late final AnimationController _titleController;
   late final AnimationController _fadeOutController;
@@ -37,14 +52,12 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Title fade-in
     _titleController = AnimationController(vsync: this, duration: _titleFadeIn);
     _titleOpacity = CurvedAnimation(
       parent: _titleController,
       curve: Curves.easeIn,
     );
 
-    // Full-screen fade-out
     _fadeOutController = AnimationController(
       vsync: this,
       duration: _fadeOutDuration,
@@ -53,27 +66,40 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _fadeOutController, curve: Curves.easeIn),
     );
 
-    _runSequence();
+    _runAnimationSequence();
+
+    // Safety net — navigate regardless after _maxWait.
+    Future.delayed(_maxWait, () {
+      if (mounted) _maybeComplete();
+    });
   }
 
-  Future<void> _runSequence() async {
-    // Let the ball spin a bit first
+  // ── Animation sequence ─────────────────────────────────────────────────────
+
+  Future<void> _runAnimationSequence() async {
     await Future.delayed(_spinDuration);
     if (!mounted) return;
 
-    // Fade in title
     await _titleController.forward();
     if (!mounted) return;
 
-    // Hold so the user can read it
     await Future.delayed(_holdDuration);
     if (!mounted) return;
 
-    // Fade out everything
-    await _fadeOutController.forward();
-    if (!mounted) return;
+    _animationDone = true;
+    _maybeComplete();
+  }
 
-    widget.onComplete();
+  // ── Gate ───────────────────────────────────────────────────────────────────
+
+  void _maybeComplete() {
+    if (_completed) return;
+    if (!_animationDone || !_dataReady) return;
+
+    _completed = true;
+    _fadeOutController.forward().then((_) {
+      if (mounted) widget.onComplete();
+    });
   }
 
   @override
@@ -83,8 +109,23 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
+  // ── Build ──────────────────────────────────────────────────────────────────
+
   @override
   Widget build(BuildContext context) {
+    // Watch the list provider and flip _dataReady as soon as data arrives.
+    final listState = ref.watch(pokemonListProvider);
+    if (!_dataReady &&
+        !listState.isInitialLoading &&
+        (listState.previews.isNotEmpty || listState.error != null)) {
+      // Schedule after build — can't call setState mid-build.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        setState(() => _dataReady = true);
+        _maybeComplete();
+      });
+    }
+
     return FadeTransition(
       opacity: _screenOpacity,
       child: Scaffold(
@@ -93,12 +134,8 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Spinning Pokéball
               const PokeballLoader(size: 96),
-
               const SizedBox(height: 28),
-
-              // Animated title
               FadeTransition(
                 opacity: _titleOpacity,
                 child: Column(

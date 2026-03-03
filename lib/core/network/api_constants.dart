@@ -13,5 +13,6 @@ abstract final class ApiConstants {
   static String typeDetail(String typeName) => 'type/$typeName';
 
   // Pagination defaults
+  static const int splashPreloadLimit = 10;
   static const int defaultPageLimit = 20;
 }
