@@ -44,7 +44,7 @@ class PokemonCard extends ConsumerWidget {
         height: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          color: typeColor.withValues(alpha: 0.6),
+          color: typeColor.withValues(alpha: 0.4),
           boxShadow: [
             BoxShadow(
               color: typeColor.withValues(alpha: 0.3),
@@ -55,100 +55,132 @@ class PokemonCard extends ConsumerWidget {
         ),
         child: Stack(
           children: [
-            // ── Pokeball Watermark ──────────────────────────────
-            Positioned(
-              right: -5,
-              bottom: -5,
-              child: Icon(
-                Icons.catching_pokemon,
-                size: 110,
-                color: Colors.white.withValues(alpha: 0.12),
-              ),
-            ),
-
             // ── Main Content ────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                children: [
-                  // Left: Texts
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          pokemon.formattedId,
-                          style: context.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: context.textSubtitle,
-                            fontSize: 12,
-                            letterSpacing: 0.5,
+            Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Left: Texts
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    child: Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            pokemon.formattedId,
+                            style: context.textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: context.textSubtitle,
+                              fontSize: 12,
+                              letterSpacing: 0.5,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          pokemon.displayName,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 22,
+                          const SizedBox(height: 2),
+                          Text(
+                            pokemon.displayName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 22,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
-                        // Iconized Type Chips
-                        Wrap(
-                          spacing: 6,
-                          children: typesToUse
-                              .map((t) => PokemonTypeChip(type: t))
-                              .toList(),
+                          // Iconized Type Chips
+                          Wrap(
+                            spacing: 6,
+                            children: typesToUse
+                                .map((t) => PokemonTypeChip(type: t))
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Right: Favorite & Image
+                // Pokémon Sprite with Category Icon Background
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 16,
+                    ),
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: typeColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Category Icon
+                        Image.asset(
+                          'assets/categories/category_${primaryType.toLowerCase()}.png',
+                          width: 92,
+                          height: 92,
+                          color: Colors.white.withValues(alpha: 0.5),
+                        ),
+
+                        // Pokémon Sprite
+                        Hero(
+                          tag: 'pokemon-${pokemon.id}',
+                          child: CachedNetworkImage(
+                            imageUrl: pokemon.imageUrl,
+                            width: 94,
+                            height: 94,
+                            fit: BoxFit.contain,
+                            placeholder: (_, _) => const SizedBox.shrink(),
+                            errorWidget: (_, _, _) => const Icon(
+                              Icons.catching_pokemon,
+                              color: Colors.white24,
+                              size: 32,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-
-                  // Right: Favorite & Image
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      // Small favorite toggle
-                      GestureDetector(
-                        onTap: () => ref
-                            .read(favoritesProvider.notifier)
-                            .toggleFromList(
-                              id: pokemon.id,
-                              name: pokemon.name,
-                              primaryType: primaryType,
-                            ),
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          size: 22,
-                          color: isFavorite ? Colors.white : Colors.white70,
-                        ),
-                      ),
-
-                      // Pokémon Sprite
-                      Hero(
-                        tag: 'pokemon-${pokemon.id}',
-                        child: CachedNetworkImage(
-                          imageUrl: pokemon.imageUrl,
-                          width: 64,
-                          height: 64,
-                          fit: BoxFit.contain,
-                          placeholder: (_, __) => const SizedBox.shrink(),
-                          errorWidget: (_, __, ___) => const Icon(
-                            Icons.catching_pokemon,
-                            color: Colors.white24,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                    ],
+                ),
+              ],
+            ),
+            // Small favorite toggle
+            Positioned(
+              top: 8,
+              right: 8,
+              child: GestureDetector(
+                onTap: () => ref
+                    .read(favoritesProvider.notifier)
+                    .toggleFromList(
+                      id: pokemon.id,
+                      name: pokemon.name,
+                      primaryType: primaryType,
+                    ),
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  alignment: Alignment.topRight,
+                  decoration: BoxDecoration(
+                    color: Color(0x75757599),
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: Colors.white, width: 2.0),
                   ),
-                ],
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    size: 22,
+                    color: isFavorite ? Colors.red : Colors.white70,
+                  ),
+                ),
               ),
             ),
           ],
