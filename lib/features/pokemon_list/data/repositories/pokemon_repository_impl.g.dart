@@ -26,7 +26,7 @@ final class PokemonRepositoryProvider
         argument: null,
         retry: null,
         name: r'pokemonRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -54,4 +54,4 @@ final class PokemonRepositoryProvider
   }
 }
 
-String _$pokemonRepositoryHash() => r'bb289dcec3340e115f3acfd80796f5afed438ad4';
+String _$pokemonRepositoryHash() => r'ca2d76159d74b01341f483ce179b25d4b3776df7';

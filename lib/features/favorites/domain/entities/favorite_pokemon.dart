@@ -16,11 +16,7 @@ abstract class FavoritePokemon with _$FavoritePokemon {
     required String primaryType,
   }) = _FavoritePokemon;
 
-  // ── Serialisation to/from plain String for SharedPreferences ─────────────
-  // Format: "id:name:primaryType"  e.g. "25:pikachu:electric"
-  // We avoid json_serializable here on purpose: no dart:convert overhead,
-  // and the format is trivially human-readable in the prefs file.
-
+  /// Creates a [FavoritePokemon] from a string formatted as "id:name:primaryType".
   factory FavoritePokemon.fromStorageString(String raw) {
     final parts = raw.split(':');
     assert(parts.length == 3, 'Malformed favorite storage string: $raw');
@@ -31,14 +27,17 @@ abstract class FavoritePokemon with _$FavoritePokemon {
     );
   }
 
+  /// Returns the name of the Pokémon with the first letter capitalized.
   String get displayName =>
       name.isEmpty ? name : '${name[0].toUpperCase()}${name.substring(1)}';
 
+  /// Returns the Pokémon's ID formatted as a three-digit string with a leading hash (e.g., #025).
   String get formattedId => '#${id.toString().padLeft(3, '0')}';
 
+  /// Returns the URL for the Pokémon's official artwork or sprite.
   String get imageUrl =>
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/'
-      'sprites/pokemon/other/official-artwork/$id.png';
+      'sprites/pokemon/$id.png';
 }
 
 extension FavoritePokemonX on FavoritePokemon {

@@ -94,8 +94,8 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('es'),
     Locale('en'),
+    Locale('es'),
   ];
 
   /// Application title
@@ -107,13 +107,13 @@ abstract class AppLocalizations {
   /// Bottom nav label for the Pokémon list tab
   ///
   /// In en, this message translates to:
-  /// **'Pokémon'**
+  /// **'Pokedex'**
   String get navPokemonList;
 
   /// Bottom nav label for the favorites tab
   ///
   /// In en, this message translates to:
-  /// **'Favorites'**
+  /// **'favorites'**
   String get navFavorites;
 
   /// Hint text inside the search bar
@@ -131,8 +131,14 @@ abstract class AppLocalizations {
   /// Empty-state message on the favorites screen
   ///
   /// In en, this message translates to:
-  /// **'No favorites yet.\nTap the ♥ on any Pokémon to save it.'**
+  /// **'You haven\'t marked any Pokémon as a favorite'**
   String get favoritesEmpty;
+
+  /// No description provided for @favoritesEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Click the heart icon of your favorites Pokémon and they will appear here.'**
+  String get favoritesEmptySubtitle;
 
   /// Section label in detail screen
   ///
@@ -169,6 +175,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Base Exp.'**
   String get detailBaseExp;
+
+  /// Label for the category field
+  ///
+  /// In en, this message translates to:
+  /// **'CATEGORY'**
+  String get detailCategory;
+
+  /// Label for the ability field
+  ///
+  /// In en, this message translates to:
+  /// **'ABILITY'**
+  String get detailAbility;
+
+  /// Label for the gender section
+  ///
+  /// In en, this message translates to:
+  /// **'GENDER'**
+  String get detailGender;
+
+  /// Label for the weaknesses section
+  ///
+  /// In en, this message translates to:
+  /// **'Weaknesses'**
+  String get detailWeaknesses;
+
+  /// Shown when Pokémon has no gender
+  ///
+  /// In en, this message translates to:
+  /// **'Genderless'**
+  String get detailGenderless;
 
   /// No description provided for @statHp.
   ///
@@ -212,6 +248,12 @@ abstract class AppLocalizations {
   /// **'Something went wrong.'**
   String get errorGeneric;
 
+  /// Error message on the Pokémon list screen
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load the information at this time. Check your connection or try again later.'**
+  String get pokemonListError;
+
   /// Shown when the device is offline
   ///
   /// In en, this message translates to:
@@ -242,6 +284,108 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get retryButton;
 
+  /// Bottom nav label for regions tab
+  ///
+  /// In en, this message translates to:
+  /// **'Regions'**
+  String get navRegions;
+
+  /// Bottom nav label for profile tab
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
+
+  /// Regions screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon!'**
+  String get regionsComingSoon;
+
+  /// Regions screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'We are working to bring you this section. Come back later to discover all the news.'**
+  String get regionsComingSoonSubtitle;
+
+  /// Profile section header
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get profileAppearance;
+
+  /// Dark mode toggle label
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get profileDarkMode;
+
+  /// Profile language section header
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profileLanguage;
+
+  /// Language selector label
+  ///
+  /// In en, this message translates to:
+  /// **'App Language'**
+  String get profileSelectLanguage;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'EN'**
+  String get languageEnglish;
+
+  /// Spanish language option
+  ///
+  /// In en, this message translates to:
+  /// **'ES'**
+  String get languageSpanish;
+
+  /// Skip onboarding button
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboardingSkip;
+
+  /// Next onboarding page button
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNext;
+
+  /// Final onboarding CTA button
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get onboardingStart;
+
+  /// First onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'All Pokémon in one place.'**
+  String get onboarding1Title;
+
+  /// First onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Access a vast list of Pokémon from every generation created by Nintendo.'**
+  String get onboarding1Description;
+
+  /// Second onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your Pokédex updated'**
+  String get onboarding2Title;
+
+  /// Second onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Register and save your profile, favorite Pokémon, settings, and more in the app'**
+  String get onboarding2Description;
+
   /// Generic loading indicator label
   ///
   /// In en, this message translates to:
@@ -265,6 +409,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} removed from favorites.'**
   String removedFromFavorites(String name);
+
+  /// No description provided for @deleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from Favorites'**
+  String get deleteConfirmTitle;
+
+  /// No description provided for @deleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove {name} from your favorites?'**
+  String deleteConfirmMessage(Object name);
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// No description provided for @commonDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get commonDelete;
+
+  /// No description provided for @profileVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version'**
+  String get profileVersion;
+
+  /// No description provided for @profileTrainerId.
+  ///
+  /// In en, this message translates to:
+  /// **'Trainer ID'**
+  String get profileTrainerId;
+
+  /// No description provided for @profileJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined'**
+  String get profileJoined;
+
+  /// No description provided for @typeBug.
+  ///
+  /// In en, this message translates to:
+  /// **'Bug'**
+  String get typeBug;
+
+  /// No description provided for @typeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get typeDark;
+
+  /// No description provided for @typeDragon.
+  ///
+  /// In en, this message translates to:
+  /// **'Dragon'**
+  String get typeDragon;
+
+  /// No description provided for @typeElectric.
+  ///
+  /// In en, this message translates to:
+  /// **'Electric'**
+  String get typeElectric;
+
+  /// No description provided for @typeFairy.
+  ///
+  /// In en, this message translates to:
+  /// **'Fairy'**
+  String get typeFairy;
+
+  /// No description provided for @typeFighting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fighting'**
+  String get typeFighting;
+
+  /// No description provided for @typeFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire'**
+  String get typeFire;
+
+  /// No description provided for @typeFlying.
+  ///
+  /// In en, this message translates to:
+  /// **'Flying'**
+  String get typeFlying;
+
+  /// No description provided for @typeGhost.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghost'**
+  String get typeGhost;
+
+  /// No description provided for @typeGrass.
+  ///
+  /// In en, this message translates to:
+  /// **'Grass'**
+  String get typeGrass;
+
+  /// No description provided for @typeGround.
+  ///
+  /// In en, this message translates to:
+  /// **'Ground'**
+  String get typeGround;
+
+  /// No description provided for @typeIce.
+  ///
+  /// In en, this message translates to:
+  /// **'Ice'**
+  String get typeIce;
+
+  /// No description provided for @typeNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get typeNormal;
+
+  /// No description provided for @typePoison.
+  ///
+  /// In en, this message translates to:
+  /// **'Poison'**
+  String get typePoison;
+
+  /// No description provided for @typePsychic.
+  ///
+  /// In en, this message translates to:
+  /// **'Psychic'**
+  String get typePsychic;
+
+  /// No description provided for @typeRock.
+  ///
+  /// In en, this message translates to:
+  /// **'Rock'**
+  String get typeRock;
+
+  /// No description provided for @typeSteel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steel'**
+  String get typeSteel;
+
+  /// No description provided for @typeWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get typeWater;
+
+  /// No description provided for @filterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by your preferences'**
+  String get filterTitle;
+
+  /// No description provided for @filterType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get filterType;
+
+  /// No description provided for @filterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get filterApply;
+
+  /// No description provided for @filterCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get filterCancel;
+
+  /// No description provided for @resultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Found } other{Found }}'**
+  String resultsFound(num count);
+
+  /// No description provided for @resultsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 result} other{{count} results}}'**
+  String resultsCount(num count);
+
+  /// No description provided for @clearFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filter'**
+  String get clearFilter;
 }
 
 class _AppLocalizationsDelegate
@@ -278,7 +614,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['es', 'en'].contains(locale.languageCode);
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -287,10 +623,10 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'es':
-      return AppLocalizationsEs();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
   }
 
   throw FlutterError(

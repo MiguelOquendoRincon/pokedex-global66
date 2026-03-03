@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pokedex_global66/core/security/certificate_pinning_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
@@ -27,6 +28,9 @@ Dio dioClient(Ref ref) {
       },
     ),
   );
+
+  // Apply certificate pinning adapter
+  applyPinningAdapter(dio, talker);
 
   // Order matters: Talker first (logs raw request), then error normaliser.
   dio.interceptors.addAll([

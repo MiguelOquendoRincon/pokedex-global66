@@ -4,10 +4,10 @@
   "appTitle": "Pokédex",
   "@appTitle": { "description": "Application title" },
 
-  "navPokemonList": "Pokémon",
+  "navPokemonList": "Pokedex",
   "@navPokemonList": { "description": "Bottom nav label for the Pokémon list tab" },
 
-  "navFavorites": "Favorites",
+  "navFavorites": "favorites",
   "@navFavorites": { "description": "Bottom nav label for the favorites tab" },
 
   "searchHint": "Search Pokémon...",
@@ -16,7 +16,8 @@
   "favoritesTitle": "My Favorites",
   "@favoritesTitle": { "description": "Title of the favorites screen" },
 
-  "favoritesEmpty": "No favorites yet.\nTap the ♥ on any Pokémon to save it.",
+  "favoritesEmpty": "You haven't marked any Pokémon as a favorite",
+  "favoritesEmptySubtitle": "Click the heart icon of your favorites Pokémon and they will appear here.",
   "@favoritesEmpty": { "description": "Empty-state message on the favorites screen" },
 
   "detailAbout": "About",
@@ -37,6 +38,21 @@
   "detailBaseExp": "Base Exp.",
   "@detailBaseExp": { "description": "Label for the base experience field" },
 
+  "detailCategory": "CATEGORY",
+  "@detailCategory": { "description": "Label for the category field" },
+
+  "detailAbility": "ABILITY",
+  "@detailAbility": { "description": "Label for the ability field" },
+
+  "detailGender": "GENDER",
+  "@detailGender": { "description": "Label for the gender section" },
+
+  "detailWeaknesses": "Weaknesses",
+  "@detailWeaknesses": { "description": "Label for the weaknesses section" },
+
+  "detailGenderless": "Genderless",
+  "@detailGenderless": { "description": "Shown when Pokémon has no gender" },
+
   "statHp": "HP",
   "statAttack": "Attack",
   "statDefense": "Defense",
@@ -46,6 +62,9 @@
 
   "errorGeneric": "Something went wrong.",
   "@errorGeneric": { "description": "Generic error message" },
+
+  "pokemonListError": "We couldn't load the information at this time. Check your connection or try again later.",
+  "@pokemonListError": { "description": "Error message on the Pokémon list screen" },
 
   "errorNoInternet": "No internet connection.",
   "@errorNoInternet": { "description": "Shown when the device is offline" },
@@ -61,6 +80,57 @@
 
   "retryButton": "Retry",
   "@retryButton": { "description": "Label for the retry button" },
+
+  "navRegions": "Regions",
+  "@navRegions": { "description": "Bottom nav label for regions tab" },
+
+  "navProfile": "Profile",
+  "@navProfile": { "description": "Bottom nav label for profile tab" },
+
+  "regionsComingSoon": "Coming Soon!",
+  "@regionsComingSoon": { "description": "Regions screen title" },
+
+  "regionsComingSoonSubtitle": "We are working to bring you this section. Come back later to discover all the news.",
+  "@regionsComingSoonSubtitle": { "description": "Regions screen subtitle" },
+
+  "profileAppearance": "Appearance",
+  "@profileAppearance": { "description": "Profile section header" },
+
+  "profileDarkMode": "Dark Mode",
+  "@profileDarkMode": { "description": "Dark mode toggle label" },
+
+  "profileLanguage": "Language",
+  "@profileLanguage": { "description": "Profile language section header" },
+
+  "profileSelectLanguage": "App Language",
+  "@profileSelectLanguage": { "description": "Language selector label" },
+
+  "languageEnglish": "EN",
+  "@languageEnglish": { "description": "English language option" },
+
+  "languageSpanish": "ES",
+  "@languageSpanish": { "description": "Spanish language option" },
+
+  "onboardingSkip": "Skip",
+  "@onboardingSkip": { "description": "Skip onboarding button" },
+
+  "onboardingNext": "Next",
+  "@onboardingNext": { "description": "Next onboarding page button" },
+
+  "onboardingStart": "Get Started",
+  "@onboardingStart": { "description": "Final onboarding CTA button" },
+
+  "onboarding1Title": "All Pokémon in one place.",
+  "@onboarding1Title": { "description": "First onboarding page title" },
+
+  "onboarding1Description": "Access a vast list of Pokémon from every generation created by Nintendo.",
+  "@onboarding1Description": { "description": "First onboarding page description" },
+
+  "onboarding2Title": "Keep your Pokédex updated",
+  "@onboarding2Title": { "description": "Second onboarding page title" },
+
+  "onboarding2Description": "Register and save your profile, favorite Pokémon, settings, and more in the app",
+  "@onboarding2Description": { "description": "Second onboarding page description" },
 
   "loadingText": "Loading...",
   "@loadingText": { "description": "Generic loading indicator label" },
@@ -87,5 +157,40 @@
     "placeholders": {
       "name": { "type": "String" }
     }
-  }
+  },
+
+  "deleteConfirmTitle": "Remove from Favorites",
+  "deleteConfirmMessage": "Are you sure you want to remove {name} from your favorites?",
+  "commonCancel": "Cancel",
+  "commonDelete": "Remove",
+  "profileVersion": "App Version",
+  "profileTrainerId": "Trainer ID",
+  "profileJoined": "Joined",
+
+  "typeBug": "Bug",
+  "typeDark": "Dark",
+  "typeDragon": "Dragon",
+  "typeElectric": "Electric",
+  "typeFairy": "Fairy",
+  "typeFighting": "Fighting",
+  "typeFire": "Fire",
+  "typeFlying": "Flying",
+  "typeGhost": "Ghost",
+  "typeGrass": "Grass",
+  "typeGround": "Ground",
+  "typeIce": "Ice",
+  "typeNormal": "Normal",
+  "typePoison": "Poison",
+  "typePsychic": "Psychic",
+  "typeRock": "Rock",
+  "typeSteel": "Steel",
+  "typeWater": "Water",
+  
+  "filterTitle": "Filter by your preferences",
+  "filterType": "Type",
+  "filterApply": "Apply",
+  "filterCancel": "Cancel",
+  "resultsFound": "{count, plural, =1{Found } other{Found }}",
+  "resultsCount": "{count, plural, =1{1 result} other{{count} results}}",
+  "clearFilter": "Clear filter"
 }

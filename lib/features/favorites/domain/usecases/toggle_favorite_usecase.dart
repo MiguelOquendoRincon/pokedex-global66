@@ -13,6 +13,7 @@ import '../../data/repositories/favorites_repository_impl.dart';
 part 'toggle_favorite_usecase.freezed.dart';
 part 'toggle_favorite_usecase.g.dart';
 
+/// Parameters for toggling a Pokémon's favorite status.
 @freezed
 abstract class ToggleFavoriteParams with _$ToggleFavoriteParams {
   const factory ToggleFavoriteParams({
@@ -21,9 +22,10 @@ abstract class ToggleFavoriteParams with _$ToggleFavoriteParams {
   }) = _ToggleFavoriteParams;
 }
 
-/// Returns the updated list after toggling.
-/// Pure domain logic: add if absent, remove if present.
-/// No side-effect knowledge — the repository handles persistence.
+/// A use case that toggles the favorite status of a Pokémon.
+///
+/// It returns the updated list after adding or removing the Pokémon.
+/// The repository ensures the updated list is persisted.
 class ToggleFavoriteUseCase
     implements UseCase<List<FavoritePokemon>, ToggleFavoriteParams> {
   const ToggleFavoriteUseCase(this._repository);
@@ -53,6 +55,7 @@ class ToggleFavoriteUseCase
   }
 }
 
+/// A provider that exposes an instance of [ToggleFavoriteUseCase].
 @riverpod
 ToggleFavoriteUseCase toggleFavoriteUseCase(Ref ref) =>
     ToggleFavoriteUseCase(ref.read(favoritesRepositoryProvider));

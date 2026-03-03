@@ -8,22 +8,12 @@ part of 'app_talker.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Singleton [Talker] instance used across the entire app.
-/// Exposed as a Riverpod provider so it can be injected into
-/// interceptors, use-cases and tested with overrides.
 
 @ProviderFor(talker)
 final talkerProvider = TalkerProvider._();
 
-/// Singleton [Talker] instance used across the entire app.
-/// Exposed as a Riverpod provider so it can be injected into
-/// interceptors, use-cases and tested with overrides.
-
 final class TalkerProvider extends $FunctionalProvider<Talker, Talker, Talker>
     with $Provider<Talker> {
-  /// Singleton [Talker] instance used across the entire app.
-  /// Exposed as a Riverpod provider so it can be injected into
-  /// interceptors, use-cases and tested with overrides.
   TalkerProvider._()
     : super(
         from: null,
@@ -57,4 +47,4 @@ final class TalkerProvider extends $FunctionalProvider<Talker, Talker, Talker>
   }
 }
 
-String _$talkerHash() => r'a7087cd07beb7549ceea98f99bcb20729bee4f39';
+String _$talkerHash() => r'4413443ea2bc55ef533ed69b97355e03f7d90bab';

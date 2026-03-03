@@ -1,0 +1,118 @@
+{
+  "@@locale": "es",
+
+  "appTitle": "Pokédex",
+  "navPokemonList": "Pokedex",
+  "navFavorites": "favoritos",
+  "searchHint": "Buscar Pokémon...",
+
+  "favoritesTitle": "Mis Favoritos",
+  "favoritesEmpty": "No has marcado ningún Pokémon como favorito",
+  "favoritesEmptySubtitle": "Haz clic en el ícono de corazón de tus Pokémon favoritos y aparecerán aquí.",
+
+  "detailAbout": "Acerca de",
+  "detailBaseStats": "Estadísticas",
+  "detailAbilities": "Habilidades",
+  "detailHeight": "Altura",
+  "detailWeight": "Peso",
+  "detailBaseExp": "Exp. Base",
+  "detailCategory": "CATEGORÍA",
+  "detailAbility": "HABILIDAD",
+  "detailGender": "GÉNERO",
+  "detailWeaknesses": "Debilidades",
+  "detailGenderless": "Sin género",
+
+  "statHp": "PS",
+  "statAttack": "Ataque",
+  "statDefense": "Defensa",
+  "statSpAtk": "At. Esp.",
+  "statSpDef": "Def. Esp.",
+  "statSpeed": "Velocidad",
+
+  "errorGeneric": "Algo salió mal.",
+  "pokemonListError": "No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.",
+  "errorNoInternet": "Sin conexión a internet.",
+  "errorNotFound": "Pokémon no encontrado.",
+  "errorTimeout": "La solicitud tardó demasiado. Intenta de nuevo.",
+  "errorServer": "Error del servidor. Intenta más tarde.",
+  "retryButton": "Reintentar",
+
+  "navRegions": "Regiones",
+  "navProfile": "Perfil",
+
+  "regionsComingSoon": "¡Muy pronto disponible!",
+  "regionsComingSoonSubtitle": "Estamos trabajando para traerte esta sección. Vuelve más adelante para descubrir todas las novedades.",
+
+  "profileAppearance": "Apariencia",
+  "profileDarkMode": "Modo oscuro",
+  "profileLanguage": "Idioma",
+  "profileSelectLanguage": "Idioma de la app",
+  "languageEnglish": "EN",
+  "languageSpanish": "ES",
+
+  "onboardingSkip": "Omitir",
+  "onboardingNext": "Siguiente",
+  "onboardingStart": "Comenzar",
+  "onboarding1Title": "Todos los Pokémon en un solo lugar",
+  "onboarding1Description": "Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo",
+  "onboarding2Title": "Mantén tu Pokédex actualizada",
+  "onboarding2Description": "Regístrate y guarda tu perfil, Pokémon favoritos, configuraciones y mucho más en la aplicación",
+
+  "loadingText": "Cargando...",
+
+  "pokemonNumber": "#{id}",
+  "@pokemonNumber": {
+    "placeholders": {
+      "id": { "type": "String" }
+    }
+  },
+
+  "addedToFavorites": "¡{name} agregado a favoritos!",
+  "@addedToFavorites": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "removedFromFavorites": "{name} eliminado de favoritos.",
+  "@removedFromFavorites": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "deleteConfirmTitle": "Eliminar de favoritos",
+  "deleteConfirmMessage": "¿Estás seguro de que quieres eliminar a {name} de tus favoritos?",
+  "commonCancel": "Cancelar",
+  "commonDelete": "Eliminar",
+  "profileVersion": "Versión de la app",
+  "profileTrainerId": "ID de Entrenador",
+  "profileJoined": "Se unió el",
+
+  "typeBug": "Bicho",
+  "typeDark": "Siniestro",
+  "typeDragon": "Dragón",
+  "typeElectric": "Eléctrico",
+  "typeFairy": "Hada",
+  "typeFighting": "Lucha",
+  "typeFire": "Fuego",
+  "typeFlying": "Volador",
+  "typeGhost": "Fantasma",
+  "typeGrass": "Planta",
+  "typeGround": "Tierra",
+  "typeIce": "Hielo",
+  "typeNormal": "Normal",
+  "typePoison": "Veneno",
+  "typePsychic": "Psíquico",
+  "typeRock": "Roca",
+  "typeSteel": "Acero",
+  "typeWater": "Agua",
+  
+  "filterTitle": "Filtra por tus preferencias",
+  "filterType": "Tipo",
+  "filterApply": "Aplicar",
+  "filterCancel": "Cancelar",
+  "resultsFound": "{count, plural, =1{Se ha encontrado } other{Se han encontrado }}",
+  "resultsCount": "{count, plural, =1{1 resultado} other{{count} resultados}}",
+  "clearFilter": "Borrar filtro"
+}

@@ -9,6 +9,8 @@ part 'favorites_repository_impl.g.dart';
 
 const _kFavoritesKey = 'pokemon_favorites';
 
+/// Implementation of [IFavoritesRepository] that uses [ILocalStorage]
+/// to persist and retrieve the list of favorite Pokémon.
 class FavoritesRepositoryImpl implements IFavoritesRepository {
   const FavoritesRepositoryImpl(this._storage);
   final ILocalStorage _storage;
@@ -32,6 +34,7 @@ class FavoritesRepositoryImpl implements IFavoritesRepository {
   );
 }
 
+/// A provider that exposes the [IFavoritesRepository] implementation.
 @riverpod
 IFavoritesRepository favoritesRepository(Ref ref) =>
     FavoritesRepositoryImpl(ref.read(localStorageProvider));

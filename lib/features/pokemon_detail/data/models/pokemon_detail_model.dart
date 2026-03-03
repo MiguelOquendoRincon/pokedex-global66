@@ -10,7 +10,7 @@ abstract class PokemonDetailModel with _$PokemonDetailModel {
   const factory PokemonDetailModel({
     required int id,
     required String name,
-    required int baseExperience,
+    @JsonKey(name: 'base_experience') required int baseExperience,
     required int height,
     required int weight,
     required List<PokemonTypeSlotModel> types,
@@ -129,4 +129,82 @@ abstract class PokemonOfficialArtworkModel with _$PokemonOfficialArtworkModel {
 
   factory PokemonOfficialArtworkModel.fromJson(Map<String, dynamic> json) =>
       _$PokemonOfficialArtworkModelFromJson(json);
+}
+
+// ─── Species ─────────────────────────────────────────────────────────────────
+
+@freezed
+abstract class PokemonSpeciesModel with _$PokemonSpeciesModel {
+  const factory PokemonSpeciesModel({
+    @JsonKey(name: 'gender_rate') required int genderRate,
+    @JsonKey(name: 'flavor_text_entries')
+    required List<FlavorTextEntryModel> flavorTextEntries,
+    required List<GenusModel> genera,
+  }) = _PokemonSpeciesModel;
+
+  factory PokemonSpeciesModel.fromJson(Map<String, dynamic> json) =>
+      _$PokemonSpeciesModelFromJson(json);
+}
+
+@freezed
+abstract class FlavorTextEntryModel with _$FlavorTextEntryModel {
+  const factory FlavorTextEntryModel({
+    @JsonKey(name: 'flavor_text') required String flavorText,
+    required NamedAPIResourceModel language,
+    required NamedAPIResourceModel version,
+  }) = _FlavorTextEntryModel;
+
+  factory FlavorTextEntryModel.fromJson(Map<String, dynamic> json) =>
+      _$FlavorTextEntryModelFromJson(json);
+}
+
+@freezed
+abstract class GenusModel with _$GenusModel {
+  const factory GenusModel({
+    required String genus,
+    required NamedAPIResourceModel language,
+  }) = _GenusModel;
+
+  factory GenusModel.fromJson(Map<String, dynamic> json) =>
+      _$GenusModelFromJson(json);
+}
+
+@freezed
+abstract class NamedAPIResourceModel with _$NamedAPIResourceModel {
+  const factory NamedAPIResourceModel({
+    required String name,
+    required String url,
+  }) = _NamedAPIResourceModel;
+
+  factory NamedAPIResourceModel.fromJson(Map<String, dynamic> json) =>
+      _$NamedAPIResourceModelFromJson(json);
+}
+
+// ─── Type Details ────────────────────────────────────────────────────────────
+
+@freezed
+abstract class PokemonTypeDetailsModel with _$PokemonTypeDetailsModel {
+  const factory PokemonTypeDetailsModel({
+    required String name,
+    @JsonKey(name: 'damage_relations')
+    required TypeDamageRelationsModel damageRelations,
+  }) = _PokemonTypeDetailsModel;
+
+  factory PokemonTypeDetailsModel.fromJson(Map<String, dynamic> json) =>
+      _$PokemonTypeDetailsModelFromJson(json);
+}
+
+@freezed
+abstract class TypeDamageRelationsModel with _$TypeDamageRelationsModel {
+  const factory TypeDamageRelationsModel({
+    @JsonKey(name: 'double_damage_from')
+    required List<NamedAPIResourceModel> doubleDamageFrom,
+    @JsonKey(name: 'half_damage_from')
+    required List<NamedAPIResourceModel> halfDamageFrom,
+    @JsonKey(name: 'no_damage_from')
+    required List<NamedAPIResourceModel> noDamageFrom,
+  }) = _TypeDamageRelationsModel;
+
+  factory TypeDamageRelationsModel.fromJson(Map<String, dynamic> json) =>
+      _$TypeDamageRelationsModelFromJson(json);
 }
