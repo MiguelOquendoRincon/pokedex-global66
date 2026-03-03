@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
-import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
@@ -24,7 +23,7 @@ class FavoritesScreen extends ConsumerWidget {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: AppColors.onPrimary,
+      backgroundColor: context.contentBg,
       body: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
@@ -33,15 +32,12 @@ class FavoritesScreen extends ConsumerWidget {
             if (favorites.isNotEmpty)
               SliverAppBar(
                 floating: true,
-                backgroundColor: AppColors.onPrimary,
+                backgroundColor: context.contentBg,
                 surfaceTintColor: Colors.transparent,
                 centerTitle: true,
                 titleSpacing: 16,
                 leading: IconButton(
-                  icon: const Icon(
-                    CupertinoIcons.back,
-                    color: AppColors.textDark,
-                  ),
+                  icon: Icon(CupertinoIcons.back, color: context.textPrimary),
                   // Navigate to pokemon list screen using go_router
                   onPressed: () => context.go('/pokedex'),
                 ),
@@ -49,7 +45,7 @@ class FavoritesScreen extends ConsumerWidget {
                   l10n.favoritesTitle,
                   style: context.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w900,
-                    color: AppColors.textDark,
+                    color: context.textPrimary,
                   ),
                 ),
               ),

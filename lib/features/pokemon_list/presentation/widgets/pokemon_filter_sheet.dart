@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/l10n/generated/app_localizations.dart';
+import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -106,6 +108,7 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = context.l10n;
     final bg = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textPrimary = isDark ? Colors.white : AppColors.textDark;
     final textSecondary = isDark
@@ -124,48 +127,31 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
             borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ── Drag handle ──────────────────────────────────────────────
               const SizedBox(height: 12),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: textSecondary.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(2),
-                ),
+              IconButton(
+                icon: Icon(Icons.close, color: textPrimary, size: 22),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                onPressed: () => Navigator.pop(context),
               ),
+
               const SizedBox(height: 8),
 
               // ── Header ───────────────────────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.close, color: textPrimary, size: 22),
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          'Filtra por tus preferencias',
-                          style: GoogleFonts.outfit(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: textPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 32), // balance close button
-                  ],
+              Center(
+                child: Text(
+                  l10n.filterTitle,
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: textPrimary,
+                  ),
                 ),
               ),
-              const SizedBox(height: 12),
-              Divider(height: 1, color: divider),
+              const SizedBox(height: 32.0),
 
               // ── Scrollable content ───────────────────────────────────────
               Expanded(

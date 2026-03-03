@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 
 class RegionsScreen extends StatelessWidget {
@@ -10,10 +11,9 @@ class RegionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColorsDark.surface : AppColors.onPrimary,
+      backgroundColor: context.contentBg,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -43,7 +43,7 @@ class RegionsScreen extends StatelessWidget {
                 style: GoogleFonts.outfit(
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
-                  color: isDark ? Colors.white : AppColors.textDark,
+                  color: context.textPrimary,
                 ),
               ),
               const SizedBox(height: 16),
@@ -55,7 +55,7 @@ class RegionsScreen extends StatelessWidget {
                 style: GoogleFonts.outfit(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: isDark ? Colors.white70 : AppColors.textMedium,
+                  color: context.textSecondary,
                   height: 1.5,
                 ),
               ),
