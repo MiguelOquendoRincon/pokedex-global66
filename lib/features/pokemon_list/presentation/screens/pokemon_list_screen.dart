@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
-import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
@@ -47,7 +47,7 @@ class PokemonListScreen extends ConsumerWidget {
     }).toList();
 
     return Scaffold(
-      backgroundColor: AppColors.onPrimary,
+      backgroundColor: context.contentBg,
       body: SafeArea(
         child: NotificationListener<ScrollNotification>(
           onNotification: (n) {
