@@ -2,8 +2,8 @@
   "@@locale": "es",
 
   "appTitle": "Pokédex",
-  "navPokemonList": "Pokémon",
-  "navFavorites": "Favoritos",
+  "navPokemonList": "Pokedex",
+  "navFavorites": "favoritos",
   "searchHint": "Buscar Pokémon...",
 
   "favoritesTitle": "Mis Favoritos",

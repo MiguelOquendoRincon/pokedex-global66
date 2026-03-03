@@ -8,6 +8,7 @@ class AppColors {
   // Brand
   static const Color primary = Color(0xFF1E88E5); // Pokédex red
   static const Color blueSemiLight = Color(0xFF4565B7);
+  static const Color navBar = Color(0xFF1565C0);
   static const Color primaryDark = Color(0xFF173EA5);
   static const Color onPrimary = Color(0xFFFFFFFF);
 

@@ -4,10 +4,10 @@
   "appTitle": "Pokédex",
   "@appTitle": { "description": "Application title" },
 
-  "navPokemonList": "Pokémon",
+  "navPokemonList": "Pokedex",
   "@navPokemonList": { "description": "Bottom nav label for the Pokémon list tab" },
 
-  "navFavorites": "Favorites",
+  "navFavorites": "favorites",
   "@navFavorites": { "description": "Bottom nav label for the favorites tab" },
 
   "searchHint": "Search Pokémon...",

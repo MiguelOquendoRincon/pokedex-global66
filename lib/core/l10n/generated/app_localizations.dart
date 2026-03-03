@@ -107,13 +107,13 @@ abstract class AppLocalizations {
   /// Bottom nav label for the Pokémon list tab
   ///
   /// In en, this message translates to:
-  /// **'Pokémon'**
+  /// **'Pokedex'**
   String get navPokemonList;
 
   /// Bottom nav label for the favorites tab
   ///
   /// In en, this message translates to:
-  /// **'Favorites'**
+  /// **'favorites'**
   String get navFavorites;
 
   /// Hint text inside the search bar
