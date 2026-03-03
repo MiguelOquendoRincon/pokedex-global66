@@ -212,6 +212,12 @@ abstract class AppLocalizations {
   /// **'Something went wrong.'**
   String get errorGeneric;
 
+  /// Error message on the Pokémon list screen
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load the information at this time. Check your connection or try again later.'**
+  String get pokemonListError;
+
   /// Shown when the device is offline
   ///
   /// In en, this message translates to:

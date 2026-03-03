@@ -26,7 +26,7 @@ final class PokemonDetailRepositoryProvider
         argument: null,
         retry: null,
         name: r'pokemonDetailRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class PokemonDetailRepositoryProvider
 }
 
 String _$pokemonDetailRepositoryHash() =>
-    r'c9670658974f688cc9bd21efcf62dd95d143b7a5';
+    r'115ad7a164acf50532ffafc206ba507143b34c33';

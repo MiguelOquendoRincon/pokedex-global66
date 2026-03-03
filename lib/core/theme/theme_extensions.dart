@@ -10,7 +10,7 @@ extension AppThemeX on BuildContext {
 
   /// Background behind the Pokémon list content area.
   Color get contentBg =>
-      isDark ? AppColorsDark.surface : const Color(0xFFEFEFEF);
+      isDark ? AppColorsDark.surface : const Color(0xFFFFFFFF);
 
   /// Card background.
   Color get cardBg => isDark ? AppColorsDark.surfaceVar : AppColors.surface;
@@ -18,6 +18,10 @@ extension AppThemeX on BuildContext {
   /// Primary text.
   Color get textPrimary =>
       isDark ? AppColorsDark.textPrimary : AppColors.textDark;
+
+  /// Subtitle text.
+  Color get textSubtitle =>
+      isDark ? AppColorsDark.textPrimary : AppColors.textPrimary;
 
   /// Secondary / hint text.
   Color get textSecondary =>

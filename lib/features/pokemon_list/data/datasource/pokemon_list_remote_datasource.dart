@@ -39,6 +39,6 @@ class PokemonListRemoteDatasource implements IPokemonListRemoteDatasource {
   }, (e, _) => FailureHandler.fromObject(e));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 IPokemonListRemoteDatasource pokemonListRemoteDatasource(Ref ref) =>
     PokemonListRemoteDatasource(ref.read(dioClientProvider));

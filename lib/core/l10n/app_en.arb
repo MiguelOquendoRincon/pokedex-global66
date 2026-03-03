@@ -47,6 +47,9 @@
   "errorGeneric": "Something went wrong.",
   "@errorGeneric": { "description": "Generic error message" },
 
+  "pokemonListError": "We couldn't load the information at this time. Check your connection or try again later.",
+  "@pokemonListError": { "description": "Error message on the Pokémon list screen" },
+
   "errorNoInternet": "No internet connection.",
   "@errorNoInternet": { "description": "Shown when the device is offline" },
 

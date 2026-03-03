@@ -27,7 +27,7 @@ final class PokemonListRemoteDatasourceProvider
         argument: null,
         retry: null,
         name: r'pokemonListRemoteDatasourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -56,4 +56,4 @@ final class PokemonListRemoteDatasourceProvider
 }
 
 String _$pokemonListRemoteDatasourceHash() =>
-    r'2e40e5a3f6c4f6e5db4d2dfa72cb6dffda62c764';
+    r'd5cca0a3cfd239f5107e395743b36e04857cf3ed';

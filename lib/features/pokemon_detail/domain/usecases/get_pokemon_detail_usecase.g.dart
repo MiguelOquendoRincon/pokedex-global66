@@ -26,7 +26,7 @@ final class GetPokemonDetailUseCaseProvider
         argument: null,
         retry: null,
         name: r'getPokemonDetailUseCaseProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class GetPokemonDetailUseCaseProvider
 }
 
 String _$getPokemonDetailUseCaseHash() =>
-    r'5facbe1ecc6d0df191e0f4118307721ef36ec0e9';
+    r'e16dda055c58a2df9b6354649a2af6f0a3e36ea0';

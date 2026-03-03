@@ -24,6 +24,7 @@
   "statSpeed": "Velocidad",
 
   "errorGeneric": "Algo salió mal.",
+  "pokemonListError": "No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.",
   "errorNoInternet": "Sin conexión a internet.",
   "errorNotFound": "Pokémon no encontrado.",
   "errorTimeout": "La solicitud tardó demasiado. Intenta de nuevo.",

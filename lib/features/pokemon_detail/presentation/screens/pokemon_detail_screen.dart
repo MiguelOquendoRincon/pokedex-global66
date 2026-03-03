@@ -162,7 +162,9 @@ class _DetailView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Types
-                  Row(
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: detail.types
                         .map((t) => PokemonTypeChip(type: t))
                         .toList(),

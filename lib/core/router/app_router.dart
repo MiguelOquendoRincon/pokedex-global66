@@ -5,15 +5,12 @@ import 'package:pokedex_global66/features/favorites/presentation/screens/favorit
 import 'package:pokedex_global66/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/pokemon_detail_screen.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen2.dart';
 import 'package:pokedex_global66/features/profile/presentation/screens/profile_screen.dart';
 import 'package:pokedex_global66/features/regions/presentation/screens/regions_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:pokedex_global66/features/onboarding/presentation/providers/onboarding_provider.dart';
-import 'package:pokedex_global66/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
-import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/pokemon_detail_screen.dart';
-import 'package:pokedex_global66/core/shell/main_shell.dart';
 
 part 'app_router.g.dart';
 
@@ -61,6 +58,7 @@ GoRouter appRouter(Ref ref) {
             path: AppRoutes.pokedex,
             pageBuilder: (context, state) => _noTransition(
               key: state.pageKey,
+              // child: PokemonListScreen2(),
               child: const PokemonListScreen(),
             ),
             routes: [
@@ -113,7 +111,7 @@ CustomTransitionPage<void> _noTransition({
 }) => CustomTransitionPage(
   key: key,
   child: child,
-  transitionsBuilder: (_, __, ___, c) => c,
+  transitionsBuilder: (_, _, _, c) => c,
 );
 
 CustomTransitionPage<void> _fadeTransition({
@@ -123,7 +121,7 @@ CustomTransitionPage<void> _fadeTransition({
   key: key,
   child: child,
   transitionDuration: const Duration(milliseconds: 400),
-  transitionsBuilder: (_, animation, __, c) =>
+  transitionsBuilder: (_, animation, _, c) =>
       FadeTransition(opacity: animation, child: c),
 );
 
@@ -134,7 +132,7 @@ CustomTransitionPage<void> _slideUpTransition({
   key: key,
   child: child,
   transitionDuration: const Duration(milliseconds: 350),
-  transitionsBuilder: (_, animation, __, c) => SlideTransition(
+  transitionsBuilder: (_, animation, _, c) => SlideTransition(
     position: Tween(
       begin: const Offset(0, 0.08),
       end: Offset.zero,

@@ -59,7 +59,7 @@ final class PokemonDetailNotifierProvider
 }
 
 String _$pokemonDetailNotifierHash() =>
-    r'56f1047156823ba9c4b5eb374f2f7badc20b4443';
+    r'8424f89626759ff87cd96c6e1278dfb47def0f14';
 
 final class PokemonDetailNotifierFamily extends $Family
     with

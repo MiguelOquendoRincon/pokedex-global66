@@ -36,6 +36,6 @@ class PokemonRepositoryImpl implements IPokemonRepository {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 IPokemonRepository pokemonRepository(Ref ref) =>
     PokemonRepositoryImpl(ref.read(pokemonListRemoteDatasourceProvider));

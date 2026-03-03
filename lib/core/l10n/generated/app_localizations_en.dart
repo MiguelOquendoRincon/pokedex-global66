@@ -67,6 +67,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorGeneric => 'Something went wrong.';
 
   @override
+  String get pokemonListError =>
+      'We couldn\'t load the information at this time. Check your connection or try again later.';
+
+  @override
   String get errorNoInternet => 'No internet connection.';
 
   @override

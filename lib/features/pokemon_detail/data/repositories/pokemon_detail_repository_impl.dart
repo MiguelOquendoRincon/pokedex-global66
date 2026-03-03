@@ -32,13 +32,13 @@ class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
       stats: {for (var s in model.stats) s.stat.name: s.baseStat},
       abilities: model.abilities.map((a) => a.ability.name).toList(),
       imageUrl:
-          model.sprites.other?.officialArtwork?.frontDefault ??
-          model.sprites.frontDefault,
+          model.sprites.frontDefault ??
+          model.sprites.other?.officialArtwork?.frontDefault,
     );
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 IPokemonDetailRepository pokemonDetailRepository(Ref ref) =>
     PokemonDetailRepositoryImpl(
       ref.read(pokemonDetailRemoteDatasourceProvider),

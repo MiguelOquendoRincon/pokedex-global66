@@ -21,6 +21,6 @@ class GetPokemonDetailUseCase implements UseCase<PokemonDetail, String> {
       _repository.getPokemonDetail(name);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 GetPokemonDetailUseCase getPokemonDetailUseCase(Ref ref) =>
     GetPokemonDetailUseCase(ref.read(pokemonDetailRepositoryProvider));

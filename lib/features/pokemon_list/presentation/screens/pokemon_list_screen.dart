@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_card.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_skeleton.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_error.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_search_bar.dart';
@@ -18,76 +20,140 @@ class PokemonListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pokemonListProvider);
+    final typeCache = ref.watch(pokemonTypeCacheProvider);
     final l10n = context.l10n;
+
+    // Perform filtering here in the UI layer using the live type cache.
+    // This ensures that if a Pokémon's types are updated (e.g. from the detail screen),
+    // the list filter responds immediately even if the previews haven't refreshed.
+    final filtered = state.previews.where((p) {
+      // 1. Name filter
+      if (state.searchQuery.isNotEmpty) {
+        if (!p.name.toLowerCase().contains(state.searchQuery.toLowerCase())) {
+          return false;
+        }
+      }
+
+      // 2. Type filter
+      if (state.selectedType.isNotEmpty) {
+        final actualTypes = typeCache[p.name] ?? p.types;
+        if (!actualTypes.contains(state.selectedType)) {
+          return false;
+        }
+      }
+
+      return true;
+    }).toList();
 
     return Scaffold(
       backgroundColor: AppColors.onPrimary,
       body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 28.0),
-                // ── Search bar ───────────────────────────────────────────────
-                PokemonSearchBar(
-                  hint: l10n.searchHint,
-                  onChanged: (q) =>
-                      ref.read(pokemonListProvider.notifier).updateSearch(q),
-                ),
-                const SizedBox(height: 12),
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (n) {
+            if (n is ScrollEndNotification &&
+                n.metrics.extentAfter < 200 &&
+                !state.isLoadingMore &&
+                !state.hasReachedEnd) {
+              ref.read(pokemonListProvider.notifier).fetchMore();
+            }
+            return false;
+          },
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              const SliverToBoxAdapter(child: SizedBox(height: 28.0)),
 
-                // ── Type filter chips ────────────────────────────────────────
-                TypeFilterChips(
+              // ── Search bar ───────────────────────────────────────────────
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                sliver: SliverToBoxAdapter(
+                  child: PokemonSearchBar(
+                    hint: l10n.searchHint,
+                    onChanged: (q) =>
+                        ref.read(pokemonListProvider.notifier).updateSearch(q),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 12)),
+
+              // ── Type filter chips ────────────────────────────────────────
+              SliverToBoxAdapter(
+                child: TypeFilterChips(
                   selectedType: state.selectedType,
                   onSelected: (t) => ref
                       .read(pokemonListProvider.notifier)
                       .updateTypeFilter(t),
                 ),
-                const SizedBox(height: 8),
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-                // ── Content ──────────────────────────────────────────────────
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.background,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(30),
-                      ),
-                    ),
-                    child: _buildContent(context, ref, state),
-                  ),
-                ),
-              ],
-            ),
+              // ── Content ──────────────────────────────────────────────────
+              ..._buildSlivers(context, ref, state, filtered, typeCache),
+
+              const SliverToBoxAdapter(child: SizedBox(height: 32)),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildContent(
+  List<Widget> _buildSlivers(
     BuildContext context,
     WidgetRef ref,
     PokemonListState state,
+    List<PokemonPreview> filtered,
+    Map<String, List<String>> typeCache,
   ) {
-    if (state.isInitialLoading) return const PokemonListSkeleton();
-
-    if (state.error != null && state.allPokemon.isEmpty) {
-      return PokemonListError(
-        exception: state.error!,
-        onRetry: () => ref.read(pokemonListProvider.notifier).retry(),
-      );
+    if (state.isInitialLoading) {
+      return [
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => const PokemonListSkeletonItem(),
+              childCount: 8,
+            ),
+          ),
+        ),
+      ];
     }
 
-    return PokemonList(
-      pokemon: state.filtered,
-      typeFilter: state.selectedType,
-      isLoadingMore: state.isLoadingMore,
-      hasReachedEnd: state.hasReachedEnd,
-      onLoadMore: () => ref.read(pokemonListProvider.notifier).fetchMore(),
-    );
+    if (state.error != null && state.previews.isEmpty) {
+      return [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: PokemonListError(
+            exception: state.error!,
+            onRetry: () => ref.read(pokemonListProvider.notifier).retry(),
+          ),
+        ),
+      ];
+    }
+
+    return [
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate((context, i) {
+            final pokemon = filtered[i];
+            return PokemonCard(
+              pokemon: pokemon,
+              types: typeCache[pokemon.name] ?? pokemon.types,
+            );
+          }, childCount: filtered.length),
+        ),
+      ),
+      if (state.isLoadingMore)
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => const PokemonListSkeletonItem(),
+              childCount: 2,
+            ),
+          ),
+        ),
+    ];
   }
 }
