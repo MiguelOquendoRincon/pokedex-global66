@@ -15,11 +15,18 @@ part 'pokemon_detail_remote_datasource.g.dart';
 
 /// Contract — ISP: one interface per datasource.
 abstract interface class IPokemonDetailRemoteDatasource {
-  TaskEither<AppException, PokemonDetailModel> fetchPokemonDetail(String name);
-  TaskEither<AppException, PokemonSpeciesModel> fetchPokemonSpecies(int id);
+  TaskEither<AppException, PokemonDetailModel> fetchPokemonDetail(
+    String name, {
+    String? language,
+  });
+  TaskEither<AppException, PokemonSpeciesModel> fetchPokemonSpecies(
+    int id, {
+    String? language,
+  });
   TaskEither<AppException, PokemonTypeDetailsModel> fetchTypeDetails(
-    String typeName,
-  );
+    String typeName, {
+    String? language,
+  });
 }
 
 /// Implementation — depends on [Dio], injected via Riverpod.
@@ -29,29 +36,36 @@ class PokemonDetailRemoteDatasource implements IPokemonDetailRemoteDatasource {
 
   @override
   TaskEither<AppException, PokemonDetailModel> fetchPokemonDetail(
-    String name,
-  ) => TaskEither.tryCatch(() async {
+    String name, {
+    String? language,
+  }) => TaskEither.tryCatch(() async {
     final response = await _dio.get<Map<String, dynamic>>(
       ApiConstants.pokemonDetail(name),
+      queryParameters: language != null ? {'lang': language} : null,
     );
     return PokemonDetailModel.fromJson(response.data!);
   }, (e, _) => FailureHandler.fromObject(e));
 
   @override
-  TaskEither<AppException, PokemonSpeciesModel> fetchPokemonSpecies(int id) =>
-      TaskEither.tryCatch(() async {
-        final response = await _dio.get<Map<String, dynamic>>(
-          ApiConstants.pokemonSpecies(id),
-        );
-        return PokemonSpeciesModel.fromJson(response.data!);
-      }, (e, _) => FailureHandler.fromObject(e));
+  TaskEither<AppException, PokemonSpeciesModel> fetchPokemonSpecies(
+    int id, {
+    String? language,
+  }) => TaskEither.tryCatch(() async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      ApiConstants.pokemonSpecies(id),
+      queryParameters: language != null ? {'lang': language} : null,
+    );
+    return PokemonSpeciesModel.fromJson(response.data!);
+  }, (e, _) => FailureHandler.fromObject(e));
 
   @override
   TaskEither<AppException, PokemonTypeDetailsModel> fetchTypeDetails(
-    String typeName,
-  ) => TaskEither.tryCatch(() async {
+    String typeName, {
+    String? language,
+  }) => TaskEither.tryCatch(() async {
     final response = await _dio.get<Map<String, dynamic>>(
       ApiConstants.typeDetail(typeName),
+      queryParameters: language != null ? {'lang': language} : null,
     );
     return PokemonTypeDetailsModel.fromJson(response.data!);
   }, (e, _) => FailureHandler.fromObject(e));

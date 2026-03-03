@@ -7,7 +7,8 @@
   "searchHint": "Buscar Pokémon...",
 
   "favoritesTitle": "Mis Favoritos",
-  "favoritesEmpty": "Aún no tienes favoritos.\nToca el ♥ en cualquier Pokémon para guardarlo.",
+  "favoritesEmpty": "No has marcado ningún Pokémon como favorito",
+  "favoritesEmptySubtitle": "Haz clic en el ícono de corazón de tus Pokémon favoritos y aparecerán aquí.",
 
   "detailAbout": "Acerca de",
   "detailBaseStats": "Estadísticas",

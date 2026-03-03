@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PokemonDetailModel {
 
- int get id; String get name; int get baseExperience; int get height; int get weight; List<PokemonTypeSlotModel> get types; List<PokemonStatModel> get stats; List<PokemonAbilitySlotModel> get abilities; PokemonSpritesModel get sprites;
+ int get id; String get name;@JsonKey(name: 'base_experience') int get baseExperience; int get height; int get weight; List<PokemonTypeSlotModel> get types; List<PokemonStatModel> get stats; List<PokemonAbilitySlotModel> get abilities; PokemonSpritesModel get sprites;
 /// Create a copy of PokemonDetailModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $PokemonDetailModelCopyWith<$Res>  {
   factory $PokemonDetailModelCopyWith(PokemonDetailModel value, $Res Function(PokemonDetailModel) _then) = _$PokemonDetailModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
+ int id, String name,@JsonKey(name: 'base_experience') int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
 });
 
 
@@ -170,7 +170,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'base_experience')  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PokemonDetailModel() when $default != null:
 return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weight,_that.types,_that.stats,_that.abilities,_that.sprites);case _:
@@ -191,7 +191,7 @@ return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weig
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'base_experience')  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonDetailModel():
 return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weight,_that.types,_that.stats,_that.abilities,_that.sprites);case _:
@@ -211,7 +211,7 @@ return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weig
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name, @JsonKey(name: 'base_experience')  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,) {final _that = this;
 switch (_that) {
 case _PokemonDetailModel() when $default != null:
 return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weight,_that.types,_that.stats,_that.abilities,_that.sprites);case _:
@@ -226,12 +226,12 @@ return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weig
 @JsonSerializable()
 
 class _PokemonDetailModel implements PokemonDetailModel {
-  const _PokemonDetailModel({required this.id, required this.name, required this.baseExperience, required this.height, required this.weight, required final  List<PokemonTypeSlotModel> types, required final  List<PokemonStatModel> stats, required final  List<PokemonAbilitySlotModel> abilities, required this.sprites}): _types = types,_stats = stats,_abilities = abilities;
+  const _PokemonDetailModel({required this.id, required this.name, @JsonKey(name: 'base_experience') required this.baseExperience, required this.height, required this.weight, required final  List<PokemonTypeSlotModel> types, required final  List<PokemonStatModel> stats, required final  List<PokemonAbilitySlotModel> abilities, required this.sprites}): _types = types,_stats = stats,_abilities = abilities;
   factory _PokemonDetailModel.fromJson(Map<String, dynamic> json) => _$PokemonDetailModelFromJson(json);
 
 @override final  int id;
 @override final  String name;
-@override final  int baseExperience;
+@override@JsonKey(name: 'base_experience') final  int baseExperience;
 @override final  int height;
 @override final  int weight;
  final  List<PokemonTypeSlotModel> _types;
@@ -290,7 +290,7 @@ abstract mixin class _$PokemonDetailModelCopyWith<$Res> implements $PokemonDetai
   factory _$PokemonDetailModelCopyWith(_PokemonDetailModel value, $Res Function(_PokemonDetailModel) _then) = __$PokemonDetailModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
+ int id, String name,@JsonKey(name: 'base_experience') int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
 });
 
 

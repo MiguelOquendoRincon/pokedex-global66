@@ -1,11 +1,9 @@
-class IconsSvg {
-  IconsSvg._();
+class CustomIcons {
+  CustomIcons._();
 
-  static const String onboarding_1 = 'assets/images/onboarding_1.svg';
-  static const String onboarding_2 = 'assets/images/onboarding_2.svg';
-  static const String onboarding_3 = 'assets/images/onboarding_3.svg';
-  static const String varietyFoods = 'assets/images/variety_of_foods.svg';
-  static const String fastDelivery = 'assets/images/delivery.svg';
-  static const String signUp = 'assets/images/sign_up.svg';
-  static const String locationRequest = 'assets/images/location_request.svg';
+  static const String onboarding1 = 'assets/images/onboarding_1.png';
+  static const String onboarding2 = 'assets/images/onboarding_2.png';
+  static const String pokemonNotFound = 'assets/images/pokemon_not_found.png';
+  static const String pokeball = 'assets/images/loader.png';
+  static const String regions = 'assets/images/regions_image.png';
 }

@@ -24,8 +24,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favoritesTitle => 'My Favorites';
 
   @override
-  String get favoritesEmpty =>
-      'No favorites yet.\nTap the ♥ on any Pokémon to save it.';
+  String get favoritesEmpty => 'You haven\'t marked any Pokémon as a favorite';
+
+  @override
+  String get favoritesEmptySubtitle =>
+      'Click the heart icon of your favorites Pokémon and they will appear here.';
 
   @override
   String get detailAbout => 'About';

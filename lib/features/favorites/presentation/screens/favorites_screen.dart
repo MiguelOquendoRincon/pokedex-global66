@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
@@ -29,28 +30,29 @@ class FavoritesScreen extends ConsumerWidget {
           physics: const BouncingScrollPhysics(),
           slivers: [
             // ── Header ──────────────────────────────────────────────────────
-            SliverAppBar(
-              floating: true,
-              backgroundColor: AppColors.onPrimary,
-              surfaceTintColor: Colors.transparent,
-              centerTitle: true,
-              titleSpacing: 16,
-              leading: IconButton(
-                icon: const Icon(
-                  CupertinoIcons.back,
-                  color: AppColors.textDark,
+            if (favorites.isNotEmpty)
+              SliverAppBar(
+                floating: true,
+                backgroundColor: AppColors.onPrimary,
+                surfaceTintColor: Colors.transparent,
+                centerTitle: true,
+                titleSpacing: 16,
+                leading: IconButton(
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    color: AppColors.textDark,
+                  ),
+                  // Navigate to pokemon list screen using go_router
+                  onPressed: () => context.go('/pokedex'),
                 ),
-                // Navigate to pokemon list screen using go_router
-                onPressed: () => context.go('/pokedex'),
-              ),
-              title: Text(
-                l10n.favoritesTitle,
-                style: context.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textDark,
+                title: Text(
+                  l10n.favoritesTitle,
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.textDark,
+                  ),
                 ),
               ),
-            ),
 
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
@@ -64,18 +66,26 @@ class FavoritesScreen extends ConsumerWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.favorite_border,
-                          size: 80,
-                          color: AppColors.gray30,
+                        Image.asset(
+                          CustomIcons.pokemonNotFound,
+                          width: 185,
+                          height: 185,
                         ),
                         const SizedBox(height: 16),
                         Text(
                           l10n.favoritesEmpty,
                           textAlign: TextAlign.center,
-                          style: context.textTheme.bodyLarge?.copyWith(
-                            color: AppColors.textMedium,
-                            fontWeight: FontWeight.w500,
+                          style: context.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          l10n.favoritesEmptySubtitle,
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],

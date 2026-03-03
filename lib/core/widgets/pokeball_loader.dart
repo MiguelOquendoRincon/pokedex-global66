@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 
 /// A spinning Pokéball image used as a loading indicator across the app.
 ///
@@ -46,7 +47,7 @@ class _PokeballLoaderState extends State<PokeballLoader>
     final spinner = RotationTransition(
       turns: _controller,
       child: Image.asset(
-        'assets/images/loader.png',
+        CustomIcons.pokeball,
         width: widget.size,
         height: widget.size,
         // Graceful fallback if asset is missing

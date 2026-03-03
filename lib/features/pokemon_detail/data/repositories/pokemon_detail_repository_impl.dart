@@ -17,20 +17,28 @@ class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
   final IPokemonDetailRemoteDatasource _datasource;
 
   @override
-  TaskEither<AppException, PokemonDetail> getPokemonDetail(String name) {
-    return _datasource.fetchPokemonDetail(name).flatMap((model) {
+  TaskEither<AppException, PokemonDetail> getPokemonDetail(
+    String name,
+    String language,
+  ) {
+    return _datasource.fetchPokemonDetail(name, language: language).flatMap((
+      model,
+    ) {
       // 1. Fetch Species info for more metadata
-      final speciesTask = _datasource.fetchPokemonSpecies(model.id);
+      final speciesTask = _datasource.fetchPokemonSpecies(
+        model.id,
+        language: language,
+      );
 
       // 2. Fetch Type details for weakness calculation
       final typeTasks = model.types.map(
-        (t) => _datasource.fetchTypeDetails(t.type.name),
+        (t) => _datasource.fetchTypeDetails(t.type.name, language: language),
       );
 
       return TaskEither.sequenceList(typeTasks.toList()).flatMap((typeDetails) {
         return speciesTask.map((species) {
           final weaknesses = _calculateWeaknesses(typeDetails);
-          return _toEntity(model, species, weaknesses);
+          return _toEntity(model, species, weaknesses, language);
         });
       });
     });
@@ -64,22 +72,29 @@ class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
     PokemonDetailModel model,
     PokemonSpeciesModel species,
     List<String> weaknesses,
+    String language,
   ) {
-    // Find first English flavor text
+    // Find flavor text in requested language
     final description = species.flavorTextEntries
         .firstWhere(
-          (e) => e.language.name == 'en' || e.language.name == 'es',
-          orElse: () => species.flavorTextEntries.first,
+          (e) => e.language.name == language,
+          orElse: () => species.flavorTextEntries.firstWhere(
+            (e) => e.language.name == 'en',
+            orElse: () => species.flavorTextEntries.first,
+          ),
         )
         .flavorText
         .replaceAll('\n', ' ')
         .replaceAll('\f', ' ');
 
-    // Find first English genus
+    // Find genus in requested language
     final category = species.genera
         .firstWhere(
-          (g) => g.language.name == 'en' || g.language.name == 'es',
-          orElse: () => species.genera.first,
+          (g) => g.language.name == language,
+          orElse: () => species.genera.firstWhere(
+            (g) => g.language.name == 'en',
+            orElse: () => species.genera.first,
+          ),
         )
         .genus;
 

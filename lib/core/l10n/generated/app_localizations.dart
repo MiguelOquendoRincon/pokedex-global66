@@ -94,8 +94,8 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('es'),
     Locale('en'),
+    Locale('es'),
   ];
 
   /// Application title
@@ -131,8 +131,14 @@ abstract class AppLocalizations {
   /// Empty-state message on the favorites screen
   ///
   /// In en, this message translates to:
-  /// **'No favorites yet.\nTap the ♥ on any Pokémon to save it.'**
+  /// **'You haven\'t marked any Pokémon as a favorite'**
   String get favoritesEmpty;
+
+  /// No description provided for @favoritesEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Click the heart icon of your favorites Pokémon and they will appear here.'**
+  String get favoritesEmptySubtitle;
 
   /// Section label in detail screen
   ///
@@ -458,7 +464,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['es', 'en'].contains(locale.languageCode);
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -467,10 +473,10 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'es':
-      return AppLocalizationsEs();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
   }
 
   throw FlutterError(

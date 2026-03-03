@@ -7,6 +7,7 @@ import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_p
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_summary.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/repositories/i_pokemon_repository.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
+import 'package:pokedex_global66/core/l10n/locale_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'get_pokemon_page_usecase.g.dart';
@@ -83,8 +84,9 @@ class GetPokemonPageUseCase {
     if (cache.containsKey(s.name)) return;
 
     // Fetch from network
+    final language = ref.read(localeProvider)?.languageCode ?? 'en';
     final result = await detailRepository
-        .getPokemonDetail(s.name)
+        .getPokemonDetail(s.name, language)
         .run()
         .timeout(
           const Duration(seconds: 5),

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/router/app_router.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/providers/onboarding_provider.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/widgets/onboarding_indicator.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/widgets/onboarding_page_widget.dart';
@@ -74,12 +75,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onPageChanged: (i) => setState(() => _currentPage = i),
                 children: [
                   OnboardingPageWidget(
-                    imagePath: 'assets/images/onboarding_1.png',
+                    imagePath: CustomIcons.onboarding1,
                     title: l10n.onboarding1Title,
                     description: l10n.onboarding1Description,
                   ),
                   OnboardingPageWidget(
-                    imagePath: 'assets/images/onboarding_2.png',
+                    imagePath: CustomIcons.onboarding2,
                     title: l10n.onboarding2Title,
                     description: l10n.onboarding2Description,
                   ),

@@ -54,4 +54,8 @@ extension AppThemeX on BuildContext {
   Color get watermarkColor => isDark
       ? Colors.white.withValues(alpha: 0.04)
       : Colors.black.withValues(alpha: 0.05);
+
+  /// Gender colors.
+  Color get maleColor => const Color(0xFF2551C3);
+  Color get femaleColor => const Color(0xFFFF7596);
 }

@@ -7,6 +7,7 @@ import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 
 class PokemonListError extends StatelessWidget {
   const PokemonListError({
@@ -35,11 +36,7 @@ class PokemonListError extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(
-              'assets/images/pokemon_not_found.png',
-              width: 185,
-              height: 185,
-            ),
+            Image.asset(CustomIcons.pokemonNotFound, width: 185, height: 185),
             const SizedBox(height: 16),
             Text(
               '$message...',

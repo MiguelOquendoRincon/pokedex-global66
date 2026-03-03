@@ -63,7 +63,7 @@ class PokemonCard extends ConsumerWidget {
               children: [
                 // Left: Texts
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -117,10 +117,10 @@ class PokemonCard extends ConsumerWidget {
                   flex: 2,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 4,
+                      vertical: 8,
                       horizontal: 16,
                     ),
-                    height: 120,
+                    // height: 120,
                     decoration: BoxDecoration(
                       color: typeColor,
                       borderRadius: BorderRadius.circular(16),
@@ -133,7 +133,7 @@ class PokemonCard extends ConsumerWidget {
                         Image.asset(
                           'assets/categories/category_${primaryType.toLowerCase()}.png',
                           width: 92,
-                          height: 92,
+                          // height: 92,
                           color: Colors.white.withValues(alpha: 0.5),
                         ),
 

@@ -16,7 +16,8 @@
   "favoritesTitle": "My Favorites",
   "@favoritesTitle": { "description": "Title of the favorites screen" },
 
-  "favoritesEmpty": "No favorites yet.\nTap the ♥ on any Pokémon to save it.",
+  "favoritesEmpty": "You haven't marked any Pokémon as a favorite",
+  "favoritesEmptySubtitle": "Click the heart icon of your favorites Pokémon and they will appear here.",
   "@favoritesEmpty": { "description": "Empty-state message on the favorites screen" },
 
   "detailAbout": "About",

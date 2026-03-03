@@ -10,7 +10,7 @@ abstract class PokemonDetailModel with _$PokemonDetailModel {
   const factory PokemonDetailModel({
     required int id,
     required String name,
-    required int baseExperience,
+    @JsonKey(name: 'base_experience') required int baseExperience,
     required int height,
     required int weight,
     required List<PokemonTypeSlotModel> types,

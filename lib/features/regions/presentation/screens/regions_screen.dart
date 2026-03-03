@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 
 class RegionsScreen extends StatelessWidget {
   const RegionsScreen({super.key});
@@ -22,7 +23,7 @@ class RegionsScreen extends StatelessWidget {
             children: [
               // Image Section
               Image.asset(
-                'assets/images/regions_image.png',
+                CustomIcons.regions,
                 width: 250,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
