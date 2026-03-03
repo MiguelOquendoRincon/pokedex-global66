@@ -12,7 +12,6 @@ import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/poke
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_skeleton.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_error.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_search_bar.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/type_filter_chips.dart';
 
 class PokemonListScreen extends ConsumerWidget {
   const PokemonListScreen({super.key});
@@ -23,9 +22,7 @@ class PokemonListScreen extends ConsumerWidget {
     final typeCache = ref.watch(pokemonTypeCacheProvider);
     final l10n = context.l10n;
 
-    // Perform filtering here in the UI layer using the live type cache.
-    // This ensures that if a Pokémon's types are updated (e.g. from the detail screen),
-    // the list filter responds immediately even if the previews haven't refreshed.
+    // ── Filtering ─────────────────────────────────────────────────────────
     final filtered = state.previews.where((p) {
       // 1. Name filter
       if (state.searchQuery.isNotEmpty) {
@@ -34,12 +31,16 @@ class PokemonListScreen extends ConsumerWidget {
         }
       }
 
-      // 2. Type filter
+      final actualTypes = typeCache[p.name] ?? p.types;
+
+      // 2. Single-type chip filter (chip row)
       if (state.selectedType.isNotEmpty) {
-        final actualTypes = typeCache[p.name] ?? p.types;
-        if (!actualTypes.contains(state.selectedType)) {
-          return false;
-        }
+        if (!actualTypes.contains(state.selectedType)) return false;
+      }
+
+      // 3. Multi-type filter (bottom sheet) — must match at least one type
+      if (state.selectedTypes.isNotEmpty) {
+        if (!state.selectedTypes.any(actualTypes.contains)) return false;
       }
 
       return true;
@@ -69,22 +70,26 @@ class PokemonListScreen extends ConsumerWidget {
                 sliver: SliverToBoxAdapter(
                   child: PokemonSearchBar(
                     hint: l10n.searchHint,
+                    initialFilters: state.selectedTypes,
                     onChanged: (q) =>
                         ref.read(pokemonListProvider.notifier).updateSearch(q),
+                    onFiltersChanged: (types) => ref
+                        .read(pokemonListProvider.notifier)
+                        .updateTypeFilters(types),
                   ),
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
               // ── Type filter chips ────────────────────────────────────────
-              SliverToBoxAdapter(
-                child: TypeFilterChips(
-                  selectedType: state.selectedType,
-                  onSelected: (t) => ref
-                      .read(pokemonListProvider.notifier)
-                      .updateTypeFilter(t),
-                ),
-              ),
+              // SliverToBoxAdapter(
+              //   child: TypeFilterChips(
+              //     selectedType: state.selectedType,
+              //     onSelected: (t) => ref
+              //         .read(pokemonListProvider.notifier)
+              //         .updateTypeFilter(t),
+              //   ),
+              // ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
               // ── Content ──────────────────────────────────────────────────

@@ -36,74 +36,70 @@ class GetPokemonPageUseCase {
   TaskEither<AppException, List<PokemonPreview>> call({
     required int limit,
     required int offset,
-  }) =>
-      // Step 1: fetch the list page (fast — no detail data)
-      listRepository
-          .getPokemonList(limit: limit, offset: offset)
-          // Step 2: for each summary, fetch its detail in parallel
-          .flatMap(
-            (summaries) => TaskEither.tryCatch(
-              () => _enrichAll(summaries),
-              (e, _) => AppException.unknown(message: e.toString(), cause: e),
-            ),
-          );
+  }) => listRepository.getPokemonList(limit: limit, offset: offset).map((
+    summaries,
+  ) {
+    final initialPreviews = summaries
+        .map(
+          (s) => PokemonPreview(
+            id: s.id,
+            name: s.name,
+            types: const [], // Initially empty, will be enriched
+            imageUrl: s.imageUrl,
+          ),
+        )
+        .toList();
 
-  Future<List<PokemonPreview>> _enrichAll(
-    List<PokemonSummary> summaries,
-  ) async {
-    final previews = <PokemonPreview>[];
-
-    for (final s in summaries) {
-      final p = await _enrichOne(s);
-      previews.add(p);
-
-      // Update cache immediately for each success
-      if (p.types.isNotEmpty && ref.mounted) {
-        ref.read(pokemonTypeCacheProvider.notifier).register(p.name, p.types);
-      }
+    // 🚀 Background Enrichment: Start fetching details without blocking the UI
+    if (ref.mounted) {
+      _enrichAll(summaries);
     }
 
-    return previews;
+    return initialPreviews;
+  });
+
+  Future<void> _enrichAll(List<PokemonSummary> summaries) async {
+    if (summaries.isEmpty) return;
+
+    // ⚡ STEP 1: Burst - Fetch first 6 details in parallel
+    // This ensures the initial viewport is enriched almost instantly.
+    final burstCount = summaries.length > 6 ? 6 : summaries.length;
+    final initialBurst = summaries.take(burstCount).toList();
+    final remaining = summaries.skip(burstCount).toList();
+
+    await Future.wait(initialBurst.map((s) => _fetchAndCache(s)));
+
+    // 🐢 STEP 2: Steady - Fetch remaining details sequentially
+    // This allows background loading without being too aggressive on the network.
+    for (final s in remaining) {
+      if (!ref.mounted) break;
+      await _fetchAndCache(s);
+    }
   }
 
-  Future<PokemonPreview> _enrichOne(PokemonSummary summary) async {
-    // Check local cache first to avoid network calls.
+  Future<void> _fetchAndCache(PokemonSummary s) async {
+    // Check cache first
     final cache = ref.read(pokemonTypeCacheProvider);
-    if (cache.containsKey(summary.name)) {
-      return PokemonPreview(
-        id: summary.id,
-        name: summary.name,
-        types: cache[summary.name]!,
-        imageUrl: summary.imageUrl,
-      );
-    }
+    if (cache.containsKey(s.name)) return;
 
-    // Attempt to fetch from network with a per-item timeout.
+    // Fetch from network
     final result = await detailRepository
-        .getPokemonDetail(summary.name)
+        .getPokemonDetail(s.name)
         .run()
         .timeout(
           const Duration(seconds: 5),
           onTimeout: () => left(AppException.unknown(message: 'Timeout')),
         );
 
-    return result.fold(
-      // Fallback on failure (e.g. 404, network error, timeout).
-      // Returning empty types allows the UI to show a skeleton/loading state
-      // instead of a confusing "Normal" type.
-      (_) => PokemonPreview(
-        id: summary.id,
-        name: summary.name,
-        types: const [],
-        imageUrl: summary.imageUrl,
-      ),
-      // Succeeded.
-      (detail) => PokemonPreview(
-        id: detail.id,
-        name: detail.name,
-        types: detail.types,
-        imageUrl: detail.imageUrl ?? summary.imageUrl,
-      ),
+    result.match(
+      (error) => null, // Ignore failures
+      (detail) {
+        if (ref.mounted && detail.types.isNotEmpty) {
+          ref
+              .read(pokemonTypeCacheProvider.notifier)
+              .register(s.name, detail.types);
+        }
+      },
     );
   }
 }

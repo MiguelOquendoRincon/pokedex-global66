@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 
 /// Service to show dialogs
 /// This service is used to show dialogs throughout the application.
@@ -26,7 +27,7 @@ class DialogService {
       builder: (_) => AlertDialog(
         content: Row(
           children: [
-            const CircularProgressIndicator(),
+            const PokeballLoader(size: 40),
             const SizedBox(width: 16),
             Text(message),
           ],

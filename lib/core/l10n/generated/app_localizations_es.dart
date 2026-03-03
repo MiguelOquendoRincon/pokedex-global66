@@ -46,6 +46,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get detailBaseExp => 'Exp. Base';
 
   @override
+  String get detailCategory => 'CATEGORÍA';
+
+  @override
+  String get detailAbility => 'HABILIDAD';
+
+  @override
+  String get detailGender => 'GÉNERO';
+
+  @override
+  String get detailWeaknesses => 'Debilidades';
+
+  @override
+  String get detailGenderless => 'Sin género';
+
+  @override
   String get statHp => 'PS';
 
   @override
@@ -92,11 +107,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navProfile => 'Perfil';
 
   @override
-  String get regionsComingSoon => 'Muy pronto disponible';
+  String get regionsComingSoon => '¡Muy pronto disponible!';
 
   @override
   String get regionsComingSoonSubtitle =>
-      'Explora las regiones Pokémon desde\nKanto hasta Paldea. ¡Próximamente!';
+      'Estamos trabajando para traerte esta sección. Vuelve más adelante para descubrir todas las novedades.';
 
   @override
   String get profileAppearance => 'Apariencia';
@@ -156,4 +171,27 @@ class AppLocalizationsEs extends AppLocalizations {
   String removedFromFavorites(String name) {
     return '$name eliminado de favoritos.';
   }
+
+  @override
+  String get deleteConfirmTitle => 'Eliminar de favoritos';
+
+  @override
+  String deleteConfirmMessage(Object name) {
+    return '¿Estás seguro de que quieres eliminar a $name de tus favoritos?';
+  }
+
+  @override
+  String get commonCancel => 'Cancelar';
+
+  @override
+  String get commonDelete => 'Eliminar';
+
+  @override
+  String get profileVersion => 'Versión de la app';
+
+  @override
+  String get profileTrainerId => 'ID de Entrenador';
+
+  @override
+  String get profileJoined => 'Se unió el';
 }

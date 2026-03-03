@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/providers/pokemon_detail_provider.dart';
@@ -34,16 +38,14 @@ class PokemonDetailScreen extends ConsumerWidget {
   }
 }
 
-// ── Loading ──────────────────────────────────────────────────────────────────
+// ── Loading ───────────────────────────────────────────────────────────────────
 class _LoadingView extends StatelessWidget {
   const _LoadingView();
   @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
-  }
+  Widget build(BuildContext context) => const FullScreenLoader();
 }
 
-// ── Error ────────────────────────────────────────────────────────────────────
+// ── Error ─────────────────────────────────────────────────────────────────────
 class _ErrorView extends StatelessWidget {
   const _ErrorView({required this.exception, required this.onRetry});
   final AppException exception;
@@ -71,7 +73,7 @@ class _ErrorView extends StatelessWidget {
   }
 }
 
-// ── Detail ───────────────────────────────────────────────────────────────────
+// ── Detail ────────────────────────────────────────────────────────────────────
 class _DetailView extends ConsumerWidget {
   const _DetailView({required this.detail});
   final PokemonDetail detail;
@@ -80,20 +82,22 @@ class _DetailView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final typeColor = AppColors.forType(detail.primaryType);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final isFavorite = ref.watch(
       favoritesProvider.select((favs) => favs.any((f) => f.id == detail.id)),
     );
 
     return Scaffold(
-      backgroundColor: typeColor.withValues(alpha: 0.15),
+      backgroundColor: isDark ? AppColorsDark.background : AppColors.white,
       body: CustomScrollView(
         slivers: [
-          // ── SliverAppBar ────────────────────────────────────────────────
+          // ── SliverAppBar ──────────────────────────────────────────────────
           SliverAppBar(
-            expandedHeight: 260,
+            expandedHeight: 300,
             backgroundColor: typeColor,
             foregroundColor: Colors.white,
             pinned: true,
+            elevation: 0,
             actions: [
               FavoriteButton(
                 isFavorite: isFavorite,
@@ -102,66 +106,51 @@ class _DetailView extends ConsumerWidget {
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                detail.displayName,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              centerTitle: true,
-              background: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Pokéball watermark
-                  Opacity(
-                    opacity: 0.15,
-                    child: Icon(
-                      Icons.catching_pokemon,
-                      size: 220,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 40,
-                    child: Hero(
-                      tag: 'pokemon-${detail.id}',
-                      child: CachedNetworkImage(
-                        imageUrl: detail.imageUrl ?? '',
-                        height: 160,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 60,
-                    right: 20,
-                    child: Text(
-                      detail.formattedId,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.6),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+              background: _HeaderBackground(
+                typeColor: typeColor,
+                detail: detail,
               ),
             ),
           ),
 
-          // ── Body ─────────────────────────────────────────────────────────
+          // ── White rounded content card ────────────────────────────────────
           SliverToBoxAdapter(
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: isDark ? AppColorsDark.surface : Colors.white,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(32),
+                ),
               ),
-              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Types
+                  // ── Name + Number ─────────────────────────────────────────
+                  Text(
+                    detail.displayName,
+                    style: GoogleFonts.outfit(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w800,
+                      color: isDark
+                          ? AppColorsDark.textPrimary
+                          : AppColors.textDark,
+                      height: 1.0,
+                    ),
+                  ),
+                  Text(
+                    detail.formattedId,
+                    style: GoogleFonts.outfit(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: isDark
+                          ? AppColorsDark.textSecondary
+                          : AppColors.textMedium,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // ── Type Chips ────────────────────────────────────────────
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
@@ -169,48 +158,172 @@ class _DetailView extends ConsumerWidget {
                         .map((t) => PokemonTypeChip(type: t))
                         .toList(),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
 
-                  // About section
-                  _SectionTitle(label: l10n.detailAbout),
-                  const SizedBox(height: 12),
-                  _AboutRow(
-                    items: [
-                      (l10n.detailHeight, detail.heightFormatted),
-                      (l10n.detailWeight, detail.weightFormatted),
-                      (l10n.detailBaseExp, '${detail.baseExperience}'),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-
-                  // Base Stats
-                  _SectionTitle(label: l10n.detailBaseStats),
-                  const SizedBox(height: 12),
-                  ...detail.stats.entries.map(
-                    (e) => PokemonStatsBar(
-                      label: _localiseStatName(e.key, l10n),
-                      value: e.value,
-                      color: typeColor,
+                  // ── Description ───────────────────────────────────────────
+                  Text(
+                    detail.description,
+                    style: GoogleFonts.outfit(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: isDark
+                          ? AppColorsDark.textSecondary
+                          : AppColors.textMedium,
+                      height: 1.6,
                     ),
                   ),
                   const SizedBox(height: 24),
 
-                  // Abilities
-                  _SectionTitle(label: l10n.detailAbilities),
+                  // ── Weight / Height ───────────────────────────────────────
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _InfoCard(
+                          label: l10n.detailWeight.toUpperCase(),
+                          value: detail.weightFormatted,
+                          icon: Icons.monitor_weight_outlined,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _InfoCard(
+                          label: l10n.detailHeight.toUpperCase(),
+                          value: detail.heightFormatted,
+                          icon: Icons.straighten_rounded,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: detail.abilities
-                        .map(
-                          (a) => Chip(
-                            label: Text(
-                              '${a[0].toUpperCase()}${a.substring(1)}',
+
+                  // ── Category / Ability ────────────────────────────────────
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _InfoCard(
+                          label: l10n.detailCategory,
+                          value: detail.category
+                              .replaceAll(' Pokémon', '')
+                              .toUpperCase(),
+                          icon: Icons.category_outlined,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _InfoCard(
+                          label: l10n.detailAbility,
+                          value: detail.primaryAbility,
+                          icon: Icons.flash_on_rounded,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 28),
+
+                  // ── Gender ────────────────────────────────────────────────
+                  if (detail.genderRate != -1) ...[
+                    _SectionTitle(label: l10n.detailGender, isDark: isDark),
+                    const SizedBox(height: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _GenderBar(genderRate: detail.genderRate),
+                        const SizedBox(height: 6),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // ── Unified animated gender bar ───────────────
+                            LinearPercentIndicator(
+                              animation: true,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 1000,
+                              lineHeight: 8.0,
+                              percent: detail.malePct / 100,
+                              barRadius: const Radius.circular(50),
+                              progressColor: const Color(0xFF2551C3),
+                              backgroundColor: const Color(0xFFFF7596),
                             ),
+                            const SizedBox(height: 6),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.male_rounded,
+                                      size: 16,
+                                      color: Color(0xFF1E88E5),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      '${detail.malePct}%',
+                                      style: GoogleFonts.outfit(
+                                        fontSize: 12,
+                                        color: isDark
+                                            ? AppColorsDark.textSecondary
+                                            : AppColors.textMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${detail.femalePct}%',
+                                      style: GoogleFonts.outfit(
+                                        fontSize: 12,
+                                        color: isDark
+                                            ? AppColorsDark.textSecondary
+                                            : AppColors.textMedium,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    const Icon(
+                                      Icons.female_rounded,
+                                      size: 16,
+                                      color: Color(0xFFE91E63),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                  ],
+
+                  // ── Weaknesses ────────────────────────────────────────────
+                  if (detail.weaknesses.isNotEmpty) ...[
+                    _SectionTitle(label: l10n.detailWeaknesses, isDark: isDark),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      children: detail.weaknesses
+                          .map((w) => PokemonTypeChip(type: w))
+                          .toList(),
+                    ),
+                    const SizedBox(height: 28),
+                  ],
+
+                  // ── Base Stats ────────────────────────────────────────────
+                  _SectionTitle(label: l10n.detailBaseStats, isDark: isDark),
+                  const SizedBox(height: 12),
+                  Column(
+                    children: detail.stats.entries
+                        .map(
+                          (e) => PokemonStatsBar(
+                            label: l10n.localiseStatName(e.key),
+                            value: e.value,
+                            color: typeColor,
                           ),
                         )
                         .toList(),
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -219,63 +332,190 @@ class _DetailView extends ConsumerWidget {
       ),
     );
   }
-
-  String _localiseStatName(String key, dynamic l10n) => switch (key) {
-    'hp' => l10n.statHp,
-    'attack' => l10n.statAttack,
-    'defense' => l10n.statDefense,
-    'special-attack' => l10n.statSpAtk,
-    'special-defense' => l10n.statSpDef,
-    'speed' => l10n.statSpeed,
-    _ => key,
-  };
 }
 
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.label});
-  final String label;
+// ── Hero Header Background ─────────────────────────────────────────────────────
+class _HeaderBackground extends StatelessWidget {
+  const _HeaderBackground({required this.typeColor, required this.detail});
+  final Color typeColor;
+  final PokemonDetail detail;
+
   @override
   Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: AppColors.textDark,
+    return Container(
+      color: context.isDark ? AppColorsDark.background : AppColors.white,
+      child: Stack(
+        children: [
+          // Large translucent type blob
+          Positioned(
+            top: -200,
+            left: -20,
+            child: CircleAvatar(
+              backgroundColor: typeColor,
+              radius: 230,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 16,
+                ),
+                height: 250,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.none,
+                  children: [
+                    // Category Icon
+                    Positioned(
+                      top: 100,
+                      child: Image.asset(
+                        'assets/categories/category_${detail.primaryType.toLowerCase()}.png',
+                        width: 200,
+                        height: 200,
+                        color: Colors.white.withValues(alpha: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Pokemon image
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Hero(
+                  tag: 'pokemon-${detail.id}',
+                  child: CachedNetworkImage(
+                    imageUrl: detail.imageUrl ?? '',
+                    height: 200,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _AboutRow extends StatelessWidget {
-  const _AboutRow({required this.items});
-  final List<(String, String)> items;
+// ── Info Card ─────────────────────────────────────────────────────────────────
+class _InfoCard extends StatelessWidget {
+  const _InfoCard({
+    required this.label,
+    required this.value,
+    required this.icon,
+  });
+  final String label;
+  final String value;
+  final IconData icon;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: items
-          .map(
-            (i) => Column(
-              children: [
-                Text(
-                  i.$2,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      decoration: BoxDecoration(
+        color: isDark ? AppColorsDark.surfaceVar : AppColors.gray10,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? AppColorsDark.cardBorder : AppColors.gray30,
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 14,
+                color: isDark
+                    ? AppColorsDark.textSecondary
+                    : AppColors.textMedium,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: GoogleFonts.outfit(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.8,
+                  color: isDark
+                      ? AppColorsDark.textSecondary
+                      : AppColors.textMedium,
                 ),
-                Text(
-                  i.$1,
-                  style: const TextStyle(
-                    color: AppColors.textMedium,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: GoogleFonts.outfit(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
             ),
-          )
-          .toList(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Gender Bar ────────────────────────────────────────────────────────────────
+class _GenderBar extends StatelessWidget {
+  const _GenderBar({required this.genderRate});
+  final int genderRate;
+
+  @override
+  Widget build(BuildContext context) {
+    final femaleFraction = genderRate / 8.0;
+    final maleFraction = 1.0 - femaleFraction;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: SizedBox(
+        height: 8,
+        child: Row(
+          children: [
+            Expanded(
+              flex: (maleFraction * 100).toInt(),
+              child: ColoredBox(color: const Color(0xFF1E88E5)),
+            ),
+            Expanded(
+              flex: (femaleFraction * 100).toInt(),
+              child: ColoredBox(color: const Color(0xFFE91E63)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Section Title ─────────────────────────────────────────────────────────────
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle({required this.label, required this.isDark});
+  final String label;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: GoogleFonts.outfit(
+        fontSize: 18,
+        fontWeight: FontWeight.w800,
+        color: isDark ? AppColorsDark.textPrimary : AppColors.textDark,
+      ),
     );
   }
 }

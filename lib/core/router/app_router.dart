@@ -5,9 +5,9 @@ import 'package:pokedex_global66/features/favorites/presentation/screens/favorit
 import 'package:pokedex_global66/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/pokemon_detail_screen.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen2.dart';
 import 'package:pokedex_global66/features/profile/presentation/screens/profile_screen.dart';
 import 'package:pokedex_global66/features/regions/presentation/screens/regions_screen.dart';
+import 'package:pokedex_global66/features/splash/presentation/screens/splash_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:pokedex_global66/features/onboarding/presentation/providers/onboarding_provider.dart';
@@ -16,6 +16,7 @@ part 'app_router.g.dart';
 
 // ─── Route name constants ─────────────────────────────────────────────────────
 abstract final class AppRoutes {
+  static const splash = '/splash';
   static const onboarding = '/onboarding';
   static const pokedex = '/pokedex';
   static const detail = 'detail'; // relative: /pokedex/detail/:name
@@ -30,16 +31,37 @@ GoRouter appRouter(Ref ref) {
   final onboardingDone = ref.watch(onboardingDoneProvider);
 
   return GoRouter(
-    initialLocation: AppRoutes.pokedex,
+    initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final goingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
+      final loc = state.matchedLocation;
 
+      // Never redirect away from splash — it handles its own navigation.
+      if (loc == AppRoutes.splash) return null;
+
+      final goingToOnboarding = loc == AppRoutes.onboarding;
       if (!onboardingDone && !goingToOnboarding) return AppRoutes.onboarding;
       if (onboardingDone && goingToOnboarding) return AppRoutes.pokedex;
       return null;
     },
     routes: [
+      // ── Splash (full-screen, outside shell) ──────────────────────────────
+      GoRoute(
+        path: AppRoutes.splash,
+        pageBuilder: (context, state) => _fadeTransition(
+          key: state.pageKey,
+          child: SplashScreen(
+            onComplete: () {
+              // Replace splash with the real destination (no back-stack entry).
+              final dest = onboardingDone
+                  ? AppRoutes.pokedex
+                  : AppRoutes.onboarding;
+              context.go(dest);
+            },
+          ),
+        ),
+      ),
+
       // ── Onboarding (full-screen, outside shell) ───────────────────────────
       GoRoute(
         path: AppRoutes.onboarding,

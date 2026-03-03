@@ -25,6 +25,10 @@ void main() {
     types: ['electric'],
     stats: {'hp': 35, 'attack': 55, 'defense': 40, 'speed': 90},
     abilities: ['static'],
+    weaknesses: ['ground'],
+    description: 'When it posits its tail, it is very cute.',
+    category: 'Mouse',
+    genderRate: 4,
     imageUrl: 'https://example.com/pikachu.png',
   );
 

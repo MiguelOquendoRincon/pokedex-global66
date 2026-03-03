@@ -20,7 +20,7 @@ final class PokemonListNotifierProvider
         argument: null,
         retry: null,
         name: r'pokemonListProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class PokemonListNotifierProvider
 }
 
 String _$pokemonListNotifierHash() =>
-    r'ceae6c85af93c94c13d8133bf82a0a2dcaef4415';
+    r'893c50ac03ed67f61fedf11f78dc16597a513b71';
 
 abstract class _$PokemonListNotifier extends $Notifier<PokemonListState> {
   PokemonListState build();

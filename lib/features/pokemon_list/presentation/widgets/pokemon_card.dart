@@ -7,7 +7,7 @@ import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_skeleton.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/pokemon_type_chip.dart';
 
 class PokemonCard extends ConsumerWidget {
@@ -18,14 +18,21 @@ class PokemonCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // We use the types passed in the constructor, which already prioritize the cache
-    // from the screen level. If types are empty, it means we don't have detail data yet.
-    if (types.isEmpty) {
-      return const PokemonListSkeletonItem();
-    }
+    // ⚡ Reactive Cache: Watch for this pokemon's types in the global cache.
+    // When the background enrichment completes, this specific card will rebuild.
+    final cachedTypes = ref.watch(
+      pokemonTypeCacheProvider.select((c) => c[pokemon.name]),
+    );
 
-    final primaryType = types.first;
-    final typeColor = AppColors.forType(primaryType);
+    // Prioritize cached types over the ones passed in (which might be empty)
+    final effectiveTypes = cachedTypes ?? types;
+    final hasTypes = effectiveTypes.isNotEmpty;
+
+    final primaryType = hasTypes ? effectiveTypes.first : 'normal';
+    final typeColor = hasTypes
+        ? AppColors.forType(primaryType)
+        : Colors.grey.shade300;
+
     final isFavorite = ref.watch(
       favoritesProvider.select((favs) => favs.any((f) => f.id == pokemon.id)),
     );
@@ -90,9 +97,14 @@ class PokemonCard extends ConsumerWidget {
                         // Iconized Type Chips
                         Wrap(
                           spacing: 6,
-                          children: types
-                              .map((t) => PokemonTypeChip(type: t))
-                              .toList(),
+                          children: hasTypes
+                              ? effectiveTypes
+                                    .map((t) => PokemonTypeChip(type: t))
+                                    .toList()
+                              : [
+                                  _buildTypePlaceholder(),
+                                  _buildTypePlaceholder(),
+                                ],
                         ),
                       ],
                     ),
@@ -177,6 +189,17 @@ class PokemonCard extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTypePlaceholder() {
+    return Container(
+      width: 60,
+      height: 24,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(30),
       ),
     );
   }

@@ -17,11 +17,72 @@ class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
   final IPokemonDetailRemoteDatasource _datasource;
 
   @override
-  TaskEither<AppException, PokemonDetail> getPokemonDetail(String name) =>
-      _datasource.fetchPokemonDetail(name).map(_toEntity);
+  TaskEither<AppException, PokemonDetail> getPokemonDetail(String name) {
+    return _datasource.fetchPokemonDetail(name).flatMap((model) {
+      // 1. Fetch Species info for more metadata
+      final speciesTask = _datasource.fetchPokemonSpecies(model.id);
 
-  // ── Private mapper: Model → Entity (DIP: domain knows nothing of data) ──
-  PokemonDetail _toEntity(PokemonDetailModel model) {
+      // 2. Fetch Type details for weakness calculation
+      final typeTasks = model.types.map(
+        (t) => _datasource.fetchTypeDetails(t.type.name),
+      );
+
+      return TaskEither.sequenceList(typeTasks.toList()).flatMap((typeDetails) {
+        return speciesTask.map((species) {
+          final weaknesses = _calculateWeaknesses(typeDetails);
+          return _toEntity(model, species, weaknesses);
+        });
+      });
+    });
+  }
+
+  // ── Weakness Logic ───────────────────────────────────────────────────────
+  List<String> _calculateWeaknesses(List<PokemonTypeDetailsModel> types) {
+    final multipliers = <String, double>{};
+
+    for (final typeDetail in types) {
+      for (final d in typeDetail.damageRelations.doubleDamageFrom) {
+        multipliers[d.name] = (multipliers[d.name] ?? 1.0) * 2.0;
+      }
+      for (final d in typeDetail.damageRelations.halfDamageFrom) {
+        multipliers[d.name] = (multipliers[d.name] ?? 1.0) * 0.5;
+      }
+      for (final d in typeDetail.damageRelations.noDamageFrom) {
+        multipliers[d.name] = (multipliers[d.name] ?? 1.0) * 0.0;
+      }
+    }
+
+    // A weakness is any type with a multiplier > 1.0
+    return multipliers.entries
+        .where((e) => e.value > 1.0)
+        .map((e) => e.key)
+        .toList();
+  }
+
+  // ── Private mapper: Models → Entity ───────────────────────────────────────
+  PokemonDetail _toEntity(
+    PokemonDetailModel model,
+    PokemonSpeciesModel species,
+    List<String> weaknesses,
+  ) {
+    // Find first English flavor text
+    final description = species.flavorTextEntries
+        .firstWhere(
+          (e) => e.language.name == 'en' || e.language.name == 'es',
+          orElse: () => species.flavorTextEntries.first,
+        )
+        .flavorText
+        .replaceAll('\n', ' ')
+        .replaceAll('\f', ' ');
+
+    // Find first English genus
+    final category = species.genera
+        .firstWhere(
+          (g) => g.language.name == 'en' || g.language.name == 'es',
+          orElse: () => species.genera.first,
+        )
+        .genus;
+
     return PokemonDetail(
       id: model.id,
       name: model.name,
@@ -31,9 +92,13 @@ class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
       types: model.types.map((t) => t.type.name).toList(),
       stats: {for (var s in model.stats) s.stat.name: s.baseStat},
       abilities: model.abilities.map((a) => a.ability.name).toList(),
+      weaknesses: weaknesses,
+      description: description,
+      category: category,
+      genderRate: species.genderRate,
       imageUrl:
-          model.sprites.frontDefault ??
-          model.sprites.other?.officialArtwork?.frontDefault,
+          model.sprites.other?.officialArtwork?.frontDefault ??
+          model.sprites.frontDefault,
     );
   }
 }

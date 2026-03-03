@@ -170,6 +170,36 @@ abstract class AppLocalizations {
   /// **'Base Exp.'**
   String get detailBaseExp;
 
+  /// Label for the category field
+  ///
+  /// In en, this message translates to:
+  /// **'CATEGORY'**
+  String get detailCategory;
+
+  /// Label for the ability field
+  ///
+  /// In en, this message translates to:
+  /// **'ABILITY'**
+  String get detailAbility;
+
+  /// Label for the gender section
+  ///
+  /// In en, this message translates to:
+  /// **'GENDER'**
+  String get detailGender;
+
+  /// Label for the weaknesses section
+  ///
+  /// In en, this message translates to:
+  /// **'Weaknesses'**
+  String get detailWeaknesses;
+
+  /// Shown when Pokémon has no gender
+  ///
+  /// In en, this message translates to:
+  /// **'Genderless'**
+  String get detailGenderless;
+
   /// No description provided for @statHp.
   ///
   /// In en, this message translates to:
@@ -263,13 +293,13 @@ abstract class AppLocalizations {
   /// Regions screen title
   ///
   /// In en, this message translates to:
-  /// **'Coming Soon'**
+  /// **'Coming Soon!'**
   String get regionsComingSoon;
 
   /// Regions screen subtitle
   ///
   /// In en, this message translates to:
-  /// **'Explore Pokémon regions from\nKanto to Paldea. Stay tuned!'**
+  /// **'We are working to bring you this section. Come back later to discover all the news.'**
   String get regionsComingSoonSubtitle;
 
   /// Profile section header
@@ -373,6 +403,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} removed from favorites.'**
   String removedFromFavorites(String name);
+
+  /// No description provided for @deleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from Favorites'**
+  String get deleteConfirmTitle;
+
+  /// No description provided for @deleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove {name} from your favorites?'**
+  String deleteConfirmMessage(Object name);
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// No description provided for @commonDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get commonDelete;
+
+  /// No description provided for @profileVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version'**
+  String get profileVersion;
+
+  /// No description provided for @profileTrainerId.
+  ///
+  /// In en, this message translates to:
+  /// **'Trainer ID'**
+  String get profileTrainerId;
+
+  /// No description provided for @profileJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined'**
+  String get profileJoined;
 }
 
 class _AppLocalizationsDelegate

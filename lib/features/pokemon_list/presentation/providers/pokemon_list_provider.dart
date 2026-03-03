@@ -19,11 +19,9 @@ sealed class PokemonListState with _$PokemonListState {
     @Default([]) List<PokemonPreview> previews,
 
     /// True only while the very first page is loading.
-    /// Shows the full-grid skeleton.
     @Default(false) bool isInitialLoading,
 
     /// True while loading pages 2, 3, … (pagination).
-    /// Shows a subtle bottom loader, not the full skeleton.
     @Default(false) bool isLoadingMore,
 
     @Default(false) bool hasReachedEnd,
@@ -34,11 +32,20 @@ sealed class PokemonListState with _$PokemonListState {
     /// Active name filter (search bar).
     @Default('') String searchQuery,
 
-    /// Active type filter (chip row). Empty string = no filter.
+    /// Active single-type filter (horizontal chip row). Empty string = no filter.
     @Default('') String selectedType,
+
+    /// Active multi-type filter (bottom-sheet filter). Empty set = no filter.
+    @Default(<String>{}) Set<String> selectedTypes,
   }) = _PokemonListState;
 
   const PokemonListState._();
+
+  /// True if any filter is active (used to show clear-all affordance).
+  bool get hasActiveFilters =>
+      searchQuery.isNotEmpty ||
+      selectedType.isNotEmpty ||
+      selectedTypes.isNotEmpty;
 }
 
 // ─── Notifier ─────────────────────────────────────────────────────────────────
@@ -122,9 +129,20 @@ class PokemonListNotifier extends _$PokemonListNotifier {
   void updateSearch(String query) =>
       state = state.copyWith(searchQuery: query.trim());
 
+  /// Updates the single-type chip-row filter.
   void updateTypeFilter(String type) =>
       state = state.copyWith(selectedType: type);
 
-  void clearFilters() =>
-      state = state.copyWith(searchQuery: '', selectedType: '');
+  /// Updates the multi-type filter from the bottom sheet.
+  void updateTypeFilters(Set<String> types) =>
+      state = state.copyWith(selectedTypes: types);
+
+  /// Clears the multi-type filter.
+  void clearTypeFilters() => state = state.copyWith(selectedTypes: {});
+
+  void clearFilters() => state = state.copyWith(
+    searchQuery: '',
+    selectedType: '',
+    selectedTypes: {},
+  );
 }

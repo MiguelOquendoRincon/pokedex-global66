@@ -15,6 +15,11 @@
   "detailHeight": "Altura",
   "detailWeight": "Peso",
   "detailBaseExp": "Exp. Base",
+  "detailCategory": "CATEGORÍA",
+  "detailAbility": "HABILIDAD",
+  "detailGender": "GÉNERO",
+  "detailWeaknesses": "Debilidades",
+  "detailGenderless": "Sin género",
 
   "statHp": "PS",
   "statAttack": "Ataque",
@@ -34,8 +39,8 @@
   "navRegions": "Regiones",
   "navProfile": "Perfil",
 
-  "regionsComingSoon": "Muy pronto disponible",
-  "regionsComingSoonSubtitle": "Explora las regiones Pokémon desde\nKanto hasta Paldea. ¡Próximamente!",
+  "regionsComingSoon": "¡Muy pronto disponible!",
+  "regionsComingSoonSubtitle": "Estamos trabajando para traerte esta sección. Vuelve más adelante para descubrir todas las novedades.",
 
   "profileAppearance": "Apariencia",
   "profileDarkMode": "Modo oscuro",
@@ -73,5 +78,13 @@
     "placeholders": {
       "name": { "type": "String" }
     }
-  }
+  },
+
+  "deleteConfirmTitle": "Eliminar de favoritos",
+  "deleteConfirmMessage": "¿Estás seguro de que quieres eliminar a {name} de tus favoritos?",
+  "commonCancel": "Cancelar",
+  "commonDelete": "Eliminar",
+  "profileVersion": "Versión de la app",
+  "profileTrainerId": "ID de Entrenador",
+  "profileJoined": "Se unió el"
 }
