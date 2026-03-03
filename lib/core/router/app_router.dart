@@ -7,18 +7,16 @@ import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/po
 import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
 import 'package:pokedex_global66/features/profile/presentation/screens/profile_screen.dart';
 import 'package:pokedex_global66/features/regions/presentation/screens/regions_screen.dart';
+import 'package:pokedex_global66/features/splash/presentation/screens/splash_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:pokedex_global66/features/onboarding/presentation/providers/onboarding_provider.dart';
-import 'package:pokedex_global66/features/onboarding/presentation/screens/onboarding_screen.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
-import 'package:pokedex_global66/features/pokemon_detail/presentation/screens/pokemon_detail_screen.dart';
-import 'package:pokedex_global66/core/shell/main_shell.dart';
 
 part 'app_router.g.dart';
 
 // ─── Route name constants ─────────────────────────────────────────────────────
 abstract final class AppRoutes {
+  static const splash = '/splash';
   static const onboarding = '/onboarding';
   static const pokedex = '/pokedex';
   static const detail = 'detail'; // relative: /pokedex/detail/:name
@@ -33,16 +31,37 @@ GoRouter appRouter(Ref ref) {
   final onboardingDone = ref.watch(onboardingDoneProvider);
 
   return GoRouter(
-    initialLocation: AppRoutes.pokedex,
+    initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final goingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
+      final loc = state.matchedLocation;
 
+      // Never redirect away from splash — it handles its own navigation.
+      if (loc == AppRoutes.splash) return null;
+
+      final goingToOnboarding = loc == AppRoutes.onboarding;
       if (!onboardingDone && !goingToOnboarding) return AppRoutes.onboarding;
       if (onboardingDone && goingToOnboarding) return AppRoutes.pokedex;
       return null;
     },
     routes: [
+      // ── Splash (full-screen, outside shell) ──────────────────────────────
+      GoRoute(
+        path: AppRoutes.splash,
+        pageBuilder: (context, state) => _fadeTransition(
+          key: state.pageKey,
+          child: SplashScreen(
+            onComplete: () {
+              // Replace splash with the real destination (no back-stack entry).
+              final dest = onboardingDone
+                  ? AppRoutes.pokedex
+                  : AppRoutes.onboarding;
+              context.go(dest);
+            },
+          ),
+        ),
+      ),
+
       // ── Onboarding (full-screen, outside shell) ───────────────────────────
       GoRoute(
         path: AppRoutes.onboarding,
@@ -52,52 +71,73 @@ GoRouter appRouter(Ref ref) {
         ),
       ),
 
-      // ── Main shell (BottomNavigationBar) ──────────────────────────────────
-      ShellRoute(
-        builder: (context, state, child) => MainShell(child: child),
-        routes: [
+      // ── Main shell (BottomNavigationBar with Persistence) ──────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            MainShell(navigationShell: navigationShell),
+        branches: [
           // Tab 1 — Pokédex
-          GoRoute(
-            path: AppRoutes.pokedex,
-            pageBuilder: (context, state) => _noTransition(
-              key: state.pageKey,
-              child: const PokemonListScreen(),
-            ),
+          StatefulShellBranch(
             routes: [
               GoRoute(
-                path: 'detail/:name',
-                pageBuilder: (context, state) {
-                  final name = state.pathParameters['name']!;
-                  return _slideUpTransition(
-                    key: state.pageKey,
-                    child: PokemonDetailScreen(pokemonName: name),
-                  );
-                },
+                path: AppRoutes.pokedex,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const PokemonListScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'detail/:name',
+                    pageBuilder: (context, state) {
+                      final name = state.pathParameters['name']!;
+                      return _slideUpTransition(
+                        key: state.pageKey,
+                        child: PokemonDetailScreen(pokemonName: name),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
 
           // Tab 2 — Regions
-          GoRoute(
-            path: AppRoutes.regions,
-            pageBuilder: (context, state) =>
-                _noTransition(key: state.pageKey, child: const RegionsScreen()),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.regions,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const RegionsScreen(),
+                ),
+              ),
+            ],
           ),
 
           // Tab 3 — Favorites
-          GoRoute(
-            path: AppRoutes.favorites,
-            pageBuilder: (context, state) => _noTransition(
-              key: state.pageKey,
-              child: const FavoritesScreen(),
-            ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.favorites,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const FavoritesScreen(),
+                ),
+              ),
+            ],
           ),
 
           // Tab 4 — Profile
-          GoRoute(
-            path: AppRoutes.profile,
-            pageBuilder: (context, state) =>
-                _noTransition(key: state.pageKey, child: const ProfileScreen()),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.profile,
+                pageBuilder: (context, state) => _noTransition(
+                  key: state.pageKey,
+                  child: const ProfileScreen(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -113,7 +153,7 @@ CustomTransitionPage<void> _noTransition({
 }) => CustomTransitionPage(
   key: key,
   child: child,
-  transitionsBuilder: (_, __, ___, c) => c,
+  transitionsBuilder: (_, _, _, c) => c,
 );
 
 CustomTransitionPage<void> _fadeTransition({
@@ -123,7 +163,7 @@ CustomTransitionPage<void> _fadeTransition({
   key: key,
   child: child,
   transitionDuration: const Duration(milliseconds: 400),
-  transitionsBuilder: (_, animation, __, c) =>
+  transitionsBuilder: (_, animation, _, c) =>
       FadeTransition(opacity: animation, child: c),
 );
 
@@ -134,7 +174,7 @@ CustomTransitionPage<void> _slideUpTransition({
   key: key,
   child: child,
   transitionDuration: const Duration(milliseconds: 350),
-  transitionsBuilder: (_, animation, __, c) => SlideTransition(
+  transitionsBuilder: (_, animation, _, c) => SlideTransition(
     position: Tween(
       begin: const Offset(0, 0.08),
       end: Offset.zero,

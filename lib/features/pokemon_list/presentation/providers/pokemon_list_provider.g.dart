@@ -20,7 +20,7 @@ final class PokemonListNotifierProvider
         argument: null,
         retry: null,
         name: r'pokemonListProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -42,7 +42,7 @@ final class PokemonListNotifierProvider
 }
 
 String _$pokemonListNotifierHash() =>
-    r'6cd6d813c48a3a07c5cfb47a5233c90b7fc23c6d';
+    r'08165e9b9128372380c68bf64afe25d453737ff4';
 
 abstract class _$PokemonListNotifier extends $Notifier<PokemonListState> {
   PokemonListState build();
@@ -55,58 +55,6 @@ abstract class _$PokemonListNotifier extends $Notifier<PokemonListState> {
             as $ClassProviderElement<
               AnyNotifier<PokemonListState, PokemonListState>,
               PokemonListState,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, build);
-  }
-}
-
-@ProviderFor(PokemonTypeCache)
-final pokemonTypeCacheProvider = PokemonTypeCacheProvider._();
-
-final class PokemonTypeCacheProvider
-    extends $NotifierProvider<PokemonTypeCache, Map<String, String>> {
-  PokemonTypeCacheProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'pokemonTypeCacheProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$pokemonTypeCacheHash();
-
-  @$internal
-  @override
-  PokemonTypeCache create() => PokemonTypeCache();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<String, String> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Map<String, String>>(value),
-    );
-  }
-}
-
-String _$pokemonTypeCacheHash() => r'da2e81c1d1d229e912bc3c247055e9c0ce4f57bd';
-
-abstract class _$PokemonTypeCache extends $Notifier<Map<String, String>> {
-  Map<String, String> build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final ref = this.ref as $Ref<Map<String, String>, Map<String, String>>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<Map<String, String>, Map<String, String>>,
-              Map<String, String>,
               Object?,
               Object?
             >;

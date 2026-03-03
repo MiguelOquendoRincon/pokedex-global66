@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/providers/pokemon_detail_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/favorite_button.dart';
+import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/gender_bar.dart';
+import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/info_card.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/pokemon_stats_bar.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/pokemon_type_chip.dart';
+import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/section_title.dart';
 
 class PokemonDetailScreen extends ConsumerWidget {
   const PokemonDetailScreen({required this.pokemonName, super.key});
@@ -34,16 +39,14 @@ class PokemonDetailScreen extends ConsumerWidget {
   }
 }
 
-// ── Loading ──────────────────────────────────────────────────────────────────
+// ── Loading ───────────────────────────────────────────────────────────────────
 class _LoadingView extends StatelessWidget {
   const _LoadingView();
   @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
-  }
+  Widget build(BuildContext context) => const FullScreenLoader();
 }
 
-// ── Error ────────────────────────────────────────────────────────────────────
+// ── Error ─────────────────────────────────────────────────────────────────────
 class _ErrorView extends StatelessWidget {
   const _ErrorView({required this.exception, required this.onRetry});
   final AppException exception;
@@ -71,7 +74,7 @@ class _ErrorView extends StatelessWidget {
   }
 }
 
-// ── Detail ───────────────────────────────────────────────────────────────────
+// ── Detail ────────────────────────────────────────────────────────────────────
 class _DetailView extends ConsumerWidget {
   const _DetailView({required this.detail});
   final PokemonDetail detail;
@@ -80,135 +83,164 @@ class _DetailView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final typeColor = AppColors.forType(detail.primaryType);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final isFavorite = ref.watch(
       favoritesProvider.select((favs) => favs.any((f) => f.id == detail.id)),
     );
 
     return Scaffold(
-      backgroundColor: typeColor.withValues(alpha: 0.15),
+      backgroundColor: isDark ? AppColorsDark.background : AppColors.white,
       body: CustomScrollView(
         slivers: [
-          // ── SliverAppBar ────────────────────────────────────────────────
+          // ── SliverAppBar ──────────────────────────────────────────────────
           SliverAppBar(
-            expandedHeight: 260,
+            expandedHeight: 300,
             backgroundColor: typeColor,
             foregroundColor: Colors.white,
             pinned: true,
+            elevation: 0,
             actions: [
-              FavoriteButton(
-                isFavorite: isFavorite,
-                onToggle: () =>
-                    ref.read(favoritesProvider.notifier).toggle(detail),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
+                child: FavoriteButton(
+                  isFavorite: isFavorite,
+                  onToggle: () =>
+                      ref.read(favoritesProvider.notifier).toggle(detail),
+                ),
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                detail.displayName,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              centerTitle: true,
-              background: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Pokéball watermark
-                  Opacity(
-                    opacity: 0.15,
-                    child: Icon(
-                      Icons.catching_pokemon,
-                      size: 220,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 40,
-                    child: Hero(
-                      tag: 'pokemon-${detail.id}',
-                      child: CachedNetworkImage(
-                        imageUrl: detail.imageUrl ?? '',
-                        height: 160,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 60,
-                    right: 20,
-                    child: Text(
-                      detail.formattedId,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.6),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+              background: _HeaderBackground(
+                typeColor: typeColor,
+                detail: detail,
               ),
             ),
           ),
 
-          // ── Body ─────────────────────────────────────────────────────────
+          // ── White rounded content card ────────────────────────────────────
           SliverToBoxAdapter(
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: isDark ? AppColorsDark.surface : Colors.white,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(32),
+                ),
               ),
-              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Types
-                  Row(
+                  // ── Name + Number ─────────────────────────────────────────
+                  Text(
+                    detail.displayName,
+                    style: context.textTheme.headlineLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    detail.formattedId.replaceAll('#', 'Nº'),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // ── Type Chips ────────────────────────────────────────────
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: detail.types
                         .map((t) => PokemonTypeChip(type: t))
                         .toList(),
                   ),
                   const SizedBox(height: 24),
 
-                  // About section
-                  _SectionTitle(label: l10n.detailAbout),
-                  const SizedBox(height: 12),
-                  _AboutRow(
-                    items: [
-                      (l10n.detailHeight, detail.heightFormatted),
-                      (l10n.detailWeight, detail.weightFormatted),
-                      (l10n.detailBaseExp, '${detail.baseExperience}'),
+                  // ── Description ───────────────────────────────────────────
+                  Text(detail.description, style: context.textTheme.bodyMedium),
+                  const SizedBox(height: 36),
+
+                  // ── Weight / Height ───────────────────────────────────────
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InfoCard(
+                          label: l10n.detailWeight.toUpperCase(),
+                          value: detail.weightFormatted,
+                          icon: Icons.monitor_weight_outlined,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: InfoCard(
+                          label: l10n.detailHeight.toUpperCase(),
+                          value: detail.heightFormatted,
+                          icon: Icons.height_rounded,
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
 
-                  // Base Stats
-                  _SectionTitle(label: l10n.detailBaseStats),
-                  const SizedBox(height: 12),
-                  ...detail.stats.entries.map(
-                    (e) => PokemonStatsBar(
-                      label: _localiseStatName(e.key, l10n),
-                      value: e.value,
-                      color: typeColor,
-                    ),
+                  // ── Category / Ability ────────────────────────────────────
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InfoCard(
+                          label: l10n.detailCategory,
+                          value: detail.category
+                              .replaceAll('Pokémon', '')
+                              .toUpperCase(),
+                          icon: Icons.category_outlined,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: InfoCard(
+                          label: l10n.detailAbility,
+                          value: detail.primaryAbility,
+                          icon: Icons.catching_pokemon_rounded,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 26),
 
-                  // Abilities
-                  _SectionTitle(label: l10n.detailAbilities),
+                  // ── Gender ────────────────────────────────────────────────
+                  if (detail.genderRate != -1) ...[
+                    GenderBar(genderRate: detail.genderRate),
+                    const SizedBox(height: 41),
+                  ],
+
+                  // ── Weaknesses ────────────────────────────────────────────
+                  if (detail.weaknesses.isNotEmpty) ...[
+                    SectionTitle(label: l10n.detailWeaknesses),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      children: detail.weaknesses
+                          .map((w) => PokemonTypeChip(type: w))
+                          .toList(),
+                    ),
+                    const SizedBox(height: 41),
+                  ],
+
+                  // ── Base Stats ────────────────────────────────────────────
+                  SectionTitle(label: l10n.detailBaseStats),
                   const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: detail.abilities
+                  Column(
+                    children: detail.stats.entries
                         .map(
-                          (a) => Chip(
-                            label: Text(
-                              '${a[0].toUpperCase()}${a.substring(1)}',
-                            ),
+                          (e) => PokemonStatsBar(
+                            label: l10n.localiseStatName(e.key),
+                            value: e.value,
+                            color: typeColor,
                           ),
                         )
                         .toList(),
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -217,63 +249,74 @@ class _DetailView extends ConsumerWidget {
       ),
     );
   }
-
-  String _localiseStatName(String key, dynamic l10n) => switch (key) {
-    'hp' => l10n.statHp,
-    'attack' => l10n.statAttack,
-    'defense' => l10n.statDefense,
-    'special-attack' => l10n.statSpAtk,
-    'special-defense' => l10n.statSpDef,
-    'speed' => l10n.statSpeed,
-    _ => key,
-  };
 }
 
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.label});
-  final String label;
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: AppColors.textDark,
-      ),
-    );
-  }
-}
+// ── Hero Header Background ─────────────────────────────────────────────────────
+class _HeaderBackground extends StatelessWidget {
+  const _HeaderBackground({required this.typeColor, required this.detail});
+  final Color typeColor;
+  final PokemonDetail detail;
 
-class _AboutRow extends StatelessWidget {
-  const _AboutRow({required this.items});
-  final List<(String, String)> items;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: items
-          .map(
-            (i) => Column(
-              children: [
-                Text(
-                  i.$2,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+    return Container(
+      color: context.isDark ? AppColorsDark.background : AppColors.white,
+      child: Stack(
+        children: [
+          // Large translucent type blob
+          Positioned(
+            top: -140,
+            left: -20,
+            child: CircleAvatar(
+              backgroundColor: typeColor,
+              radius: 230,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 16,
                 ),
-                Text(
-                  i.$1,
-                  style: const TextStyle(
-                    color: AppColors.textMedium,
-                    fontSize: 12,
-                  ),
+                height: 250,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
                 ),
-              ],
+                child: Stack(
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.none,
+                  children: [
+                    // Category Icon
+                    Positioned(
+                      top: 100,
+                      child: Image.asset(
+                        'assets/categories/category_${detail.primaryType.toLowerCase()}.png',
+                        width: 200,
+                        height: 200,
+                        color: Colors.white.withValues(alpha: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          )
-          .toList(),
+          ),
+          // Pokemon image
+          Positioned.fill(
+            child: Container(
+              margin: const EdgeInsets.only(left: 50),
+              padding: const EdgeInsets.only(top: 90),
+              alignment: Alignment.bottomCenter,
+              child: Hero(
+                tag: 'pokemon-${detail.id}',
+                child: CachedNetworkImage(
+                  imageUrl: detail.imageUrl ?? '',
+                  height: 220,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

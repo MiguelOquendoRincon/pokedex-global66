@@ -14,8 +14,14 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PokemonListState {
 
- List<PokemonSummary> get allPokemon; String get searchQuery; String get selectedType;// '' = no type filter
- bool get isLoadingMore; bool get hasReachedEnd; AppException? get error;
+/// Fully enriched previews — ready to render with color and type.
+ List<PokemonPreview> get previews;/// True only while the very first page is loading.
+ bool get isInitialLoading;/// True while loading pages 2, 3, … (pagination).
+ bool get isLoadingMore; bool get hasReachedEnd;/// Non-null only on hard failures (first page).
+ AppException? get error;/// Active name filter (search bar).
+ String get searchQuery;/// Active single-type filter (horizontal chip row). Empty string = no filter.
+ String get selectedType;/// Active multi-type filter (bottom-sheet filter). Empty set = no filter.
+ Set<String> get selectedTypes;
 /// Create a copy of PokemonListState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +32,16 @@ $PokemonListStateCopyWith<PokemonListState> get copyWith => _$PokemonListStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonListState&&const DeepCollectionEquality().equals(other.allPokemon, allPokemon)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedType, selectedType) || other.selectedType == selectedType)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonListState&&const DeepCollectionEquality().equals(other.previews, previews)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.error, error) || other.error == error)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedType, selectedType) || other.selectedType == selectedType)&&const DeepCollectionEquality().equals(other.selectedTypes, selectedTypes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(allPokemon),searchQuery,selectedType,isLoadingMore,hasReachedEnd,error);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(previews),isInitialLoading,isLoadingMore,hasReachedEnd,error,searchQuery,selectedType,const DeepCollectionEquality().hash(selectedTypes));
 
 @override
 String toString() {
-  return 'PokemonListState(allPokemon: $allPokemon, searchQuery: $searchQuery, selectedType: $selectedType, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd, error: $error)';
+  return 'PokemonListState(previews: $previews, isInitialLoading: $isInitialLoading, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd, error: $error, searchQuery: $searchQuery, selectedType: $selectedType, selectedTypes: $selectedTypes)';
 }
 
 
@@ -46,7 +52,7 @@ abstract mixin class $PokemonListStateCopyWith<$Res>  {
   factory $PokemonListStateCopyWith(PokemonListState value, $Res Function(PokemonListState) _then) = _$PokemonListStateCopyWithImpl;
 @useResult
 $Res call({
- List<PokemonSummary> allPokemon, String searchQuery, String selectedType, bool isLoadingMore, bool hasReachedEnd, AppException? error
+ List<PokemonPreview> previews, bool isInitialLoading, bool isLoadingMore, bool hasReachedEnd, AppException? error, String searchQuery, String selectedType, Set<String> selectedTypes
 });
 
 
@@ -63,15 +69,17 @@ class _$PokemonListStateCopyWithImpl<$Res>
 
 /// Create a copy of PokemonListState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? allPokemon = null,Object? searchQuery = null,Object? selectedType = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? previews = null,Object? isInitialLoading = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,Object? error = freezed,Object? searchQuery = null,Object? selectedType = null,Object? selectedTypes = null,}) {
   return _then(_self.copyWith(
-allPokemon: null == allPokemon ? _self.allPokemon : allPokemon // ignore: cast_nullable_to_non_nullable
-as List<PokemonSummary>,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
-as String,selectedType: null == selectedType ? _self.selectedType : selectedType // ignore: cast_nullable_to_non_nullable
-as String,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+previews: null == previews ? _self.previews : previews // ignore: cast_nullable_to_non_nullable
+as List<PokemonPreview>,isInitialLoading: null == isInitialLoading ? _self.isInitialLoading : isInitialLoading // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
 as bool,hasReachedEnd: null == hasReachedEnd ? _self.hasReachedEnd : hasReachedEnd // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as AppException?,
+as AppException?,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,selectedType: null == selectedType ? _self.selectedType : selectedType // ignore: cast_nullable_to_non_nullable
+as String,selectedTypes: null == selectedTypes ? _self.selectedTypes : selectedTypes // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 /// Create a copy of PokemonListState
@@ -165,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<PokemonSummary> allPokemon,  String searchQuery,  String selectedType,  bool isLoadingMore,  bool hasReachedEnd,  AppException? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<PokemonPreview> previews,  bool isInitialLoading,  bool isLoadingMore,  bool hasReachedEnd,  AppException? error,  String searchQuery,  String selectedType,  Set<String> selectedTypes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PokemonListState() when $default != null:
-return $default(_that.allPokemon,_that.searchQuery,_that.selectedType,_that.isLoadingMore,_that.hasReachedEnd,_that.error);case _:
+return $default(_that.previews,_that.isInitialLoading,_that.isLoadingMore,_that.hasReachedEnd,_that.error,_that.searchQuery,_that.selectedType,_that.selectedTypes);case _:
   return orElse();
 
 }
@@ -186,10 +194,10 @@ return $default(_that.allPokemon,_that.searchQuery,_that.selectedType,_that.isLo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<PokemonSummary> allPokemon,  String searchQuery,  String selectedType,  bool isLoadingMore,  bool hasReachedEnd,  AppException? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<PokemonPreview> previews,  bool isInitialLoading,  bool isLoadingMore,  bool hasReachedEnd,  AppException? error,  String searchQuery,  String selectedType,  Set<String> selectedTypes)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonListState():
-return $default(_that.allPokemon,_that.searchQuery,_that.selectedType,_that.isLoadingMore,_that.hasReachedEnd,_that.error);}
+return $default(_that.previews,_that.isInitialLoading,_that.isLoadingMore,_that.hasReachedEnd,_that.error,_that.searchQuery,_that.selectedType,_that.selectedTypes);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -203,10 +211,10 @@ return $default(_that.allPokemon,_that.searchQuery,_that.selectedType,_that.isLo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<PokemonSummary> allPokemon,  String searchQuery,  String selectedType,  bool isLoadingMore,  bool hasReachedEnd,  AppException? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<PokemonPreview> previews,  bool isInitialLoading,  bool isLoadingMore,  bool hasReachedEnd,  AppException? error,  String searchQuery,  String selectedType,  Set<String> selectedTypes)?  $default,) {final _that = this;
 switch (_that) {
 case _PokemonListState() when $default != null:
-return $default(_that.allPokemon,_that.searchQuery,_that.selectedType,_that.isLoadingMore,_that.hasReachedEnd,_that.error);case _:
+return $default(_that.previews,_that.isInitialLoading,_that.isLoadingMore,_that.hasReachedEnd,_that.error,_that.searchQuery,_that.selectedType,_that.selectedTypes);case _:
   return null;
 
 }
@@ -218,22 +226,38 @@ return $default(_that.allPokemon,_that.searchQuery,_that.selectedType,_that.isLo
 
 
 class _PokemonListState extends PokemonListState {
-  const _PokemonListState({final  List<PokemonSummary> allPokemon = const [], this.searchQuery = '', this.selectedType = '', this.isLoadingMore = false, this.hasReachedEnd = false, this.error}): _allPokemon = allPokemon,super._();
+  const _PokemonListState({final  List<PokemonPreview> previews = const [], this.isInitialLoading = false, this.isLoadingMore = false, this.hasReachedEnd = false, this.error, this.searchQuery = '', this.selectedType = '', final  Set<String> selectedTypes = const <String>{}}): _previews = previews,_selectedTypes = selectedTypes,super._();
   
 
- final  List<PokemonSummary> _allPokemon;
-@override@JsonKey() List<PokemonSummary> get allPokemon {
-  if (_allPokemon is EqualUnmodifiableListView) return _allPokemon;
+/// Fully enriched previews — ready to render with color and type.
+ final  List<PokemonPreview> _previews;
+/// Fully enriched previews — ready to render with color and type.
+@override@JsonKey() List<PokemonPreview> get previews {
+  if (_previews is EqualUnmodifiableListView) return _previews;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_allPokemon);
+  return EqualUnmodifiableListView(_previews);
 }
 
-@override@JsonKey() final  String searchQuery;
-@override@JsonKey() final  String selectedType;
-// '' = no type filter
+/// True only while the very first page is loading.
+@override@JsonKey() final  bool isInitialLoading;
+/// True while loading pages 2, 3, … (pagination).
 @override@JsonKey() final  bool isLoadingMore;
 @override@JsonKey() final  bool hasReachedEnd;
+/// Non-null only on hard failures (first page).
 @override final  AppException? error;
+/// Active name filter (search bar).
+@override@JsonKey() final  String searchQuery;
+/// Active single-type filter (horizontal chip row). Empty string = no filter.
+@override@JsonKey() final  String selectedType;
+/// Active multi-type filter (bottom-sheet filter). Empty set = no filter.
+ final  Set<String> _selectedTypes;
+/// Active multi-type filter (bottom-sheet filter). Empty set = no filter.
+@override@JsonKey() Set<String> get selectedTypes {
+  if (_selectedTypes is EqualUnmodifiableSetView) return _selectedTypes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_selectedTypes);
+}
+
 
 /// Create a copy of PokemonListState
 /// with the given fields replaced by the non-null parameter values.
@@ -245,16 +269,16 @@ _$PokemonListStateCopyWith<_PokemonListState> get copyWith => __$PokemonListStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonListState&&const DeepCollectionEquality().equals(other._allPokemon, _allPokemon)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedType, selectedType) || other.selectedType == selectedType)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonListState&&const DeepCollectionEquality().equals(other._previews, _previews)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasReachedEnd, hasReachedEnd) || other.hasReachedEnd == hasReachedEnd)&&(identical(other.error, error) || other.error == error)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedType, selectedType) || other.selectedType == selectedType)&&const DeepCollectionEquality().equals(other._selectedTypes, _selectedTypes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_allPokemon),searchQuery,selectedType,isLoadingMore,hasReachedEnd,error);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_previews),isInitialLoading,isLoadingMore,hasReachedEnd,error,searchQuery,selectedType,const DeepCollectionEquality().hash(_selectedTypes));
 
 @override
 String toString() {
-  return 'PokemonListState(allPokemon: $allPokemon, searchQuery: $searchQuery, selectedType: $selectedType, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd, error: $error)';
+  return 'PokemonListState(previews: $previews, isInitialLoading: $isInitialLoading, isLoadingMore: $isLoadingMore, hasReachedEnd: $hasReachedEnd, error: $error, searchQuery: $searchQuery, selectedType: $selectedType, selectedTypes: $selectedTypes)';
 }
 
 
@@ -265,7 +289,7 @@ abstract mixin class _$PokemonListStateCopyWith<$Res> implements $PokemonListSta
   factory _$PokemonListStateCopyWith(_PokemonListState value, $Res Function(_PokemonListState) _then) = __$PokemonListStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<PokemonSummary> allPokemon, String searchQuery, String selectedType, bool isLoadingMore, bool hasReachedEnd, AppException? error
+ List<PokemonPreview> previews, bool isInitialLoading, bool isLoadingMore, bool hasReachedEnd, AppException? error, String searchQuery, String selectedType, Set<String> selectedTypes
 });
 
 
@@ -282,15 +306,17 @@ class __$PokemonListStateCopyWithImpl<$Res>
 
 /// Create a copy of PokemonListState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? allPokemon = null,Object? searchQuery = null,Object? selectedType = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? previews = null,Object? isInitialLoading = null,Object? isLoadingMore = null,Object? hasReachedEnd = null,Object? error = freezed,Object? searchQuery = null,Object? selectedType = null,Object? selectedTypes = null,}) {
   return _then(_PokemonListState(
-allPokemon: null == allPokemon ? _self._allPokemon : allPokemon // ignore: cast_nullable_to_non_nullable
-as List<PokemonSummary>,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
-as String,selectedType: null == selectedType ? _self.selectedType : selectedType // ignore: cast_nullable_to_non_nullable
-as String,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+previews: null == previews ? _self._previews : previews // ignore: cast_nullable_to_non_nullable
+as List<PokemonPreview>,isInitialLoading: null == isInitialLoading ? _self.isInitialLoading : isInitialLoading // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
 as bool,hasReachedEnd: null == hasReachedEnd ? _self.hasReachedEnd : hasReachedEnd // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as AppException?,
+as AppException?,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,selectedType: null == selectedType ? _self.selectedType : selectedType // ignore: cast_nullable_to_non_nullable
+as String,selectedTypes: null == selectedTypes ? _self._selectedTypes : selectedTypes // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 

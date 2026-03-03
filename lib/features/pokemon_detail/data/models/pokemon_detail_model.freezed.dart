@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PokemonDetailModel {
 
- int get id; String get name; int get baseExperience; int get height; int get weight; List<PokemonTypeSlotModel> get types; List<PokemonStatModel> get stats; List<PokemonAbilitySlotModel> get abilities; PokemonSpritesModel get sprites;
+ int get id; String get name;@JsonKey(name: 'base_experience') int get baseExperience; int get height; int get weight; List<PokemonTypeSlotModel> get types; List<PokemonStatModel> get stats; List<PokemonAbilitySlotModel> get abilities; PokemonSpritesModel get sprites;
 /// Create a copy of PokemonDetailModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $PokemonDetailModelCopyWith<$Res>  {
   factory $PokemonDetailModelCopyWith(PokemonDetailModel value, $Res Function(PokemonDetailModel) _then) = _$PokemonDetailModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
+ int id, String name,@JsonKey(name: 'base_experience') int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
 });
 
 
@@ -170,7 +170,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'base_experience')  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PokemonDetailModel() when $default != null:
 return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weight,_that.types,_that.stats,_that.abilities,_that.sprites);case _:
@@ -191,7 +191,7 @@ return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weig
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'base_experience')  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonDetailModel():
 return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weight,_that.types,_that.stats,_that.abilities,_that.sprites);case _:
@@ -211,7 +211,7 @@ return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weig
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name, @JsonKey(name: 'base_experience')  int baseExperience,  int height,  int weight,  List<PokemonTypeSlotModel> types,  List<PokemonStatModel> stats,  List<PokemonAbilitySlotModel> abilities,  PokemonSpritesModel sprites)?  $default,) {final _that = this;
 switch (_that) {
 case _PokemonDetailModel() when $default != null:
 return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weight,_that.types,_that.stats,_that.abilities,_that.sprites);case _:
@@ -226,12 +226,12 @@ return $default(_that.id,_that.name,_that.baseExperience,_that.height,_that.weig
 @JsonSerializable()
 
 class _PokemonDetailModel implements PokemonDetailModel {
-  const _PokemonDetailModel({required this.id, required this.name, required this.baseExperience, required this.height, required this.weight, required final  List<PokemonTypeSlotModel> types, required final  List<PokemonStatModel> stats, required final  List<PokemonAbilitySlotModel> abilities, required this.sprites}): _types = types,_stats = stats,_abilities = abilities;
+  const _PokemonDetailModel({required this.id, required this.name, @JsonKey(name: 'base_experience') required this.baseExperience, required this.height, required this.weight, required final  List<PokemonTypeSlotModel> types, required final  List<PokemonStatModel> stats, required final  List<PokemonAbilitySlotModel> abilities, required this.sprites}): _types = types,_stats = stats,_abilities = abilities;
   factory _PokemonDetailModel.fromJson(Map<String, dynamic> json) => _$PokemonDetailModelFromJson(json);
 
 @override final  int id;
 @override final  String name;
-@override final  int baseExperience;
+@override@JsonKey(name: 'base_experience') final  int baseExperience;
 @override final  int height;
 @override final  int weight;
  final  List<PokemonTypeSlotModel> _types;
@@ -290,7 +290,7 @@ abstract mixin class _$PokemonDetailModelCopyWith<$Res> implements $PokemonDetai
   factory _$PokemonDetailModelCopyWith(_PokemonDetailModel value, $Res Function(_PokemonDetailModel) _then) = __$PokemonDetailModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
+ int id, String name,@JsonKey(name: 'base_experience') int baseExperience, int height, int weight, List<PokemonTypeSlotModel> types, List<PokemonStatModel> stats, List<PokemonAbilitySlotModel> abilities, PokemonSpritesModel sprites
 });
 
 
@@ -2830,6 +2830,1713 @@ class __$PokemonOfficialArtworkModelCopyWithImpl<$Res>
 frontDefault: freezed == frontDefault ? _self.frontDefault : frontDefault // ignore: cast_nullable_to_non_nullable
 as String?,frontShiny: freezed == frontShiny ? _self.frontShiny : frontShiny // ignore: cast_nullable_to_non_nullable
 as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$PokemonSpeciesModel {
+
+@JsonKey(name: 'gender_rate') int get genderRate;@JsonKey(name: 'flavor_text_entries') List<FlavorTextEntryModel> get flavorTextEntries; List<GenusModel> get genera;
+/// Create a copy of PokemonSpeciesModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PokemonSpeciesModelCopyWith<PokemonSpeciesModel> get copyWith => _$PokemonSpeciesModelCopyWithImpl<PokemonSpeciesModel>(this as PokemonSpeciesModel, _$identity);
+
+  /// Serializes this PokemonSpeciesModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonSpeciesModel&&(identical(other.genderRate, genderRate) || other.genderRate == genderRate)&&const DeepCollectionEquality().equals(other.flavorTextEntries, flavorTextEntries)&&const DeepCollectionEquality().equals(other.genera, genera));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,genderRate,const DeepCollectionEquality().hash(flavorTextEntries),const DeepCollectionEquality().hash(genera));
+
+@override
+String toString() {
+  return 'PokemonSpeciesModel(genderRate: $genderRate, flavorTextEntries: $flavorTextEntries, genera: $genera)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PokemonSpeciesModelCopyWith<$Res>  {
+  factory $PokemonSpeciesModelCopyWith(PokemonSpeciesModel value, $Res Function(PokemonSpeciesModel) _then) = _$PokemonSpeciesModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'gender_rate') int genderRate,@JsonKey(name: 'flavor_text_entries') List<FlavorTextEntryModel> flavorTextEntries, List<GenusModel> genera
+});
+
+
+
+
+}
+/// @nodoc
+class _$PokemonSpeciesModelCopyWithImpl<$Res>
+    implements $PokemonSpeciesModelCopyWith<$Res> {
+  _$PokemonSpeciesModelCopyWithImpl(this._self, this._then);
+
+  final PokemonSpeciesModel _self;
+  final $Res Function(PokemonSpeciesModel) _then;
+
+/// Create a copy of PokemonSpeciesModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? genderRate = null,Object? flavorTextEntries = null,Object? genera = null,}) {
+  return _then(_self.copyWith(
+genderRate: null == genderRate ? _self.genderRate : genderRate // ignore: cast_nullable_to_non_nullable
+as int,flavorTextEntries: null == flavorTextEntries ? _self.flavorTextEntries : flavorTextEntries // ignore: cast_nullable_to_non_nullable
+as List<FlavorTextEntryModel>,genera: null == genera ? _self.genera : genera // ignore: cast_nullable_to_non_nullable
+as List<GenusModel>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [PokemonSpeciesModel].
+extension PokemonSpeciesModelPatterns on PokemonSpeciesModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PokemonSpeciesModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PokemonSpeciesModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PokemonSpeciesModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _PokemonSpeciesModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PokemonSpeciesModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PokemonSpeciesModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'gender_rate')  int genderRate, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextEntryModel> flavorTextEntries,  List<GenusModel> genera)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PokemonSpeciesModel() when $default != null:
+return $default(_that.genderRate,_that.flavorTextEntries,_that.genera);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'gender_rate')  int genderRate, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextEntryModel> flavorTextEntries,  List<GenusModel> genera)  $default,) {final _that = this;
+switch (_that) {
+case _PokemonSpeciesModel():
+return $default(_that.genderRate,_that.flavorTextEntries,_that.genera);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'gender_rate')  int genderRate, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextEntryModel> flavorTextEntries,  List<GenusModel> genera)?  $default,) {final _that = this;
+switch (_that) {
+case _PokemonSpeciesModel() when $default != null:
+return $default(_that.genderRate,_that.flavorTextEntries,_that.genera);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _PokemonSpeciesModel implements PokemonSpeciesModel {
+  const _PokemonSpeciesModel({@JsonKey(name: 'gender_rate') required this.genderRate, @JsonKey(name: 'flavor_text_entries') required final  List<FlavorTextEntryModel> flavorTextEntries, required final  List<GenusModel> genera}): _flavorTextEntries = flavorTextEntries,_genera = genera;
+  factory _PokemonSpeciesModel.fromJson(Map<String, dynamic> json) => _$PokemonSpeciesModelFromJson(json);
+
+@override@JsonKey(name: 'gender_rate') final  int genderRate;
+ final  List<FlavorTextEntryModel> _flavorTextEntries;
+@override@JsonKey(name: 'flavor_text_entries') List<FlavorTextEntryModel> get flavorTextEntries {
+  if (_flavorTextEntries is EqualUnmodifiableListView) return _flavorTextEntries;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_flavorTextEntries);
+}
+
+ final  List<GenusModel> _genera;
+@override List<GenusModel> get genera {
+  if (_genera is EqualUnmodifiableListView) return _genera;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_genera);
+}
+
+
+/// Create a copy of PokemonSpeciesModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PokemonSpeciesModelCopyWith<_PokemonSpeciesModel> get copyWith => __$PokemonSpeciesModelCopyWithImpl<_PokemonSpeciesModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PokemonSpeciesModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonSpeciesModel&&(identical(other.genderRate, genderRate) || other.genderRate == genderRate)&&const DeepCollectionEquality().equals(other._flavorTextEntries, _flavorTextEntries)&&const DeepCollectionEquality().equals(other._genera, _genera));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,genderRate,const DeepCollectionEquality().hash(_flavorTextEntries),const DeepCollectionEquality().hash(_genera));
+
+@override
+String toString() {
+  return 'PokemonSpeciesModel(genderRate: $genderRate, flavorTextEntries: $flavorTextEntries, genera: $genera)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PokemonSpeciesModelCopyWith<$Res> implements $PokemonSpeciesModelCopyWith<$Res> {
+  factory _$PokemonSpeciesModelCopyWith(_PokemonSpeciesModel value, $Res Function(_PokemonSpeciesModel) _then) = __$PokemonSpeciesModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'gender_rate') int genderRate,@JsonKey(name: 'flavor_text_entries') List<FlavorTextEntryModel> flavorTextEntries, List<GenusModel> genera
+});
+
+
+
+
+}
+/// @nodoc
+class __$PokemonSpeciesModelCopyWithImpl<$Res>
+    implements _$PokemonSpeciesModelCopyWith<$Res> {
+  __$PokemonSpeciesModelCopyWithImpl(this._self, this._then);
+
+  final _PokemonSpeciesModel _self;
+  final $Res Function(_PokemonSpeciesModel) _then;
+
+/// Create a copy of PokemonSpeciesModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? genderRate = null,Object? flavorTextEntries = null,Object? genera = null,}) {
+  return _then(_PokemonSpeciesModel(
+genderRate: null == genderRate ? _self.genderRate : genderRate // ignore: cast_nullable_to_non_nullable
+as int,flavorTextEntries: null == flavorTextEntries ? _self._flavorTextEntries : flavorTextEntries // ignore: cast_nullable_to_non_nullable
+as List<FlavorTextEntryModel>,genera: null == genera ? _self._genera : genera // ignore: cast_nullable_to_non_nullable
+as List<GenusModel>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$FlavorTextEntryModel {
+
+@JsonKey(name: 'flavor_text') String get flavorText; NamedAPIResourceModel get language; NamedAPIResourceModel get version;
+/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FlavorTextEntryModelCopyWith<FlavorTextEntryModel> get copyWith => _$FlavorTextEntryModelCopyWithImpl<FlavorTextEntryModel>(this as FlavorTextEntryModel, _$identity);
+
+  /// Serializes this FlavorTextEntryModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FlavorTextEntryModel&&(identical(other.flavorText, flavorText) || other.flavorText == flavorText)&&(identical(other.language, language) || other.language == language)&&(identical(other.version, version) || other.version == version));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,flavorText,language,version);
+
+@override
+String toString() {
+  return 'FlavorTextEntryModel(flavorText: $flavorText, language: $language, version: $version)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FlavorTextEntryModelCopyWith<$Res>  {
+  factory $FlavorTextEntryModelCopyWith(FlavorTextEntryModel value, $Res Function(FlavorTextEntryModel) _then) = _$FlavorTextEntryModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'flavor_text') String flavorText, NamedAPIResourceModel language, NamedAPIResourceModel version
+});
+
+
+$NamedAPIResourceModelCopyWith<$Res> get language;$NamedAPIResourceModelCopyWith<$Res> get version;
+
+}
+/// @nodoc
+class _$FlavorTextEntryModelCopyWithImpl<$Res>
+    implements $FlavorTextEntryModelCopyWith<$Res> {
+  _$FlavorTextEntryModelCopyWithImpl(this._self, this._then);
+
+  final FlavorTextEntryModel _self;
+  final $Res Function(FlavorTextEntryModel) _then;
+
+/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? flavorText = null,Object? language = null,Object? version = null,}) {
+  return _then(_self.copyWith(
+flavorText: null == flavorText ? _self.flavorText : flavorText // ignore: cast_nullable_to_non_nullable
+as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,
+  ));
+}
+/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get language {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.language, (value) {
+    return _then(_self.copyWith(language: value));
+  });
+}/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get version {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.version, (value) {
+    return _then(_self.copyWith(version: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [FlavorTextEntryModel].
+extension FlavorTextEntryModelPatterns on FlavorTextEntryModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FlavorTextEntryModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FlavorTextEntryModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FlavorTextEntryModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _FlavorTextEntryModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FlavorTextEntryModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FlavorTextEntryModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'flavor_text')  String flavorText,  NamedAPIResourceModel language,  NamedAPIResourceModel version)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FlavorTextEntryModel() when $default != null:
+return $default(_that.flavorText,_that.language,_that.version);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'flavor_text')  String flavorText,  NamedAPIResourceModel language,  NamedAPIResourceModel version)  $default,) {final _that = this;
+switch (_that) {
+case _FlavorTextEntryModel():
+return $default(_that.flavorText,_that.language,_that.version);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'flavor_text')  String flavorText,  NamedAPIResourceModel language,  NamedAPIResourceModel version)?  $default,) {final _that = this;
+switch (_that) {
+case _FlavorTextEntryModel() when $default != null:
+return $default(_that.flavorText,_that.language,_that.version);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _FlavorTextEntryModel implements FlavorTextEntryModel {
+  const _FlavorTextEntryModel({@JsonKey(name: 'flavor_text') required this.flavorText, required this.language, required this.version});
+  factory _FlavorTextEntryModel.fromJson(Map<String, dynamic> json) => _$FlavorTextEntryModelFromJson(json);
+
+@override@JsonKey(name: 'flavor_text') final  String flavorText;
+@override final  NamedAPIResourceModel language;
+@override final  NamedAPIResourceModel version;
+
+/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FlavorTextEntryModelCopyWith<_FlavorTextEntryModel> get copyWith => __$FlavorTextEntryModelCopyWithImpl<_FlavorTextEntryModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FlavorTextEntryModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FlavorTextEntryModel&&(identical(other.flavorText, flavorText) || other.flavorText == flavorText)&&(identical(other.language, language) || other.language == language)&&(identical(other.version, version) || other.version == version));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,flavorText,language,version);
+
+@override
+String toString() {
+  return 'FlavorTextEntryModel(flavorText: $flavorText, language: $language, version: $version)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FlavorTextEntryModelCopyWith<$Res> implements $FlavorTextEntryModelCopyWith<$Res> {
+  factory _$FlavorTextEntryModelCopyWith(_FlavorTextEntryModel value, $Res Function(_FlavorTextEntryModel) _then) = __$FlavorTextEntryModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'flavor_text') String flavorText, NamedAPIResourceModel language, NamedAPIResourceModel version
+});
+
+
+@override $NamedAPIResourceModelCopyWith<$Res> get language;@override $NamedAPIResourceModelCopyWith<$Res> get version;
+
+}
+/// @nodoc
+class __$FlavorTextEntryModelCopyWithImpl<$Res>
+    implements _$FlavorTextEntryModelCopyWith<$Res> {
+  __$FlavorTextEntryModelCopyWithImpl(this._self, this._then);
+
+  final _FlavorTextEntryModel _self;
+  final $Res Function(_FlavorTextEntryModel) _then;
+
+/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? flavorText = null,Object? language = null,Object? version = null,}) {
+  return _then(_FlavorTextEntryModel(
+flavorText: null == flavorText ? _self.flavorText : flavorText // ignore: cast_nullable_to_non_nullable
+as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,
+  ));
+}
+
+/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get language {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.language, (value) {
+    return _then(_self.copyWith(language: value));
+  });
+}/// Create a copy of FlavorTextEntryModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get version {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.version, (value) {
+    return _then(_self.copyWith(version: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$GenusModel {
+
+ String get genus; NamedAPIResourceModel get language;
+/// Create a copy of GenusModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$GenusModelCopyWith<GenusModel> get copyWith => _$GenusModelCopyWithImpl<GenusModel>(this as GenusModel, _$identity);
+
+  /// Serializes this GenusModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GenusModel&&(identical(other.genus, genus) || other.genus == genus)&&(identical(other.language, language) || other.language == language));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,genus,language);
+
+@override
+String toString() {
+  return 'GenusModel(genus: $genus, language: $language)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $GenusModelCopyWith<$Res>  {
+  factory $GenusModelCopyWith(GenusModel value, $Res Function(GenusModel) _then) = _$GenusModelCopyWithImpl;
+@useResult
+$Res call({
+ String genus, NamedAPIResourceModel language
+});
+
+
+$NamedAPIResourceModelCopyWith<$Res> get language;
+
+}
+/// @nodoc
+class _$GenusModelCopyWithImpl<$Res>
+    implements $GenusModelCopyWith<$Res> {
+  _$GenusModelCopyWithImpl(this._self, this._then);
+
+  final GenusModel _self;
+  final $Res Function(GenusModel) _then;
+
+/// Create a copy of GenusModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? genus = null,Object? language = null,}) {
+  return _then(_self.copyWith(
+genus: null == genus ? _self.genus : genus // ignore: cast_nullable_to_non_nullable
+as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,
+  ));
+}
+/// Create a copy of GenusModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get language {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.language, (value) {
+    return _then(_self.copyWith(language: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [GenusModel].
+extension GenusModelPatterns on GenusModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _GenusModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _GenusModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _GenusModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _GenusModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _GenusModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _GenusModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String genus,  NamedAPIResourceModel language)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _GenusModel() when $default != null:
+return $default(_that.genus,_that.language);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String genus,  NamedAPIResourceModel language)  $default,) {final _that = this;
+switch (_that) {
+case _GenusModel():
+return $default(_that.genus,_that.language);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String genus,  NamedAPIResourceModel language)?  $default,) {final _that = this;
+switch (_that) {
+case _GenusModel() when $default != null:
+return $default(_that.genus,_that.language);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _GenusModel implements GenusModel {
+  const _GenusModel({required this.genus, required this.language});
+  factory _GenusModel.fromJson(Map<String, dynamic> json) => _$GenusModelFromJson(json);
+
+@override final  String genus;
+@override final  NamedAPIResourceModel language;
+
+/// Create a copy of GenusModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$GenusModelCopyWith<_GenusModel> get copyWith => __$GenusModelCopyWithImpl<_GenusModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$GenusModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GenusModel&&(identical(other.genus, genus) || other.genus == genus)&&(identical(other.language, language) || other.language == language));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,genus,language);
+
+@override
+String toString() {
+  return 'GenusModel(genus: $genus, language: $language)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$GenusModelCopyWith<$Res> implements $GenusModelCopyWith<$Res> {
+  factory _$GenusModelCopyWith(_GenusModel value, $Res Function(_GenusModel) _then) = __$GenusModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String genus, NamedAPIResourceModel language
+});
+
+
+@override $NamedAPIResourceModelCopyWith<$Res> get language;
+
+}
+/// @nodoc
+class __$GenusModelCopyWithImpl<$Res>
+    implements _$GenusModelCopyWith<$Res> {
+  __$GenusModelCopyWithImpl(this._self, this._then);
+
+  final _GenusModel _self;
+  final $Res Function(_GenusModel) _then;
+
+/// Create a copy of GenusModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? genus = null,Object? language = null,}) {
+  return _then(_GenusModel(
+genus: null == genus ? _self.genus : genus // ignore: cast_nullable_to_non_nullable
+as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,
+  ));
+}
+
+/// Create a copy of GenusModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get language {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.language, (value) {
+    return _then(_self.copyWith(language: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$NamedAPIResourceModel {
+
+ String get name; String get url;
+/// Create a copy of NamedAPIResourceModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<NamedAPIResourceModel> get copyWith => _$NamedAPIResourceModelCopyWithImpl<NamedAPIResourceModel>(this as NamedAPIResourceModel, _$identity);
+
+  /// Serializes this NamedAPIResourceModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedAPIResourceModel&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,url);
+
+@override
+String toString() {
+  return 'NamedAPIResourceModel(name: $name, url: $url)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NamedAPIResourceModelCopyWith<$Res>  {
+  factory $NamedAPIResourceModelCopyWith(NamedAPIResourceModel value, $Res Function(NamedAPIResourceModel) _then) = _$NamedAPIResourceModelCopyWithImpl;
+@useResult
+$Res call({
+ String name, String url
+});
+
+
+
+
+}
+/// @nodoc
+class _$NamedAPIResourceModelCopyWithImpl<$Res>
+    implements $NamedAPIResourceModelCopyWith<$Res> {
+  _$NamedAPIResourceModelCopyWithImpl(this._self, this._then);
+
+  final NamedAPIResourceModel _self;
+  final $Res Function(NamedAPIResourceModel) _then;
+
+/// Create a copy of NamedAPIResourceModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? url = null,}) {
+  return _then(_self.copyWith(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [NamedAPIResourceModel].
+extension NamedAPIResourceModelPatterns on NamedAPIResourceModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NamedAPIResourceModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NamedAPIResourceModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NamedAPIResourceModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _NamedAPIResourceModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NamedAPIResourceModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NamedAPIResourceModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String url)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NamedAPIResourceModel() when $default != null:
+return $default(_that.name,_that.url);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String url)  $default,) {final _that = this;
+switch (_that) {
+case _NamedAPIResourceModel():
+return $default(_that.name,_that.url);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String url)?  $default,) {final _that = this;
+switch (_that) {
+case _NamedAPIResourceModel() when $default != null:
+return $default(_that.name,_that.url);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NamedAPIResourceModel implements NamedAPIResourceModel {
+  const _NamedAPIResourceModel({required this.name, required this.url});
+  factory _NamedAPIResourceModel.fromJson(Map<String, dynamic> json) => _$NamedAPIResourceModelFromJson(json);
+
+@override final  String name;
+@override final  String url;
+
+/// Create a copy of NamedAPIResourceModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NamedAPIResourceModelCopyWith<_NamedAPIResourceModel> get copyWith => __$NamedAPIResourceModelCopyWithImpl<_NamedAPIResourceModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NamedAPIResourceModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NamedAPIResourceModel&&(identical(other.name, name) || other.name == name)&&(identical(other.url, url) || other.url == url));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,url);
+
+@override
+String toString() {
+  return 'NamedAPIResourceModel(name: $name, url: $url)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NamedAPIResourceModelCopyWith<$Res> implements $NamedAPIResourceModelCopyWith<$Res> {
+  factory _$NamedAPIResourceModelCopyWith(_NamedAPIResourceModel value, $Res Function(_NamedAPIResourceModel) _then) = __$NamedAPIResourceModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String url
+});
+
+
+
+
+}
+/// @nodoc
+class __$NamedAPIResourceModelCopyWithImpl<$Res>
+    implements _$NamedAPIResourceModelCopyWith<$Res> {
+  __$NamedAPIResourceModelCopyWithImpl(this._self, this._then);
+
+  final _NamedAPIResourceModel _self;
+  final $Res Function(_NamedAPIResourceModel) _then;
+
+/// Create a copy of NamedAPIResourceModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? url = null,}) {
+  return _then(_NamedAPIResourceModel(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$PokemonTypeDetailsModel {
+
+ String get name;@JsonKey(name: 'damage_relations') TypeDamageRelationsModel get damageRelations;
+/// Create a copy of PokemonTypeDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PokemonTypeDetailsModelCopyWith<PokemonTypeDetailsModel> get copyWith => _$PokemonTypeDetailsModelCopyWithImpl<PokemonTypeDetailsModel>(this as PokemonTypeDetailsModel, _$identity);
+
+  /// Serializes this PokemonTypeDetailsModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonTypeDetailsModel&&(identical(other.name, name) || other.name == name)&&(identical(other.damageRelations, damageRelations) || other.damageRelations == damageRelations));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,damageRelations);
+
+@override
+String toString() {
+  return 'PokemonTypeDetailsModel(name: $name, damageRelations: $damageRelations)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PokemonTypeDetailsModelCopyWith<$Res>  {
+  factory $PokemonTypeDetailsModelCopyWith(PokemonTypeDetailsModel value, $Res Function(PokemonTypeDetailsModel) _then) = _$PokemonTypeDetailsModelCopyWithImpl;
+@useResult
+$Res call({
+ String name,@JsonKey(name: 'damage_relations') TypeDamageRelationsModel damageRelations
+});
+
+
+$TypeDamageRelationsModelCopyWith<$Res> get damageRelations;
+
+}
+/// @nodoc
+class _$PokemonTypeDetailsModelCopyWithImpl<$Res>
+    implements $PokemonTypeDetailsModelCopyWith<$Res> {
+  _$PokemonTypeDetailsModelCopyWithImpl(this._self, this._then);
+
+  final PokemonTypeDetailsModel _self;
+  final $Res Function(PokemonTypeDetailsModel) _then;
+
+/// Create a copy of PokemonTypeDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? damageRelations = null,}) {
+  return _then(_self.copyWith(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,damageRelations: null == damageRelations ? _self.damageRelations : damageRelations // ignore: cast_nullable_to_non_nullable
+as TypeDamageRelationsModel,
+  ));
+}
+/// Create a copy of PokemonTypeDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TypeDamageRelationsModelCopyWith<$Res> get damageRelations {
+  
+  return $TypeDamageRelationsModelCopyWith<$Res>(_self.damageRelations, (value) {
+    return _then(_self.copyWith(damageRelations: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [PokemonTypeDetailsModel].
+extension PokemonTypeDetailsModelPatterns on PokemonTypeDetailsModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PokemonTypeDetailsModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PokemonTypeDetailsModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PokemonTypeDetailsModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _PokemonTypeDetailsModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PokemonTypeDetailsModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PokemonTypeDetailsModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name, @JsonKey(name: 'damage_relations')  TypeDamageRelationsModel damageRelations)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PokemonTypeDetailsModel() when $default != null:
+return $default(_that.name,_that.damageRelations);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name, @JsonKey(name: 'damage_relations')  TypeDamageRelationsModel damageRelations)  $default,) {final _that = this;
+switch (_that) {
+case _PokemonTypeDetailsModel():
+return $default(_that.name,_that.damageRelations);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name, @JsonKey(name: 'damage_relations')  TypeDamageRelationsModel damageRelations)?  $default,) {final _that = this;
+switch (_that) {
+case _PokemonTypeDetailsModel() when $default != null:
+return $default(_that.name,_that.damageRelations);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _PokemonTypeDetailsModel implements PokemonTypeDetailsModel {
+  const _PokemonTypeDetailsModel({required this.name, @JsonKey(name: 'damage_relations') required this.damageRelations});
+  factory _PokemonTypeDetailsModel.fromJson(Map<String, dynamic> json) => _$PokemonTypeDetailsModelFromJson(json);
+
+@override final  String name;
+@override@JsonKey(name: 'damage_relations') final  TypeDamageRelationsModel damageRelations;
+
+/// Create a copy of PokemonTypeDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PokemonTypeDetailsModelCopyWith<_PokemonTypeDetailsModel> get copyWith => __$PokemonTypeDetailsModelCopyWithImpl<_PokemonTypeDetailsModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PokemonTypeDetailsModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonTypeDetailsModel&&(identical(other.name, name) || other.name == name)&&(identical(other.damageRelations, damageRelations) || other.damageRelations == damageRelations));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,damageRelations);
+
+@override
+String toString() {
+  return 'PokemonTypeDetailsModel(name: $name, damageRelations: $damageRelations)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PokemonTypeDetailsModelCopyWith<$Res> implements $PokemonTypeDetailsModelCopyWith<$Res> {
+  factory _$PokemonTypeDetailsModelCopyWith(_PokemonTypeDetailsModel value, $Res Function(_PokemonTypeDetailsModel) _then) = __$PokemonTypeDetailsModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String name,@JsonKey(name: 'damage_relations') TypeDamageRelationsModel damageRelations
+});
+
+
+@override $TypeDamageRelationsModelCopyWith<$Res> get damageRelations;
+
+}
+/// @nodoc
+class __$PokemonTypeDetailsModelCopyWithImpl<$Res>
+    implements _$PokemonTypeDetailsModelCopyWith<$Res> {
+  __$PokemonTypeDetailsModelCopyWithImpl(this._self, this._then);
+
+  final _PokemonTypeDetailsModel _self;
+  final $Res Function(_PokemonTypeDetailsModel) _then;
+
+/// Create a copy of PokemonTypeDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? damageRelations = null,}) {
+  return _then(_PokemonTypeDetailsModel(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,damageRelations: null == damageRelations ? _self.damageRelations : damageRelations // ignore: cast_nullable_to_non_nullable
+as TypeDamageRelationsModel,
+  ));
+}
+
+/// Create a copy of PokemonTypeDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TypeDamageRelationsModelCopyWith<$Res> get damageRelations {
+  
+  return $TypeDamageRelationsModelCopyWith<$Res>(_self.damageRelations, (value) {
+    return _then(_self.copyWith(damageRelations: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$TypeDamageRelationsModel {
+
+@JsonKey(name: 'double_damage_from') List<NamedAPIResourceModel> get doubleDamageFrom;@JsonKey(name: 'half_damage_from') List<NamedAPIResourceModel> get halfDamageFrom;@JsonKey(name: 'no_damage_from') List<NamedAPIResourceModel> get noDamageFrom;
+/// Create a copy of TypeDamageRelationsModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TypeDamageRelationsModelCopyWith<TypeDamageRelationsModel> get copyWith => _$TypeDamageRelationsModelCopyWithImpl<TypeDamageRelationsModel>(this as TypeDamageRelationsModel, _$identity);
+
+  /// Serializes this TypeDamageRelationsModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TypeDamageRelationsModel&&const DeepCollectionEquality().equals(other.doubleDamageFrom, doubleDamageFrom)&&const DeepCollectionEquality().equals(other.halfDamageFrom, halfDamageFrom)&&const DeepCollectionEquality().equals(other.noDamageFrom, noDamageFrom));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(doubleDamageFrom),const DeepCollectionEquality().hash(halfDamageFrom),const DeepCollectionEquality().hash(noDamageFrom));
+
+@override
+String toString() {
+  return 'TypeDamageRelationsModel(doubleDamageFrom: $doubleDamageFrom, halfDamageFrom: $halfDamageFrom, noDamageFrom: $noDamageFrom)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TypeDamageRelationsModelCopyWith<$Res>  {
+  factory $TypeDamageRelationsModelCopyWith(TypeDamageRelationsModel value, $Res Function(TypeDamageRelationsModel) _then) = _$TypeDamageRelationsModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'double_damage_from') List<NamedAPIResourceModel> doubleDamageFrom,@JsonKey(name: 'half_damage_from') List<NamedAPIResourceModel> halfDamageFrom,@JsonKey(name: 'no_damage_from') List<NamedAPIResourceModel> noDamageFrom
+});
+
+
+
+
+}
+/// @nodoc
+class _$TypeDamageRelationsModelCopyWithImpl<$Res>
+    implements $TypeDamageRelationsModelCopyWith<$Res> {
+  _$TypeDamageRelationsModelCopyWithImpl(this._self, this._then);
+
+  final TypeDamageRelationsModel _self;
+  final $Res Function(TypeDamageRelationsModel) _then;
+
+/// Create a copy of TypeDamageRelationsModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? doubleDamageFrom = null,Object? halfDamageFrom = null,Object? noDamageFrom = null,}) {
+  return _then(_self.copyWith(
+doubleDamageFrom: null == doubleDamageFrom ? _self.doubleDamageFrom : doubleDamageFrom // ignore: cast_nullable_to_non_nullable
+as List<NamedAPIResourceModel>,halfDamageFrom: null == halfDamageFrom ? _self.halfDamageFrom : halfDamageFrom // ignore: cast_nullable_to_non_nullable
+as List<NamedAPIResourceModel>,noDamageFrom: null == noDamageFrom ? _self.noDamageFrom : noDamageFrom // ignore: cast_nullable_to_non_nullable
+as List<NamedAPIResourceModel>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [TypeDamageRelationsModel].
+extension TypeDamageRelationsModelPatterns on TypeDamageRelationsModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TypeDamageRelationsModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TypeDamageRelationsModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TypeDamageRelationsModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _TypeDamageRelationsModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TypeDamageRelationsModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TypeDamageRelationsModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'double_damage_from')  List<NamedAPIResourceModel> doubleDamageFrom, @JsonKey(name: 'half_damage_from')  List<NamedAPIResourceModel> halfDamageFrom, @JsonKey(name: 'no_damage_from')  List<NamedAPIResourceModel> noDamageFrom)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TypeDamageRelationsModel() when $default != null:
+return $default(_that.doubleDamageFrom,_that.halfDamageFrom,_that.noDamageFrom);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'double_damage_from')  List<NamedAPIResourceModel> doubleDamageFrom, @JsonKey(name: 'half_damage_from')  List<NamedAPIResourceModel> halfDamageFrom, @JsonKey(name: 'no_damage_from')  List<NamedAPIResourceModel> noDamageFrom)  $default,) {final _that = this;
+switch (_that) {
+case _TypeDamageRelationsModel():
+return $default(_that.doubleDamageFrom,_that.halfDamageFrom,_that.noDamageFrom);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'double_damage_from')  List<NamedAPIResourceModel> doubleDamageFrom, @JsonKey(name: 'half_damage_from')  List<NamedAPIResourceModel> halfDamageFrom, @JsonKey(name: 'no_damage_from')  List<NamedAPIResourceModel> noDamageFrom)?  $default,) {final _that = this;
+switch (_that) {
+case _TypeDamageRelationsModel() when $default != null:
+return $default(_that.doubleDamageFrom,_that.halfDamageFrom,_that.noDamageFrom);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _TypeDamageRelationsModel implements TypeDamageRelationsModel {
+  const _TypeDamageRelationsModel({@JsonKey(name: 'double_damage_from') required final  List<NamedAPIResourceModel> doubleDamageFrom, @JsonKey(name: 'half_damage_from') required final  List<NamedAPIResourceModel> halfDamageFrom, @JsonKey(name: 'no_damage_from') required final  List<NamedAPIResourceModel> noDamageFrom}): _doubleDamageFrom = doubleDamageFrom,_halfDamageFrom = halfDamageFrom,_noDamageFrom = noDamageFrom;
+  factory _TypeDamageRelationsModel.fromJson(Map<String, dynamic> json) => _$TypeDamageRelationsModelFromJson(json);
+
+ final  List<NamedAPIResourceModel> _doubleDamageFrom;
+@override@JsonKey(name: 'double_damage_from') List<NamedAPIResourceModel> get doubleDamageFrom {
+  if (_doubleDamageFrom is EqualUnmodifiableListView) return _doubleDamageFrom;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_doubleDamageFrom);
+}
+
+ final  List<NamedAPIResourceModel> _halfDamageFrom;
+@override@JsonKey(name: 'half_damage_from') List<NamedAPIResourceModel> get halfDamageFrom {
+  if (_halfDamageFrom is EqualUnmodifiableListView) return _halfDamageFrom;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_halfDamageFrom);
+}
+
+ final  List<NamedAPIResourceModel> _noDamageFrom;
+@override@JsonKey(name: 'no_damage_from') List<NamedAPIResourceModel> get noDamageFrom {
+  if (_noDamageFrom is EqualUnmodifiableListView) return _noDamageFrom;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_noDamageFrom);
+}
+
+
+/// Create a copy of TypeDamageRelationsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TypeDamageRelationsModelCopyWith<_TypeDamageRelationsModel> get copyWith => __$TypeDamageRelationsModelCopyWithImpl<_TypeDamageRelationsModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TypeDamageRelationsModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TypeDamageRelationsModel&&const DeepCollectionEquality().equals(other._doubleDamageFrom, _doubleDamageFrom)&&const DeepCollectionEquality().equals(other._halfDamageFrom, _halfDamageFrom)&&const DeepCollectionEquality().equals(other._noDamageFrom, _noDamageFrom));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_doubleDamageFrom),const DeepCollectionEquality().hash(_halfDamageFrom),const DeepCollectionEquality().hash(_noDamageFrom));
+
+@override
+String toString() {
+  return 'TypeDamageRelationsModel(doubleDamageFrom: $doubleDamageFrom, halfDamageFrom: $halfDamageFrom, noDamageFrom: $noDamageFrom)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TypeDamageRelationsModelCopyWith<$Res> implements $TypeDamageRelationsModelCopyWith<$Res> {
+  factory _$TypeDamageRelationsModelCopyWith(_TypeDamageRelationsModel value, $Res Function(_TypeDamageRelationsModel) _then) = __$TypeDamageRelationsModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'double_damage_from') List<NamedAPIResourceModel> doubleDamageFrom,@JsonKey(name: 'half_damage_from') List<NamedAPIResourceModel> halfDamageFrom,@JsonKey(name: 'no_damage_from') List<NamedAPIResourceModel> noDamageFrom
+});
+
+
+
+
+}
+/// @nodoc
+class __$TypeDamageRelationsModelCopyWithImpl<$Res>
+    implements _$TypeDamageRelationsModelCopyWith<$Res> {
+  __$TypeDamageRelationsModelCopyWithImpl(this._self, this._then);
+
+  final _TypeDamageRelationsModel _self;
+  final $Res Function(_TypeDamageRelationsModel) _then;
+
+/// Create a copy of TypeDamageRelationsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? doubleDamageFrom = null,Object? halfDamageFrom = null,Object? noDamageFrom = null,}) {
+  return _then(_TypeDamageRelationsModel(
+doubleDamageFrom: null == doubleDamageFrom ? _self._doubleDamageFrom : doubleDamageFrom // ignore: cast_nullable_to_non_nullable
+as List<NamedAPIResourceModel>,halfDamageFrom: null == halfDamageFrom ? _self._halfDamageFrom : halfDamageFrom // ignore: cast_nullable_to_non_nullable
+as List<NamedAPIResourceModel>,noDamageFrom: null == noDamageFrom ? _self._noDamageFrom : noDamageFrom // ignore: cast_nullable_to_non_nullable
+as List<NamedAPIResourceModel>,
   ));
 }
 

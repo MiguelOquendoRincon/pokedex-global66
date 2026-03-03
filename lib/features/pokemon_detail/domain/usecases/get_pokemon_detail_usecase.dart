@@ -12,15 +12,22 @@ import '../../data/repositories/pokemon_detail_repository_impl.dart';
 
 part 'get_pokemon_detail_usecase.g.dart';
 
-class GetPokemonDetailUseCase implements UseCase<PokemonDetail, String> {
+class GetPokemonDetailParams {
+  const GetPokemonDetailParams({required this.name, required this.language});
+  final String name;
+  final String language;
+}
+
+class GetPokemonDetailUseCase
+    implements UseCase<PokemonDetail, GetPokemonDetailParams> {
   const GetPokemonDetailUseCase(this._repository);
   final IPokemonDetailRepository _repository;
 
   @override
-  TaskEither<AppException, PokemonDetail> call(String name) =>
-      _repository.getPokemonDetail(name);
+  TaskEither<AppException, PokemonDetail> call(GetPokemonDetailParams params) =>
+      _repository.getPokemonDetail(params.name, params.language);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 GetPokemonDetailUseCase getPokemonDetailUseCase(Ref ref) =>
     GetPokemonDetailUseCase(ref.read(pokemonDetailRepositoryProvider));

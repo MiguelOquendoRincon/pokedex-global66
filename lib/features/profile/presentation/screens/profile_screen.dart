@@ -1,12 +1,15 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // features/profile/presentation/screens/profile_screen.dart
 // ══════════════════════════════════════════════════════════════════════════════
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/l10n/locale_provider.dart';
 import 'package:pokedex_global66/core/theme/theme_provider.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/features/profile/presentation/providers/profile_providers.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -17,63 +20,129 @@ class ProfileScreen extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final l10n = context.l10n;
     final isDark = themeMode == ThemeMode.dark;
-    final colorScheme = Theme.of(context).colorScheme;
+    final packageInfo = ref.watch(packageInfoProvider);
 
     final currentLang = locale?.languageCode ?? 'en';
 
     return Scaffold(
+      backgroundColor: isDark ? AppColorsDark.surface : AppColors.onPrimary,
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
-          // ── Header ──────────────────────────────────────────────────────────
+          // ── Premium Header ──────────────────────────────────────────────────
           SliverAppBar(
-            expandedHeight: 220,
+            expandedHeight: 280,
             pinned: true,
+            stretch: true,
+            backgroundColor: AppColors.primary,
+            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
+              stretchModes: const [
+                StretchMode.zoomBackground,
+                StretchMode.fadeTitle,
+              ],
               background: _ProfileHeader(isDark: isDark),
             ),
-            backgroundColor: AppColors.primary,
           ),
 
           // ── Body ────────────────────────────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ── Appearance section ─────────────────────────────────────
-                  _SectionLabel(l10n.profileAppearance),
+                  const SizedBox(height: 32),
+
+                  // ── Trainer Info Card ──────────────────────────────────────
+                  _TrainerStats(l10n: l10n),
+
+                  const SizedBox(height: 32),
+
+                  // ── Appearance Section ─────────────────────────────────────
+                  _SectionHeader(title: l10n.profileAppearance),
                   const SizedBox(height: 12),
-                  _SettingsCard(
+                  _SettingsContainer(
                     children: [
-                      _ThemeRow(
+                      _SettingRow(
+                        icon: isDark
+                            ? CupertinoIcons.moon_fill
+                            : CupertinoIcons.sun_max_fill,
                         label: l10n.profileDarkMode,
-                        isDark: isDark,
-                        colorScheme: colorScheme,
-                        onChanged: (_) =>
-                            ref.read(themeProvider.notifier).toggle(),
+                        trailing: CupertinoSwitch(
+                          value: isDark,
+                          onChanged: (_) =>
+                              ref.read(themeProvider.notifier).toggle(),
+                          activeTrackColor: AppColors.primary,
+                        ),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 32),
 
-                  // ── Language section ───────────────────────────────────────
-                  _SectionLabel(l10n.profileLanguage),
+                  // ── Language Section ───────────────────────────────────────
+                  _SectionHeader(title: l10n.profileLanguage),
                   const SizedBox(height: 12),
-                  _SettingsCard(
+                  _SettingsContainer(
                     children: [
-                      _LanguageRow(
+                      _SettingRow(
+                        icon: CupertinoIcons.globe,
                         label: l10n.profileSelectLanguage,
-                        currentLang: currentLang,
-                        colorScheme: colorScheme,
-                        onSelectEn: () =>
-                            ref.read(localeProvider.notifier).setEnglish(),
-                        onSelectEs: () =>
-                            ref.read(localeProvider.notifier).setSpanish(),
+                        trailing: _LanguagePicker(
+                          currentLang: currentLang,
+                          onSelectEn: () =>
+                              ref.read(localeProvider.notifier).setEnglish(),
+                          onSelectEs: () =>
+                              ref.read(localeProvider.notifier).setSpanish(),
+                        ),
                       ),
                     ],
                   ),
+
+                  const SizedBox(height: 40),
+
+                  // ── Version Branding ───────────────────────────────────────
+                  Center(
+                    child: Column(
+                      children: [
+                        Opacity(
+                          opacity: 0.5,
+                          child: Icon(
+                            Icons.catching_pokemon,
+                            size: 40,
+                            color: isDark ? Colors.white : AppColors.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        packageInfo.when(
+                          data: (info) => Text(
+                            '${l10n.profileVersion}: ${info.version} (${info.buildNumber})',
+                            style: GoogleFonts.outfit(
+                              fontSize: 13,
+                              color: isDark
+                                  ? Colors.white54
+                                  : AppColors.textMedium,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          error: (_, __) => const SizedBox.shrink(),
+                          loading: () =>
+                              const CupertinoActivityIndicator(radius: 8),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '© 2026 Global66 Pokédex',
+                          style: GoogleFonts.outfit(
+                            fontSize: 11,
+                            color: isDark ? Colors.white24 : AppColors.gray30,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 60),
                 ],
               ),
             ),
@@ -84,8 +153,6 @@ class ProfileScreen extends ConsumerWidget {
   }
 }
 
-// ── Header ─────────────────────────────────────────────────────────────────────
-
 class _ProfileHeader extends StatelessWidget {
   const _ProfileHeader({required this.isDark});
   final bool isDark;
@@ -95,67 +162,75 @@ class _ProfileHeader extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFFDC0A2D), Color(0xFFFF4F6D)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFFDC0A2D), Color(0xFFB71C1C)],
         ),
       ),
       child: Stack(
-        alignment: Alignment.center,
         children: [
-          // Pokéball watermark
-          Positioned(
-            right: -30,
-            top: -30,
+          // Pattern Overlay
+          Positioned.fill(
             child: Opacity(
-              opacity: 0.08,
-              child: Icon(
-                Icons.catching_pokemon,
-                size: 200,
-                color: Colors.white,
+              opacity: 0.05,
+              child: Image.asset(
+                'assets/images/pokeball_pattern.png',
+                repeat: ImageRepeat.repeat,
+                fit: BoxFit.none,
+                scale: 4,
+                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
               ),
             ),
           ),
-          // Avatar + name
-          SafeArea(
+
+          Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 12),
+                const SizedBox(height: 40),
+                // Avatar with Glow
                 Container(
-                  width: 88,
-                  height: 88,
+                  padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white.withValues(alpha: 0.15),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.4),
-                      width: 2,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 20,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    radius: 54,
+                    backgroundColor: Colors.white.withValues(alpha: 0.2),
+                    child: const CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        CupertinoIcons.person_fill,
+                        size: 50,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
-                  child: const Icon(
-                    Icons.person_rounded,
-                    size: 52,
-                    color: Colors.white,
-                  ),
                 ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Trainer',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 16),
                 Text(
-                  '✦  Global66 Pokédex  ✦',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.75),
-                    fontSize: 13,
-                    letterSpacing: 1.2,
+                  'Pokémon Master',
+                  style: GoogleFonts.outfit(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                Text(
+                  'Global66 Elite Trainer',
+                  style: GoogleFonts.outfit(
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -167,168 +242,204 @@ class _ProfileHeader extends StatelessWidget {
   }
 }
 
-// ── Section label ──────────────────────────────────────────────────────────────
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel(this.text);
-  final String text;
+class _TrainerStats extends StatelessWidget {
+  const _TrainerStats({required this.l10n});
+  final dynamic l10n;
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.only(left: 4),
-      child: Text(
-        text.toUpperCase(),
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 1.4,
-          color: colorScheme.primary,
-        ),
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          _StatItem(label: l10n.profileTrainerId, value: '#8866'),
+          Container(height: 40, width: 1, color: AppColors.gray10),
+          _StatItem(label: l10n.profileJoined, value: 'Mar 2026'),
+        ],
       ),
     );
   }
 }
 
-// ── Card container ─────────────────────────────────────────────────────────────
+class _StatItem extends StatelessWidget {
+  const _StatItem({required this.label, required this.value});
+  final String label;
+  final String value;
 
-class _SettingsCard extends StatelessWidget {
-  const _SettingsCard({required this.children});
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            label.toUpperCase(),
+            style: GoogleFonts.outfit(
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textMedium,
+              letterSpacing: 1,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: GoogleFonts.outfit(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: AppColors.textDark,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader({required this.title});
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: GoogleFonts.outfit(
+        fontSize: 18,
+        fontWeight: FontWeight.w800,
+        color: AppColors.primary,
+      ),
+    );
+  }
+}
+
+class _SettingsContainer extends StatelessWidget {
+  const _SettingsContainer({required this.children});
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(children: children),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(children: children),
+    );
+  }
+}
+
+class _SettingRow extends StatelessWidget {
+  const _SettingRow({
+    required this.icon,
+    required this.label,
+    required this.trailing,
+  });
+  final IconData icon;
+  final String label;
+  final Widget trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: AppColors.primary, size: 20),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              label,
+              style: GoogleFonts.outfit(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          trailing,
+        ],
       ),
     );
   }
 }
 
-// ── Theme toggle row ───────────────────────────────────────────────────────────
-
-class _ThemeRow extends StatelessWidget {
-  const _ThemeRow({
-    required this.label,
-    required this.isDark,
-    required this.colorScheme,
-    required this.onChanged,
+class _LanguagePicker extends StatelessWidget {
+  const _LanguagePicker({
+    required this.currentLang,
+    required this.onSelectEn,
+    required this.onSelectEs,
   });
-
-  final String label;
-  final bool isDark;
-  final ColorScheme colorScheme;
-  final ValueChanged<bool> onChanged;
+  final String currentLang;
+  final VoidCallback onSelectEn;
+  final VoidCallback onSelectEs;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      leading: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: Icon(
-          isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-          key: ValueKey(isDark),
-          color: colorScheme.primary,
-          size: 26,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _LangToggle(
+          label: 'EN',
+          isActive: currentLang == 'en',
+          onTap: onSelectEn,
         ),
-      ),
-      title: Text(label),
-      trailing: Switch(
-        value: isDark,
-        onChanged: onChanged,
-        activeThumbColor: colorScheme.primary,
-      ),
-    );
-  }
-}
-
-// ── Language selector row ──────────────────────────────────────────────────────
-
-class _LanguageRow extends StatelessWidget {
-  const _LanguageRow({
-    required this.label,
-    required this.currentLang,
-    required this.colorScheme,
-    required this.onSelectEn,
-    required this.onSelectEs,
-  });
-
-  final String label;
-  final String currentLang;
-  final ColorScheme colorScheme;
-  final VoidCallback onSelectEn;
-  final VoidCallback onSelectEs;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      leading: Icon(
-        Icons.language_rounded,
-        color: colorScheme.primary,
-        size: 26,
-      ),
-      title: Text(label),
-      trailing: _SegmentedLangPicker(
-        currentLang: currentLang,
-        colorScheme: colorScheme,
-        onSelectEn: onSelectEn,
-        onSelectEs: onSelectEs,
-      ),
-    );
-  }
-}
-
-// ── Segmented language picker ──────────────────────────────────────────────────
-
-class _SegmentedLangPicker extends StatelessWidget {
-  const _SegmentedLangPicker({
-    required this.currentLang,
-    required this.colorScheme,
-    required this.onSelectEn,
-    required this.onSelectEs,
-  });
-
-  final String currentLang;
-  final ColorScheme colorScheme;
-  final VoidCallback onSelectEn;
-  final VoidCallback onSelectEs;
-
-  @override
-  Widget build(BuildContext context) {
-    return SegmentedButton<String>(
-      segments: const [
-        ButtonSegment(value: 'en', label: Text('EN')),
-        ButtonSegment(value: 'es', label: Text('ES')),
+        const SizedBox(width: 8),
+        _LangToggle(
+          label: 'ES',
+          isActive: currentLang == 'es',
+          onTap: onSelectEs,
+        ),
       ],
-      selected: {currentLang},
-      onSelectionChanged: (Set<String> selected) {
-        if (selected.first == 'en') {
-          onSelectEn();
-        } else {
-          onSelectEs();
-        }
-      },
-      style: SegmentedButton.styleFrom(
-        selectedBackgroundColor: AppColors.primary,
-        selectedForegroundColor: Colors.white,
-        foregroundColor: colorScheme.onSurface,
-        side: BorderSide(color: colorScheme.outlineVariant),
-        textStyle: const TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.5,
+    );
+  }
+}
+
+class _LangToggle extends StatelessWidget {
+  const _LangToggle({
+    required this.label,
+    required this.isActive,
+    required this.onTap,
+  });
+  final String label;
+  final bool isActive;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isActive ? AppColors.primary : AppColors.gray10,
+          borderRadius: BorderRadius.circular(8),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-        minimumSize: const Size(0, 36),
+        child: Text(
+          label,
+          style: GoogleFonts.outfit(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: isActive ? Colors.white : AppColors.textMedium,
+          ),
+        ),
       ),
     );
   }

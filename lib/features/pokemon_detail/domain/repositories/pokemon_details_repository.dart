@@ -7,5 +7,8 @@ import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
 
 abstract interface class IPokemonDetailRepository {
-  TaskEither<AppException, PokemonDetail> getPokemonDetail(String name);
+  TaskEither<AppException, PokemonDetail> getPokemonDetail(
+    String name,
+    String language,
+  );
 }

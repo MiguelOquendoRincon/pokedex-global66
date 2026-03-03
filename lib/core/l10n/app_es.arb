@@ -7,7 +7,8 @@
   "searchHint": "Buscar Pokémon...",
 
   "favoritesTitle": "Mis Favoritos",
-  "favoritesEmpty": "Aún no tienes favoritos.\nToca el ♥ en cualquier Pokémon para guardarlo.",
+  "favoritesEmpty": "No has marcado ningún Pokémon como favorito",
+  "favoritesEmptySubtitle": "Haz clic en el ícono de corazón de tus Pokémon favoritos y aparecerán aquí.",
 
   "detailAbout": "Acerca de",
   "detailBaseStats": "Estadísticas",
@@ -15,6 +16,11 @@
   "detailHeight": "Altura",
   "detailWeight": "Peso",
   "detailBaseExp": "Exp. Base",
+  "detailCategory": "CATEGORÍA",
+  "detailAbility": "HABILIDAD",
+  "detailGender": "GÉNERO",
+  "detailWeaknesses": "Debilidades",
+  "detailGenderless": "Sin género",
 
   "statHp": "PS",
   "statAttack": "Ataque",
@@ -24,6 +30,7 @@
   "statSpeed": "Velocidad",
 
   "errorGeneric": "Algo salió mal.",
+  "pokemonListError": "No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.",
   "errorNoInternet": "Sin conexión a internet.",
   "errorNotFound": "Pokémon no encontrado.",
   "errorTimeout": "La solicitud tardó demasiado. Intenta de nuevo.",
@@ -33,8 +40,8 @@
   "navRegions": "Regiones",
   "navProfile": "Perfil",
 
-  "regionsComingSoon": "Muy pronto disponible",
-  "regionsComingSoonSubtitle": "Explora las regiones Pokémon desde\nKanto hasta Paldea. ¡Próximamente!",
+  "regionsComingSoon": "¡Muy pronto disponible!",
+  "regionsComingSoonSubtitle": "Estamos trabajando para traerte esta sección. Vuelve más adelante para descubrir todas las novedades.",
 
   "profileAppearance": "Apariencia",
   "profileDarkMode": "Modo oscuro",
@@ -72,5 +79,37 @@
     "placeholders": {
       "name": { "type": "String" }
     }
-  }
+  },
+
+  "deleteConfirmTitle": "Eliminar de favoritos",
+  "deleteConfirmMessage": "¿Estás seguro de que quieres eliminar a {name} de tus favoritos?",
+  "commonCancel": "Cancelar",
+  "commonDelete": "Eliminar",
+  "profileVersion": "Versión de la app",
+  "profileTrainerId": "ID de Entrenador",
+  "profileJoined": "Se unió el",
+
+  "typeBug": "Bicho",
+  "typeDark": "Siniestro",
+  "typeDragon": "Dragón",
+  "typeElectric": "Eléctrico",
+  "typeFairy": "Hada",
+  "typeFighting": "Lucha",
+  "typeFire": "Fuego",
+  "typeFlying": "Volador",
+  "typeGhost": "Fantasma",
+  "typeGrass": "Planta",
+  "typeGround": "Tierra",
+  "typeIce": "Hielo",
+  "typeNormal": "Normal",
+  "typePoison": "Veneno",
+  "typePsychic": "Psíquico",
+  "typeRock": "Roca",
+  "typeSteel": "Acero",
+  "typeWater": "Agua",
+  
+  "filterTitle": "Filtra por tus preferencias",
+  "filterType": "Tipo",
+  "filterApply": "Aplicar",
+  "filterCancel": "Cancelar"
 }

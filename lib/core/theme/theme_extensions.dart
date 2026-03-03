@@ -10,7 +10,7 @@ extension AppThemeX on BuildContext {
 
   /// Background behind the Pokémon list content area.
   Color get contentBg =>
-      isDark ? AppColorsDark.surface : const Color(0xFFEFEFEF);
+      isDark ? AppColorsDark.surface : const Color(0xFFFFFFFF);
 
   /// Card background.
   Color get cardBg => isDark ? AppColorsDark.surfaceVar : AppColors.surface;
@@ -19,6 +19,10 @@ extension AppThemeX on BuildContext {
   Color get textPrimary =>
       isDark ? AppColorsDark.textPrimary : AppColors.textDark;
 
+  /// Subtitle text.
+  Color get textSubtitle =>
+      isDark ? AppColorsDark.textPrimary : AppColors.textPrimary;
+
   /// Secondary / hint text.
   Color get textSecondary =>
       isDark ? AppColorsDark.textSecondary : AppColors.textMedium;
@@ -26,8 +30,32 @@ extension AppThemeX on BuildContext {
   /// Search bar / input fill.
   Color get inputFill => isDark ? AppColorsDark.inputFill : Colors.white;
 
+  /// Border color.
+  Color get borderColor =>
+      isDark ? AppColorsDark.darkBorder : AppColors.lightBorder;
+
+  /// Border color focus.
+  Color get focusBorderColor =>
+      isDark ? AppColorsDark.darkBorderFocus : AppColors.lightBorderFocus;
+
+  /// Border color hover.
+  Color get hoverBorderColor =>
+      isDark ? AppColorsDark.darkBorderHover : AppColors.lightBorderHover;
+
+  /// Border color pressed.
+  Color get pressedBorderColor =>
+      isDark ? AppColorsDark.darkBorderPressed : AppColors.lightBorderPressed;
+
+  /// Border color disabled.
+  Color get disabledBorderColor =>
+      isDark ? AppColorsDark.darkBorderDisabled : AppColors.lightBorderDisabled;
+
   /// Subtle icon / watermark overlay.
   Color get watermarkColor => isDark
       ? Colors.white.withValues(alpha: 0.04)
       : Colors.black.withValues(alpha: 0.05);
+
+  /// Gender colors.
+  Color get maleColor => const Color(0xFF2551C3);
+  Color get femaleColor => const Color(0xFFFF7596);
 }

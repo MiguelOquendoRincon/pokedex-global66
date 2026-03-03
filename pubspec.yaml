@@ -69,6 +69,7 @@ dependencies:
   shimmer: ^3.0.0                  # skeleton loaders
   lottie: ^3.3.2                   # pokeball loading animation
   palette_generator_master: ^1.0.1 # dynamic color from pokemon sprite
+  percent_indicator: ^4.2.5
 
   # ─── Internationalisation ────────────────────────────────────────────────
   intl: ^0.20.2
@@ -101,6 +102,14 @@ dev_dependencies:
 
   # ─── Testing ─────────────────────────────────────────────────────────────
   mocktail: ^1.0.4
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/loader.png"
+  remove_alpha_ios: true
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

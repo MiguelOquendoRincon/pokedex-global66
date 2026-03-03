@@ -38,7 +38,7 @@ abstract class FavoritePokemon with _$FavoritePokemon {
 
   String get imageUrl =>
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/'
-      'sprites/pokemon/other/official-artwork/$id.png';
+      'sprites/pokemon/$id.png';
 }
 
 extension FavoritePokemonX on FavoritePokemon {

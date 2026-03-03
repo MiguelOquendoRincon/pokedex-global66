@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_global66/core/theme/tokens/accesibility.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/utils/text_styles/global_text_styles.dart';
+import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
@@ -58,7 +59,7 @@ class PrimaryButton extends StatelessWidget {
                       key: ValueKey('loading'),
                       width: 22,
                       height: 22,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: InlineLoader(size: 22),
                     )
                   : Text(
                       key: const ValueKey('label'),

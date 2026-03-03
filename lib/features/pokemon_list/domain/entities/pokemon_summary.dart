@@ -26,5 +26,5 @@ abstract class PokemonSummary with _$PokemonSummary {
   /// Avoids an extra network call just to get the image on the list screen.
   String get imageUrl =>
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/'
-      'sprites/pokemon/other/official-artwork/$id.png';
+      'sprites/pokemon/$id.png';
 }

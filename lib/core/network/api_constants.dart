@@ -9,7 +9,10 @@ abstract final class ApiConstants {
   // Endpoints
   static const String pokemonList = 'pokemon';
   static String pokemonDetail(String name) => 'pokemon/$name';
+  static String pokemonSpecies(int id) => 'pokemon-species/$id';
+  static String typeDetail(String typeName) => 'type/$typeName';
 
   // Pagination defaults
+  static const int splashPreloadLimit = 10;
   static const int defaultPageLimit = 20;
 }

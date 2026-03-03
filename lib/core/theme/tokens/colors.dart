@@ -18,29 +18,37 @@ class AppColors {
 
   // Text
   static const Color textDark = Color(0xFF1D1D1D);
-  static const Color textMedium = Color(0xFF666666);
+  static const Color textMedium = Color(0xFF9E9E9E);
+  static const Color textPrimary = Color(0xFF424242);
   static const Color textLight = Color(0xFFFFFFFF);
+
+  // Borders
+  static const Color lightBorder = Color(0xFFE0E0E0);
+  static const Color lightBorderFocus = Color(0xFF1E88E5);
+  static const Color lightBorderHover = Color(0xFF1E88E5);
+  static const Color lightBorderPressed = Color(0xFF1E88E5);
+  static const Color lightBorderDisabled = Color(0xFF1E88E5);
 
   // Pokémon type palette
   static const Map<String, Color> typeColors = {
-    'normal': Color(0xFFA8A77A),
-    'fire': Color(0xFFEE8130),
-    'water': Color(0xFF6390F0),
-    'electric': Color(0xFFF7D02C),
-    'grass': Color(0xFF7AC74C),
-    'ice': Color(0xFF96D9D6),
-    'fighting': Color(0xFFC22E28),
-    'poison': Color(0xFFA33EA1),
-    'ground': Color(0xFFE2BF65),
-    'flying': Color(0xFFA98FF3),
-    'psychic': Color(0xFFF95587),
-    'bug': Color(0xFFA6B91A),
-    'rock': Color(0xFFB6A136),
-    'ghost': Color(0xFF735797),
-    'dragon': Color(0xFF6F35FC),
-    'dark': Color(0xFF705746),
-    'steel': Color(0xFFB7B7CE),
-    'fairy': Color(0xFFD685AD),
+    'normal': Color(0xFF546E7A),
+    'fire': Color(0xFFFF9800),
+    'water': Color(0xFF2196F3),
+    'electric': Color(0xFFFDD835),
+    'grass': Color(0xFF8BC34A),
+    'ice': Color(0xFF3D8BFF),
+    'fighting': Color(0xFFE53935),
+    'poison': Color(0xFF9C27B0),
+    'ground': Color(0xFFFFB300),
+    'flying': Color(0xFF00BCD4),
+    'psychic': Color(0xFF673AB7),
+    'bug': Color(0xFF43A047),
+    'rock': Color(0xFF795548),
+    'ghost': Color(0xFF8E24AA),
+    'dragon': Color(0xFF00ACC1),
+    'dark': Color(0xFF546E7A),
+    'steel': Color(0xFF546E7A),
+    'fairy': Color(0xFFE91E63),
   };
 
   static Color forType(String type) =>
@@ -164,4 +172,12 @@ abstract final class AppColorsDark {
 
   // SnackBar
   static const Color snackBarBg = Color(0xFF323232);
+
+  // Borders
+
+  static const Color darkBorder = Color(0xFF2E2E2E);
+  static const Color darkBorderFocus = Color(0xFF1E88E5);
+  static const Color darkBorderHover = Color(0xFF1E88E5);
+  static const Color darkBorderPressed = Color(0xFF1E88E5);
+  static const Color darkBorderDisabled = Color(0xFF1E88E5);
 }

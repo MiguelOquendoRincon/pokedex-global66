@@ -25,6 +25,10 @@ void main() {
     types: ['electric'],
     stats: {'hp': 35, 'attack': 55, 'defense': 40, 'speed': 90},
     abilities: ['static'],
+    weaknesses: ['ground'],
+    description: 'When it posits its tail, it is very cute.',
+    category: 'Mouse',
+    genderRate: 4,
     imageUrl: 'https://example.com/pikachu.png',
   );
 
@@ -36,10 +40,12 @@ void main() {
   group('GetPokemonDetailUseCase', () {
     test('returns Right(PokemonDetail) on success', () async {
       when(
-        () => mockRepo.getPokemonDetail('pikachu'),
+        () => mockRepo.getPokemonDetail('pikachu', 'en'),
       ).thenReturn(TaskEither.right(tDetail));
 
-      final result = await useCase('pikachu').run();
+      final result = await useCase(
+        const GetPokemonDetailParams(name: 'pikachu', language: 'en'),
+      ).run();
 
       result.fold((_) => fail('Expected Right'), (detail) {
         expect(detail.id, 25);
@@ -52,10 +58,12 @@ void main() {
 
     test('returns Left(NotFoundException) when not found', () async {
       when(
-        () => mockRepo.getPokemonDetail('missingno'),
+        () => mockRepo.getPokemonDetail('missingno', 'en'),
       ).thenReturn(TaskEither.left(const AppException.notFound()));
 
-      final result = await useCase('missingno').run();
+      final result = await useCase(
+        const GetPokemonDetailParams(name: 'missingno', language: 'en'),
+      ).run();
 
       expect(result, isA<Left<AppException, PokemonDetail>>());
       result.fold(

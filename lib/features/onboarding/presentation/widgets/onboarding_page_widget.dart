@@ -23,7 +23,6 @@ class OnboardingPageWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.12),
           // Pokéball-framed illustration
           Container(
             width: 342,

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 
 class PokemonListError extends StatelessWidget {
   const PokemonListError({
@@ -34,23 +36,35 @@ class PokemonListError extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.wifi_off_rounded,
-              size: 64,
-              color: AppColors.textMedium,
-            ),
+            Image.asset(CustomIcons.pokemonNotFound, width: 185, height: 185),
             const SizedBox(height: 16),
             Text(
-              message,
+              '$message...',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.textMedium, fontSize: 16),
+              style: context.textTheme.titleLarge?.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: Text(l10n.retryButton),
-              style: FilledButton.styleFrom(backgroundColor: AppColors.primary),
+            const SizedBox(height: 8),
+
+            Text(
+              l10n.pokemonListError,
+              textAlign: TextAlign.center,
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+
+            // ─── Retry button (full width) ──────────────────────────────────
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: onRetry,
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                ),
+                child: Text(l10n.retryButton),
+              ),
             ),
           ],
         ),

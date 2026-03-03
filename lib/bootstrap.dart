@@ -14,6 +14,7 @@ import 'core/observability/app_talker.dart';
 import 'core/theme/theme_provider.dart';
 import 'features/favorites/presentation/providers/favorites_provider.dart';
 import 'features/onboarding/presentation/providers/onboarding_provider.dart';
+import 'features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
 
 /// Single entry point for all app initialisation.
 ///
@@ -81,6 +82,9 @@ Future<void> bootstrap() async {
   container.read(favoritesProvider);
   container.read(themeProvider);
   container.read(onboardingDoneProvider);
+  // Pre-warm the Pokémon list so the first-page fetch starts before
+  // the first frame. The splash screen waits for this to complete.
+  container.read(pokemonListProvider);
 
   talker.info('Providers warmed up');
 

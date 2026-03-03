@@ -16,7 +16,8 @@
   "favoritesTitle": "My Favorites",
   "@favoritesTitle": { "description": "Title of the favorites screen" },
 
-  "favoritesEmpty": "No favorites yet.\nTap the ♥ on any Pokémon to save it.",
+  "favoritesEmpty": "You haven't marked any Pokémon as a favorite",
+  "favoritesEmptySubtitle": "Click the heart icon of your favorites Pokémon and they will appear here.",
   "@favoritesEmpty": { "description": "Empty-state message on the favorites screen" },
 
   "detailAbout": "About",
@@ -37,6 +38,21 @@
   "detailBaseExp": "Base Exp.",
   "@detailBaseExp": { "description": "Label for the base experience field" },
 
+  "detailCategory": "CATEGORY",
+  "@detailCategory": { "description": "Label for the category field" },
+
+  "detailAbility": "ABILITY",
+  "@detailAbility": { "description": "Label for the ability field" },
+
+  "detailGender": "GENDER",
+  "@detailGender": { "description": "Label for the gender section" },
+
+  "detailWeaknesses": "Weaknesses",
+  "@detailWeaknesses": { "description": "Label for the weaknesses section" },
+
+  "detailGenderless": "Genderless",
+  "@detailGenderless": { "description": "Shown when Pokémon has no gender" },
+
   "statHp": "HP",
   "statAttack": "Attack",
   "statDefense": "Defense",
@@ -46,6 +62,9 @@
 
   "errorGeneric": "Something went wrong.",
   "@errorGeneric": { "description": "Generic error message" },
+
+  "pokemonListError": "We couldn't load the information at this time. Check your connection or try again later.",
+  "@pokemonListError": { "description": "Error message on the Pokémon list screen" },
 
   "errorNoInternet": "No internet connection.",
   "@errorNoInternet": { "description": "Shown when the device is offline" },
@@ -68,10 +87,10 @@
   "navProfile": "Profile",
   "@navProfile": { "description": "Bottom nav label for profile tab" },
 
-  "regionsComingSoon": "Coming Soon",
+  "regionsComingSoon": "Coming Soon!",
   "@regionsComingSoon": { "description": "Regions screen title" },
 
-  "regionsComingSoonSubtitle": "Explore Pokémon regions from\nKanto to Paldea. Stay tuned!",
+  "regionsComingSoonSubtitle": "We are working to bring you this section. Come back later to discover all the news.",
   "@regionsComingSoonSubtitle": { "description": "Regions screen subtitle" },
 
   "profileAppearance": "Appearance",
@@ -138,5 +157,37 @@
     "placeholders": {
       "name": { "type": "String" }
     }
-  }
+  },
+
+  "deleteConfirmTitle": "Remove from Favorites",
+  "deleteConfirmMessage": "Are you sure you want to remove {name} from your favorites?",
+  "commonCancel": "Cancel",
+  "commonDelete": "Remove",
+  "profileVersion": "App Version",
+  "profileTrainerId": "Trainer ID",
+  "profileJoined": "Joined",
+
+  "typeBug": "Bug",
+  "typeDark": "Dark",
+  "typeDragon": "Dragon",
+  "typeElectric": "Electric",
+  "typeFairy": "Fairy",
+  "typeFighting": "Fighting",
+  "typeFire": "Fire",
+  "typeFlying": "Flying",
+  "typeGhost": "Ghost",
+  "typeGrass": "Grass",
+  "typeGround": "Ground",
+  "typeIce": "Ice",
+  "typeNormal": "Normal",
+  "typePoison": "Poison",
+  "typePsychic": "Psychic",
+  "typeRock": "Rock",
+  "typeSteel": "Steel",
+  "typeWater": "Water",
+  
+  "filterTitle": "Filter by your preferences",
+  "filterType": "Type",
+  "filterApply": "Apply",
+  "filterCancel": "Cancel"
 }

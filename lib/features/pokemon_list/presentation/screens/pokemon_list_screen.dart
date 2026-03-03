@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_grid.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_grid_skeleton.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_card.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_skeleton.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_error.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_search_bar.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/type_filter_chips.dart';
 
 class PokemonListScreen extends ConsumerWidget {
   const PokemonListScreen({super.key});
@@ -18,84 +19,133 @@ class PokemonListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pokemonListProvider);
+    final typeCache = ref.watch(pokemonTypeCacheProvider);
     final l10n = context.l10n;
 
+    // ── Filtering ─────────────────────────────────────────────────────────
+    final filtered = state.previews.where((p) {
+      // 1. Name filter
+      if (state.searchQuery.isNotEmpty) {
+        if (!p.name.toLowerCase().contains(state.searchQuery.toLowerCase())) {
+          return false;
+        }
+      }
+
+      final actualTypes = typeCache[p.name] ?? p.types;
+
+      // 2. Single-type chip filter (chip row)
+      if (state.selectedType.isNotEmpty) {
+        if (!actualTypes.contains(state.selectedType)) return false;
+      }
+
+      // 3. Multi-type filter (bottom sheet) — must match at least one type
+      if (state.selectedTypes.isNotEmpty) {
+        if (!state.selectedTypes.any(actualTypes.contains)) return false;
+      }
+
+      return true;
+    }).toList();
+
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.onPrimary,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ── Header ──────────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-              child: Text(
-                l10n.appTitle,
-                style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.onPrimary,
-                  fontFamily: 'PokemonSolid',
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (n) {
+            if (n is ScrollEndNotification &&
+                n.metrics.extentAfter < 200 &&
+                !state.isLoadingMore &&
+                !state.hasReachedEnd) {
+              ref.read(pokemonListProvider.notifier).fetchMore();
+            }
+            return false;
+          },
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              const SliverToBoxAdapter(child: SizedBox(height: 28.0)),
+
+              // ── Search bar ───────────────────────────────────────────────
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                sliver: SliverToBoxAdapter(
+                  child: PokemonSearchBar(
+                    hint: l10n.searchHint,
+                    initialFilters: state.selectedTypes,
+                    onChanged: (q) =>
+                        ref.read(pokemonListProvider.notifier).updateSearch(q),
+                    onFiltersChanged: (types) => ref
+                        .read(pokemonListProvider.notifier)
+                        .updateTypeFilters(types),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
+              const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
-            // ── Search bar ───────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: PokemonSearchBar(
-                hint: l10n.searchHint,
-                onChanged: (q) =>
-                    ref.read(pokemonListProvider.notifier).updateSearch(q),
-              ),
-            ),
-            const SizedBox(height: 12),
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-            // ── Type filter chips ────────────────────────────────────────
-            TypeFilterChips(
-              selectedType: state.selectedType,
-              onSelected: (t) =>
-                  ref.read(pokemonListProvider.notifier).updateTypeFilter(t),
-            ),
-            const SizedBox(height: 8),
+              // ── Content ──────────────────────────────────────────────────
+              ..._buildSlivers(context, ref, state, filtered),
 
-            // ── Content ──────────────────────────────────────────────────
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.background,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-                ),
-                child: _buildContent(context, ref, state),
-              ),
-            ),
-          ],
+              const SliverToBoxAdapter(child: SizedBox(height: 32)),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildContent(
+  List<Widget> _buildSlivers(
     BuildContext context,
     WidgetRef ref,
     PokemonListState state,
+    List<PokemonPreview> filtered,
   ) {
-    if (state.isInitialLoading) return const PokemonGridSkeleton();
-
-    if (state.error != null && state.allPokemon.isEmpty) {
-      return PokemonListError(
-        exception: state.error!,
-        onRetry: () => ref.read(pokemonListProvider.notifier).retry(),
-      );
+    if (state.isInitialLoading) {
+      return [
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => const PokemonListSkeletonItem(),
+              childCount: 8,
+            ),
+          ),
+        ),
+      ];
     }
 
-    return PokemonGrid(
-      pokemon: state.filtered,
-      typeFilter: state.selectedType,
-      isLoadingMore: state.isLoadingMore,
-      hasReachedEnd: state.hasReachedEnd,
-      onLoadMore: () => ref.read(pokemonListProvider.notifier).fetchMore(),
-    );
+    if (state.error != null && state.previews.isEmpty) {
+      return [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: PokemonListError(
+            exception: state.error!,
+            onRetry: () => ref.read(pokemonListProvider.notifier).retry(),
+          ),
+        ),
+      ];
+    }
+
+    return [
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate((context, i) {
+            final pokemon = filtered[i];
+            return PokemonCard(pokemon: pokemon, types: pokemon.types);
+          }, childCount: filtered.length),
+        ),
+      ),
+      if (state.isLoadingMore)
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => const PokemonListSkeletonItem(),
+              childCount: 2,
+            ),
+          ),
+        ),
+    ];
   }
 }

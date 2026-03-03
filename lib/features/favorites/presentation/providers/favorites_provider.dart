@@ -46,4 +46,25 @@ class FavoritesNotifier extends _$FavoritesNotifier {
       (updated) => state = updated,
     );
   }
+
+  /// Lightweight toggle from the list screen — no PokemonDetail required.
+  /// Uses [id], [name], and [primaryType] already available from the type cache.
+  Future<void> toggleFromList({
+    required int id,
+    required String name,
+    required String primaryType,
+  }) async {
+    final favorite = FavoritePokemon(
+      id: id,
+      name: name,
+      primaryType: primaryType,
+    );
+
+    final result = await ref
+        .read(toggleFavoriteUseCaseProvider)
+        .call(ToggleFavoriteParams(pokemon: favorite, currentFavorites: state))
+        .run();
+
+    result.match((error) => null, (updated) => state = updated);
+  }
 }

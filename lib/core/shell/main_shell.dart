@@ -1,36 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
-import 'package:pokedex_global66/core/router/app_router.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
 class MainShell extends StatelessWidget {
-  const MainShell({required this.child, super.key});
-  final Widget child;
-
-  static const _tabs = [
-    AppRoutes.pokedex,
-    AppRoutes.regions,
-    AppRoutes.favorites,
-    AppRoutes.profile,
-  ];
-
-  int _locationToIndex(String location) {
-    final idx = _tabs.indexWhere((t) => location.startsWith(t));
-    return idx < 0 ? 0 : idx;
-  }
+  const MainShell({required this.navigationShell, super.key});
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouterState.of(context).matchedLocation;
-    final currentIndex = _locationToIndex(location);
     final l10n = context.l10n;
 
     return Scaffold(
-      body: child,
+      body: navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: (i) => context.go(_tabs[i]),
+        selectedIndex: navigationShell.currentIndex,
+        onDestinationSelected: (i) => navigationShell.goBranch(i),
         indicatorColor: AppColors.primary.withValues(alpha: 0.12),
         destinations: [
           NavigationDestination(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
 class PokemonStatsBar extends StatelessWidget {
@@ -24,14 +25,20 @@ class PokemonStatsBar extends StatelessWidget {
             width: 72,
             child: Text(
               label,
-              style: const TextStyle(fontSize: 12, color: AppColors.textMedium),
+              style: context.textTheme.titleMedium?.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           SizedBox(
             width: 32,
             child: Text(
               '$value',
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: context.textTheme.titleMedium?.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           Expanded(

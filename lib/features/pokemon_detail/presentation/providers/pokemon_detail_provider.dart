@@ -4,7 +4,8 @@ import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/usecases/get_pokemon_detail_usecase.dart';
-import '../../../pokemon_list/presentation/providers/pokemon_list_provider.dart';
+import 'package:pokedex_global66/core/l10n/locale_provider.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
 
 part 'pokemon_detail_provider.freezed.dart';
 part 'pokemon_detail_provider.g.dart';
@@ -22,6 +23,8 @@ sealed class PokemonDetailState with _$PokemonDetailState {
 class PokemonDetailNotifier extends _$PokemonDetailNotifier {
   @override
   PokemonDetailState build(String pokemonName) {
+    // Watch for locale changes to refresh translated content
+    ref.watch(localeProvider);
     Future.microtask(() => _load(pokemonName));
     return const PokemonDetailState(isLoading: true);
   }
@@ -30,16 +33,21 @@ class PokemonDetailNotifier extends _$PokemonDetailNotifier {
     state = state.copyWith(isLoading: true, error: null);
 
     final useCase = ref.read(getPokemonDetailUseCaseProvider);
-    final result = await useCase(name).run();
+    final language = ref.read(localeProvider)?.languageCode ?? 'en';
+
+    final result = await useCase(
+      GetPokemonDetailParams(name: name, language: language),
+    ).run();
+
+    if (!ref.mounted) return;
 
     result.fold((e) => state = state.copyWith(isLoading: false, error: e), (
       detail,
     ) {
       state = state.copyWith(isLoading: false, detail: detail);
+
       // Populate the type cache so the list screen can filter.
-      ref
-          .read(pokemonTypeCacheProvider.notifier)
-          .register(name, detail.primaryType);
+      ref.read(pokemonTypeCacheProvider.notifier).register(name, detail.types);
     });
   }
 
