@@ -5,6 +5,9 @@ import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
 
+/// A placeholder screen for the upcoming "Regions" feature.
+///
+/// It currently displays a "Coming Soon" message with a relevant image.
 class RegionsScreen extends StatelessWidget {
   const RegionsScreen({super.key});
 

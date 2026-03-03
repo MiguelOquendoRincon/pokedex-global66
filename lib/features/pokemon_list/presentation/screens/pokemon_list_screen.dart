@@ -14,6 +14,11 @@ import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/poke
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_error.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_search_bar.dart';
 
+/// The main screen of the application that displays a list of Pokémon.
+///
+/// It supports pagination, search filtering by name, and type filtering (both
+/// through a chip row and a bottom sheet). It handles initial loading,
+/// errors, and pagination states.
 class PokemonListScreen extends ConsumerWidget {
   const PokemonListScreen({super.key});
 

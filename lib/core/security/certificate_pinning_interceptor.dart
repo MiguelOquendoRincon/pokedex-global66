@@ -48,6 +48,11 @@ final class CertificatePinningInterceptor extends Interceptor {
 
 /// Configures Dio to use a pinning-aware HttpClient adapter.
 /// Call this in [DioClient] after creating the instance.
+/// Configures Dio to use a pinning-aware HttpClient adapter.
+///
+/// This function sets up the [IOHttpClientAdapter] for the [dio] instance,
+/// ensuring that all requests validate the server's certificate against
+/// the pinned SHA-256 fingerprints.
 void applyPinningAdapter(Dio dio, Talker talker) {
   // In debug mode, we usually don't want to break the connection for dev tools like Charles.
   if (!kReleaseMode) return;

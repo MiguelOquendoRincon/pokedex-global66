@@ -1,3 +1,7 @@
+/// Centralized collection of API-related constants and configuration.
+///
+/// This class provides the base URL, timeout durations, and endpoint paths
+/// used throughout the application to interact with the PokéAPI.
 abstract final class ApiConstants {
   ApiConstants._();
 

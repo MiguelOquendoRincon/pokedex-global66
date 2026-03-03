@@ -10,15 +10,25 @@ import 'package:pokedex_global66/features/pokemon_list/presentation/providers/po
 part 'pokemon_detail_provider.freezed.dart';
 part 'pokemon_detail_provider.g.dart';
 
+/// Represents the state of the Pokémon detail screen.
 @freezed
 sealed class PokemonDetailState with _$PokemonDetailState {
   const factory PokemonDetailState({
+    /// The detailed information of the Pokémon, if loaded.
     PokemonDetail? detail,
+
+    /// True while the details are being fetched from the API.
     @Default(false) bool isLoading,
+
+    /// Non-null if the fetch operation failed.
     AppException? error,
   }) = _PokemonDetailState;
 }
 
+/// A notifier that manages the state of the Pokémon detail screen.
+///
+/// It fetches details based on the [pokemonName] and the current locale.
+/// It also populates the [PokemonTypeCache] upon successful data retrieval.
 @riverpod
 class PokemonDetailNotifier extends _$PokemonDetailNotifier {
   @override
@@ -51,5 +61,6 @@ class PokemonDetailNotifier extends _$PokemonDetailNotifier {
     });
   }
 
+  /// Retries the detail loading process.
   void retry() => _load(pokemonName);
 }

@@ -12,20 +12,43 @@ enum FontSizePreference { small, medium, large, extraLarge }
 
 /// Interface so we can swap SharedPreferences for Hive/Isar in tests or future.
 abstract interface class ILocalStorage {
+  /// Persists a list of strings associated with a specific [key].
   TaskEither<AppException, Unit> saveStringList(String key, List<String> value);
+
+  /// Retrieves a list of strings associated with a specific [key].
   TaskEither<AppException, List<String>> getStringList(String key);
+
+  /// Retrieves the stored user name.
   TaskEither<AppException, String> getUserName();
+
+  /// Persists the user name associated with a specific [key].
   TaskEither<AppException, bool> setUserName(String key, String value);
+
+  /// Retrieves the theme preference (light/dark) associated with a specific [key].
   TaskEither<AppException, bool> getDarkTheme(String key);
+
+  /// Persists the theme preference associated with a specific [key].
   TaskEither<AppException, bool> setDarkTheme(String key, bool value);
+
+  /// Retrieves the font size preference associated with a specific [key].
   TaskEither<AppException, FontSizePreference> getFontSize(String key);
+
+  /// Persists the font size preference associated with a specific [key].
   TaskEither<AppException, bool> setFontSize(
     String key,
     FontSizePreference value,
   );
+
+  /// Retrieves the screen width associated with a specific [key].
   TaskEither<AppException, double> getScreenWidth(String key);
+
+  /// Persists the screen width associated with a specific [key].
   TaskEither<AppException, bool> setScreenWidth(String key, double width);
+
+  /// Retrieves the onboarding completion status associated with a specific [key].
   TaskEither<AppException, bool> getHasOnboarded(String key);
+
+  /// Persists the onboarding completion status associated with a specific [key].
   TaskEither<AppException, bool> setHasOnboarded(String key, bool value);
 }
 

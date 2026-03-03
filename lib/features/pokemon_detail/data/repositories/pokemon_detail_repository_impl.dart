@@ -12,11 +12,17 @@ import 'package:pokedex_global66/features/pokemon_detail/domain/repositories/pok
 
 part 'pokemon_detail_repository_impl.g.dart';
 
+/// Implementation of [IPokemonDetailRepository] that orchestrates multiple
+/// remote requests to build a complete [PokemonDetail] entity.
 class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
   const PokemonDetailRepositoryImpl(this._datasource);
   final IPokemonDetailRemoteDatasource _datasource;
 
   @override
+  /// Fetches and aggregates data for a single Pokémon.
+  ///
+  /// This method fetches basic details, species information (for descriptions),
+  /// and type details (for weakness calculation) in parallel or sequence.
   TaskEither<AppException, PokemonDetail> getPokemonDetail(
     String name,
     String language,
@@ -118,6 +124,7 @@ class PokemonDetailRepositoryImpl implements IPokemonDetailRepository {
   }
 }
 
+/// A provider that exposes the [IPokemonDetailRepository] implementation.
 @Riverpod(keepAlive: true)
 IPokemonDetailRepository pokemonDetailRepository(Ref ref) =>
     PokemonDetailRepositoryImpl(

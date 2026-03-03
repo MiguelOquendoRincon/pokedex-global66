@@ -10,10 +10,12 @@ class PokemonTypeCache extends _$PokemonTypeCache {
   @override
   Map<String, List<String>> build() => {};
 
+  /// Adds types for a single Pokémon to the cache.
   void register(String name, List<String> types) {
     state = {...state, name: types};
   }
 
+  /// Adds types for multiple Pokémon to the cache.
   void registerMany(Map<String, List<String>> types) {
     state = {...state, ...types};
   }

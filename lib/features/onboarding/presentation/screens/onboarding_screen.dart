@@ -12,6 +12,10 @@ import 'package:pokedex_global66/features/onboarding/presentation/providers/onbo
 import 'package:pokedex_global66/features/onboarding/presentation/widgets/onboarding_indicator.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/widgets/onboarding_page_widget.dart';
 
+/// A screen that guides the user through the initial features of the app.
+///
+/// It uses a [PageView] to show multiple onboarding steps and allows
+/// the user to either skip or complete the process.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 

@@ -3,6 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
+/// A shell widget that provides the primary navigation structure of the app.
+///
+/// It uses a [StatefulNavigationShell] to manage different feature tabs
+/// (Pokémon list, Regions, Favorites, and Profile) and displays a
+/// [NavigationBar] for switching between them.
 class MainShell extends StatelessWidget {
   const MainShell({required this.navigationShell, super.key});
   final StatefulNavigationShell navigationShell;

@@ -19,6 +19,7 @@ class OnboardingDone extends _$OnboardingDone {
     return prefs.getBool(_kOnboardingKey) ?? false;
   }
 
+  /// Marks the onboarding as completed and persists the status.
   Future<void> complete() async {
     final prefs = ref.read(sharedPrefsProvider);
     await prefs.setBool(_kOnboardingKey, true);
@@ -26,7 +27,9 @@ class OnboardingDone extends _$OnboardingDone {
   }
 }
 
-// Internal provider — SharedPreferences injected via bootstrap override.
+/// Internal provider for [SharedPreferences].
+///
+/// It must be overridden in the [ProviderScope] (e.g., in `bootstrap.dart`).
 @Riverpod(keepAlive: true)
 SharedPreferences sharedPrefs(Ref ref) =>
     throw UnimplementedError('Must be overridden in bootstrap.dart');

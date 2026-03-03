@@ -10,7 +10,7 @@ class PokemonListSkeleton extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 8,
-      itemBuilder: (_, __) => const PokemonListSkeletonItem(),
+      itemBuilder: (_, _) => const PokemonListSkeletonItem(),
     );
   }
 }

@@ -14,6 +14,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'get_pokemon_list_usecase.freezed.dart';
 part 'get_pokemon_list_usecase.g.dart';
 
+/// Parameters for fetching a list of Pokémon.
 @freezed
 abstract class GetPokemonListParams with _$GetPokemonListParams {
   const factory GetPokemonListParams({
@@ -22,6 +23,7 @@ abstract class GetPokemonListParams with _$GetPokemonListParams {
   }) = _GetPokemonListParams;
 }
 
+/// A use case that retrieves a paginated list of [PokemonSummary].
 class GetPokemonListUseCase
     implements UseCase<List<PokemonSummary>, GetPokemonListParams> {
   const GetPokemonListUseCase(this._repository);
@@ -33,6 +35,7 @@ class GetPokemonListUseCase
   ) => _repository.getPokemonList(limit: params.limit, offset: params.offset);
 }
 
+/// A provider that exposes an instance of [GetPokemonListUseCase].
 @riverpod
 GetPokemonListUseCase getPokemonListUseCase(Ref ref) =>
     GetPokemonListUseCase(ref.read(pokemonRepositoryProvider));

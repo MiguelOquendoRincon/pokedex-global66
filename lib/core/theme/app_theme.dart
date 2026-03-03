@@ -3,10 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
+/// Centralizes the application's theme configurations.
+///
+/// It provides both light and dark [ThemeData] with customized color schemes,
+/// typography, and component themes (AppBar, Card, NavBar, etc.).
 abstract final class AppTheme {
   AppTheme._();
 
-  // ─── Light ──────────────────────────────────────────────────────────────────
+  /// Returns the light theme configuration for the application.
   static ThemeData get light => _build(
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
@@ -30,6 +34,7 @@ abstract final class AppTheme {
   );
 
   // ─── Dark ───────────────────────────────────────────────────────────────────
+  /// Returns the dark theme configuration for the application.
   static ThemeData get dark => _build(
     brightness: Brightness.dark,
     colorScheme: ColorScheme.fromSeed(
