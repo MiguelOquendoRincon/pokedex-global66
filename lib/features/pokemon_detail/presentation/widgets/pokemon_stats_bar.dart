@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
-import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 
 class PokemonStatsBar extends StatelessWidget {
   const PokemonStatsBar({
