@@ -43,8 +43,7 @@ class PokemonTypeChip extends StatelessWidget {
               height: 14,
               // Fallback color in case some assets are missing/colored differently
               color: color,
-              errorBuilder: (_, __, ___) =>
-                  const SizedBox(width: 14, height: 14),
+              errorBuilder: (_, _, _) => const SizedBox(width: 14, height: 14),
             ),
           ),
           const SizedBox(width: 8),

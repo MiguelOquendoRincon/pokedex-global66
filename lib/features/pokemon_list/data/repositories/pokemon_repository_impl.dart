@@ -12,11 +12,13 @@ import '../models/pokemon_item_model.dart';
 
 part 'pokemon_repository_impl.g.dart';
 
+/// Implementation of [IPokemonRepository] that fetches data from a remote datasource.
 class PokemonRepositoryImpl implements IPokemonRepository {
   const PokemonRepositoryImpl(this._datasource);
   final IPokemonListRemoteDatasource _datasource;
 
   @override
+  /// Retrieves a paginated list of Pokémon summaries from the external API.
   TaskEither<AppException, List<PokemonSummary>> getPokemonList({
     required int limit,
     required int offset,
@@ -35,6 +37,7 @@ class PokemonRepositoryImpl implements IPokemonRepository {
   }
 }
 
+/// A provider that exposes the [IPokemonRepository] implementation.
 @Riverpod(keepAlive: true)
 IPokemonRepository pokemonRepository(Ref ref) =>
     PokemonRepositoryImpl(ref.read(pokemonListRemoteDatasourceProvider));

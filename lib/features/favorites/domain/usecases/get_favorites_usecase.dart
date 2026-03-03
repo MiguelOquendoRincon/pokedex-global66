@@ -12,15 +12,18 @@ import '../../data/repositories/favorites_repository_impl.dart';
 
 part 'get_favorites_usecase.g.dart';
 
+/// A use case that retrieves the list of favorite Pokémon from the repository.
 class GetFavoritesUseCase implements NoParamsUseCase<List<FavoritePokemon>> {
   const GetFavoritesUseCase(this._repository);
   final IFavoritesRepository _repository;
 
   @override
+  /// Fetches the list of favorites.
   TaskEither<AppException, List<FavoritePokemon>> call() =>
       _repository.getFavorites();
 }
 
+/// A provider that exposes an instance of [GetFavoritesUseCase].
 @riverpod
 GetFavoritesUseCase getFavoritesUseCase(Ref ref) =>
     GetFavoritesUseCase(ref.read(favoritesRepositoryProvider));

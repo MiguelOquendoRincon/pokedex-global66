@@ -12,6 +12,10 @@ part 'pokemon_list_provider.g.dart';
 
 // ─── State ────────────────────────────────────────────────────────────────────
 
+/// Represents the state of the Pokémon list screen.
+///
+/// It includes the list of previews, loading statuses, error information,
+/// and active filters (search query and selected types).
 @freezed
 sealed class PokemonListState with _$PokemonListState {
   const factory PokemonListState({
@@ -50,6 +54,10 @@ sealed class PokemonListState with _$PokemonListState {
 
 // ─── Notifier ─────────────────────────────────────────────────────────────────
 
+/// A notifier that manages the state of the Pokémon list.
+///
+/// It handles fetching pages of Pokémon, retrying on failure, and
+/// updating filters. It uses [GetPokemonPageUseCase] for data retrieval.
 @Riverpod(keepAlive: true)
 class PokemonListNotifier extends _$PokemonListNotifier {
   static const _splashLimit = ApiConstants.splashPreloadLimit;
@@ -118,16 +126,19 @@ class PokemonListNotifier extends _$PokemonListNotifier {
 
   // ── Public API ─────────────────────────────────────────────────────────────
 
+  /// Attempts to fetch the next page of Pokémon if more data is available.
   void fetchMore() {
     if (state.isLoadingMore || state.hasReachedEnd) return;
     _fetchPage();
   }
 
+  /// Resets the error state and attempts to reload the first page.
   void retry() {
     state = state.copyWith(error: null, isInitialLoading: true);
     _fetchPage();
   }
 
+  /// Updates the active search query for filtering Pokémon by name.
   void updateSearch(String query) =>
       state = state.copyWith(searchQuery: query.trim());
 
@@ -135,13 +146,14 @@ class PokemonListNotifier extends _$PokemonListNotifier {
   void updateTypeFilter(String type) =>
       state = state.copyWith(selectedType: type);
 
-  /// Updates the multi-type filter from the bottom sheet.
+  /// Updates the multi-type filter selection from the bottom sheet.
   void updateTypeFilters(Set<String> types) =>
       state = state.copyWith(selectedTypes: types);
 
-  /// Clears the multi-type filter.
+  /// Clears only the multi-type filter selection.
   void clearTypeFilters() => state = state.copyWith(selectedTypes: {});
 
+  /// Resets all active filters (search, single-type, and multi-type).
   void clearFilters() => state = state.copyWith(
     searchQuery: '',
     selectedType: '',

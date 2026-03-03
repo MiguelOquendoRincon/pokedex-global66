@@ -6,6 +6,9 @@ part 'theme_provider.g.dart';
 
 const _kThemeKey = 'theme_mode';
 
+/// A notifier that manages the application's theme mode (light or dark).
+///
+/// It persists the user's preference in [SharedPreferences].
 @Riverpod(keepAlive: true)
 class ThemeNotifier extends _$ThemeNotifier {
   @override
@@ -15,6 +18,7 @@ class ThemeNotifier extends _$ThemeNotifier {
     return saved == 'dark' ? ThemeMode.dark : ThemeMode.light;
   }
 
+  /// Toggles between light and dark theme modes and persists the choice.
   Future<void> toggle() async {
     final next = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     state = next;

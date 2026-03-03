@@ -13,6 +13,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'get_pokemon_page_usecase.g.dart';
 
+/// A use case that fetches a page of [PokemonPreview]s.
+///
+/// It first retrieves a list of [PokemonSummary] from the [listRepository] and
+/// map them to initial [PokemonPreview]s (with no types). Then, it triggers
+/// a background process to fetch and cache details (like types) for each
+/// Pokémon using the [detailRepository].
 class GetPokemonPageUseCase {
   const GetPokemonPageUseCase({
     required this.listRepository,
@@ -24,6 +30,10 @@ class GetPokemonPageUseCase {
   final IPokemonDetailRepository detailRepository;
   final Ref ref;
 
+  /// Fetches a page of Pokémon previews.
+  ///
+  /// Returns a [TaskEither] that, when run, will return the initial list of previews.
+  /// The enrichment of types happens asynchronously in the background.
   TaskEither<AppException, List<PokemonPreview>> call({
     required int limit,
     required int offset,
@@ -89,6 +99,7 @@ class GetPokemonPageUseCase {
   }
 }
 
+/// A provider that exposes an instance of [GetPokemonPageUseCase].
 @Riverpod(keepAlive: true)
 GetPokemonPageUseCase getPokemonPageUseCase(Ref ref) => GetPokemonPageUseCase(
   listRepository: ref.read(pokemonRepositoryProvider),

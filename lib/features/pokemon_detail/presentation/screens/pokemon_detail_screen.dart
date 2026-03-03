@@ -17,6 +17,11 @@ import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/po
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/pokemon_type_chip.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/section_title.dart';
 
+/// A screen that displays the complete details of a specific Pokémon.
+///
+/// It shows the Pokémon's image, name, types, description, physical
+/// characteristics, abilities, weaknesses, and base stats. It also allows
+/// toggling the Pokémon's favorite status.
 class PokemonDetailScreen extends ConsumerWidget {
   const PokemonDetailScreen({required this.pokemonName, super.key});
   final String pokemonName;

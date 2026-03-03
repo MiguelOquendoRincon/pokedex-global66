@@ -34,6 +34,7 @@ final class _ReleaseLogFilter extends TalkerFilter {
   }
 }
 
+/// A provider that exposes the global [Talker] instance for logging and error handling.
 @Riverpod(keepAlive: true)
 Talker talker(Ref ref) => buildTalker();
 

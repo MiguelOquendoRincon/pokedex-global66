@@ -6,6 +6,10 @@ import 'app_exception.dart';
 abstract final class FailureHandler {
   FailureHandler._();
 
+  /// Converts a [DioException] into the domain-specific [AppException].
+  ///
+  /// Handles various Dio error types such as timeouts, connection errors,
+  /// and bad responses by mapping them to their corresponding [AppException] cases.
   static AppException fromDioException(DioException e) {
     return switch (e.type) {
       DioExceptionType.connectionTimeout ||
@@ -30,6 +34,10 @@ abstract final class FailureHandler {
     };
   }
 
+  /// Converts any caught object into an [AppException].
+  ///
+  /// This is used as a catch-all in `try-catch` blocks. It specifically handles
+  /// [DioException] and [FormatException], defaulting to [AppException.unknown] for others.
   static AppException fromObject(Object e) {
     if (e is DioException) return fromDioException(e);
     if (e is FormatException) {

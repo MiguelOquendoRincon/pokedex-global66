@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
-import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
 

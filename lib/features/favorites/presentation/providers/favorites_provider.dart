@@ -11,6 +11,10 @@ import '../../domain/usecases/toggle_favorite_usecase.dart';
 
 part 'favorites_provider.g.dart';
 
+/// A notifier that manages the list of favorite Pokémon.
+///
+/// It handles loading favorites from local storage on initialization and
+/// providing methods to toggle the favorite status of a Pokémon.
 @Riverpod(keepAlive: true)
 class FavoritesNotifier extends _$FavoritesNotifier {
   @override
@@ -29,6 +33,7 @@ class FavoritesNotifier extends _$FavoritesNotifier {
     );
   }
 
+  /// Toggles the favorite status of a Pokémon using a [PokemonDetail].
   Future<void> toggle(PokemonDetail detail) async {
     final favorite = FavoritePokemon(
       id: detail.id,
@@ -47,8 +52,10 @@ class FavoritesNotifier extends _$FavoritesNotifier {
     );
   }
 
-  /// Lightweight toggle from the list screen — no PokemonDetail required.
-  /// Uses [id], [name], and [primaryType] already available from the type cache.
+  /// Toggles the favorite status of a Pokémon using basic information from the list.
+  ///
+  /// This doesn't require a full [PokemonDetail] object, making it suitable
+  /// for use directly from the list screen.
   Future<void> toggleFromList({
     required int id,
     required String name,

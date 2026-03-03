@@ -11,6 +11,10 @@ import 'package:pokedex_global66/core/theme/theme_provider.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/profile/presentation/providers/profile_providers.dart';
 
+/// A screen that displays the user's profile and application settings.
+///
+/// It allows users to view their trainer status, toggle dark mode,
+/// change the application language, and view version information.
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
@@ -126,7 +130,7 @@ class ProfileScreen extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          error: (_, __) => const SizedBox.shrink(),
+                          error: (_, _) => const SizedBox.shrink(),
                           loading: () =>
                               const CupertinoActivityIndicator(radius: 8),
                         ),
@@ -178,7 +182,7 @@ class _ProfileHeader extends StatelessWidget {
                 repeat: ImageRepeat.repeat,
                 fit: BoxFit.none,
                 scale: 4,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                errorBuilder: (_, _, _) => const SizedBox.shrink(),
               ),
             ),
           ),

@@ -15,6 +15,7 @@ import 'package:pokedex_global66/features/onboarding/presentation/providers/onbo
 part 'app_router.g.dart';
 
 // ─── Route name constants ─────────────────────────────────────────────────────
+/// Contains the route name constants for the application.
 abstract final class AppRoutes {
   static const splash = '/splash';
   static const onboarding = '/onboarding';
@@ -25,6 +26,10 @@ abstract final class AppRoutes {
   static const profile = '/profile';
 }
 
+/// A provider that exposes the application's [GoRouter] configuration.
+///
+/// It handles navigation state, redirects (e.g., forcing onboarding if not done),
+/// and defines all the routes in the app, including the main shell with tabs.
 @riverpod
 GoRouter appRouter(Ref ref) {
   // Reactive redirect: if onboarding not done → force /onboarding
