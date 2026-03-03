@@ -7,7 +7,6 @@ import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_skeleton.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/pokemon_type_chip.dart';
 
@@ -19,22 +18,17 @@ class PokemonCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Determine the types to use: either from the preview or from the cache.
-    var typesToUse = pokemon.types;
-    if (typesToUse.isEmpty) {
-      final cache = ref.watch(pokemonTypeCacheProvider);
-      typesToUse = cache[pokemon.name] ?? [];
-    }
-
-    // If we still don't have types, show the skeleton.
-    if (typesToUse.isEmpty) {
+    // We use the types passed in the constructor, which already prioritize the cache
+    // from the screen level. If types are empty, it means we don't have detail data yet.
+    if (types.isEmpty) {
       return const PokemonListSkeletonItem();
     }
 
-    final primaryType = typesToUse.first;
+    final primaryType = types.first;
     final typeColor = AppColors.forType(primaryType);
-    final favorites = ref.watch(favoritesProvider);
-    final isFavorite = favorites.any((f) => f.id == pokemon.id);
+    final isFavorite = ref.watch(
+      favoritesProvider.select((favs) => favs.any((f) => f.id == pokemon.id)),
+    );
 
     return GestureDetector(
       onTap: () => context.go('${AppRoutes.pokedex}/detail/${pokemon.name}'),
@@ -96,7 +90,7 @@ class PokemonCard extends ConsumerWidget {
                         // Iconized Type Chips
                         Wrap(
                           spacing: 6,
-                          children: typesToUse
+                          children: types
                               .map((t) => PokemonTypeChip(type: t))
                               .toList(),
                         ),

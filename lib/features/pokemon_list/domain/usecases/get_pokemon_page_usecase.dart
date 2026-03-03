@@ -51,23 +51,15 @@ class GetPokemonPageUseCase {
   Future<List<PokemonPreview>> _enrichAll(
     List<PokemonSummary> summaries,
   ) async {
-    // Launch all detail fetches simultaneously.
-    final previews = await Future.wait(
-      summaries.map((s) => _enrichOne(s)),
-      eagerError: false,
-    );
+    final previews = <PokemonPreview>[];
 
-    // Batch update the type cache once rather than 20 times in a row.
-    // This reduces the number of rebuilds triggered on the list screen.
-    if (ref.mounted) {
-      final cacheUpdates = <String, List<String>>{};
-      for (final p in previews) {
-        if (p.types.isNotEmpty) {
-          cacheUpdates[p.name] = p.types;
-        }
-      }
-      if (cacheUpdates.isNotEmpty) {
-        ref.read(pokemonTypeCacheProvider.notifier).registerMany(cacheUpdates);
+    for (final s in summaries) {
+      final p = await _enrichOne(s);
+      previews.add(p);
+
+      // Update cache immediately for each success
+      if (p.types.isNotEmpty && ref.mounted) {
+        ref.read(pokemonTypeCacheProvider.notifier).register(p.name, p.types);
       }
     }
 
@@ -97,10 +89,12 @@ class GetPokemonPageUseCase {
 
     return result.fold(
       // Fallback on failure (e.g. 404, network error, timeout).
+      // Returning empty types allows the UI to show a skeleton/loading state
+      // instead of a confusing "Normal" type.
       (_) => PokemonPreview(
         id: summary.id,
         name: summary.name,
-        types: ['normal'],
+        types: const [],
         imageUrl: summary.imageUrl,
       ),
       // Succeeded.
