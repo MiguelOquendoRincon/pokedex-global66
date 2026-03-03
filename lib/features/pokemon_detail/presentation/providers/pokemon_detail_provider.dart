@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pokedex_global66/core/error/app_exception.dart';
-import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
+import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/usecases/get_pokemon_detail_usecase.dart';

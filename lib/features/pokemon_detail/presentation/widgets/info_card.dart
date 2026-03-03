@@ -51,7 +51,9 @@ class InfoCard extends StatelessWidget {
           width: double.infinity,
           child: Text(
             value,
-            style: context.textTheme.bodyLarge?.copyWith(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w500,
               fontSize: 18.0,
             ),

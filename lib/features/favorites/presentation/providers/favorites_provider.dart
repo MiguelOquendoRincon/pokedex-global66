@@ -4,7 +4,7 @@
 import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../pokemon_detail/domain/pokemon_details.dart';
+import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
 import '../../domain/entities/favorite_pokemon.dart';
 import '../../domain/usecases/get_favorites_usecase.dart';
 import '../../domain/usecases/toggle_favorite_usecase.dart';

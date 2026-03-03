@@ -583,6 +583,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get filterCancel;
+
+  /// No description provided for @resultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Found } other{Found }}'**
+  String resultsFound(num count);
+
+  /// No description provided for @resultsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 result} other{{count} results}}'**
+  String resultsCount(num count);
+
+  /// No description provided for @clearFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filter'**
+  String get clearFilter;
 }
 
 class _AppLocalizationsDelegate

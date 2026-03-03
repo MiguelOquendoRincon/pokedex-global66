@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
+import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
@@ -70,6 +71,7 @@ class PokemonListScreen extends ConsumerWidget {
                 sliver: SliverToBoxAdapter(
                   child: PokemonSearchBar(
                     hint: l10n.searchHint,
+                    searchQuery: state.searchQuery,
                     initialFilters: state.selectedTypes,
                     onChanged: (q) =>
                         ref.read(pokemonListProvider.notifier).updateSearch(q),
@@ -80,6 +82,55 @@ class PokemonListScreen extends ConsumerWidget {
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 12)),
+
+              // ── Filter Status ──────────────────────────────────────────────
+              if (state.hasActiveFilters)
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  sliver: SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: l10n.resultsFound(filtered.length),
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: context.textSecondary,
+                              ),
+                            ),
+                            TextSpan(
+                              text: l10n.resultsCount(filtered.length),
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: context.textSecondary,
+                              ),
+                            ),
+                            const TextSpan(text: ' '),
+                            // Subrayado en azul
+                            WidgetSpan(
+                              child: GestureDetector(
+                                onTap: () => ref
+                                    .read(pokemonListProvider.notifier)
+                                    .clearFilters(),
+                                child: Text(
+                                  l10n.clearFilter,
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.primary,
+                                    decoration: TextDecoration.underline,
+                                    fontWeight: FontWeight.w700,
+                                    decorationColor: AppColors.primary,
+                                    decorationThickness: 1.5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
 

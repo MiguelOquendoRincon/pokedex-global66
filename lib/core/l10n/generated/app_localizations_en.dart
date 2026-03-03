@@ -263,4 +263,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterCancel => 'Cancel';
+
+  @override
+  String resultsFound(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Found ',
+      one: 'Found ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String resultsCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count results',
+      one: '1 result',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clearFilter => 'Clear filter';
 }

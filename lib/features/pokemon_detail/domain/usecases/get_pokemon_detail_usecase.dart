@@ -2,7 +2,7 @@
 // features/pokemon_detail/domain/usecases/get_pokemon_detail_usecase.dart
 // ══════════════════════════════════════════════════════════════════════════════
 import 'package:fpdart/fpdart.dart';
-import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
+import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/repositories/pokemon_details_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

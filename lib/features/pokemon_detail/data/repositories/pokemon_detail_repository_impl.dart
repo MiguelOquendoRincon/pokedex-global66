@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/features/pokemon_detail/data/datasource/pokemon_detail_remote_datasource.dart';
 import 'package:pokedex_global66/features/pokemon_detail/data/models/pokemon_detail_model.dart';
-import 'package:pokedex_global66/features/pokemon_detail/domain/pokemon_details.dart';
+import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/repositories/pokemon_details_repository.dart';
 
 part 'pokemon_detail_repository_impl.g.dart';
