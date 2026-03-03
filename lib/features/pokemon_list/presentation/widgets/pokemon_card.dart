@@ -3,128 +3,172 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex_global66/core/router/app_router.dart';
-import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
+import 'package:pokedex_global66/features/pokemon_detail/presentation/providers/pokemon_detail_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_summary.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PokemonCard extends ConsumerWidget {
-  const PokemonCard({required this.pokemon, super.key});
+  const PokemonCard({
+    super.key,
+    required this.pokemon,
+    required this.primaryType,
+  });
+
   final PokemonSummary pokemon;
+  final String primaryType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final typeCache = ref.watch(pokemonTypeCacheProvider);
-    final primaryType = typeCache[pokemon.name] ?? '';
-    final typeColor = primaryType.isNotEmpty
-        ? AppColors.forType(primaryType)
-        : context.colorScheme.primary;
+    // If the cache doesn't have the type, watch the detail provider.
+    // This will trigger the load and populate the cache.
+    final detailState = primaryType.isEmpty
+        ? ref.watch(pokemonDetailProvider(pokemon.name))
+        : null;
 
-    // In dark mode: slightly elevated card with colored tint.
-    // In light mode: soft pastel tint from the type color.
-    final bgColor = context.isDark
-        ? Color.alphaBlend(
-            typeColor.withValues(alpha: 0.12),
-            AppColorsDark.surfaceVar,
-          )
-        : typeColor.withValues(alpha: 0.18);
+    final typeToUse = primaryType.isNotEmpty
+        ? primaryType
+        : detailState?.detail?.primaryType ?? '';
+
+    final typeColor = typeToUse.isNotEmpty
+        ? AppColors.forType(typeToUse)
+        : const Color(0xFF9E9E9E);
+
+    final favorites = ref.watch(favoritesProvider);
+    final isFavorite = favorites.any((f) => f.id == pokemon.id);
 
     return GestureDetector(
       onTap: () => context.go('${AppRoutes.pokedex}/detail/${pokemon.name}'),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 14),
+        height: 115,
         decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(12),
-          border: context.isDark
-              ? Border.all(color: typeColor.withValues(alpha: 0.25), width: 0.5)
-              : null,
+          borderRadius: BorderRadius.circular(24),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [typeColor, typeColor.withValues(alpha: 0.80)],
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(
-                alpha: context.isDark ? 0.25 : 0.07,
-              ),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              color: typeColor.withValues(alpha: 0.40),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
         child: Stack(
+          clipBehavior: Clip.hardEdge,
           children: [
-            // ── Pokéball watermark ─────────────────────────────────────
+            // ── Subtle pokéball watermark ──────────────────────────────
             Positioned(
-              right: -10,
-              bottom: -10,
+              right: 100,
+              top: -22,
               child: Icon(
                 Icons.catching_pokemon,
-                size: 80,
-                color: context.watermarkColor,
+                size: 130,
+                color: Colors.white.withValues(alpha: 0.07),
               ),
             ),
 
-            // ── Text info ──────────────────────────────────────────────
+            // ── Left: text info ────────────────────────────────────────
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.fromLTRB(18, 14, 0, 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Number
                   Text(
                     pokemon.formattedId,
                     style: TextStyle(
-                      fontSize: 10,
-                      color: context.textSecondary,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
+                      color: Colors.white.withValues(alpha: 0.70),
+                      height: 1,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
+
+                  // Name
                   Text(
                     pokemon.displayName,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: context.textPrimary,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      height: 1.1,
                     ),
                   ),
-                  if (primaryType.isNotEmpty) ...[
-                    const SizedBox(height: 4),
-                    _TypeBadge(type: primaryType, color: typeColor),
-                  ],
+                  const SizedBox(height: 8),
+
+                  // Type chips
+                  if (typeToUse.isNotEmpty) _TypeChip(type: typeToUse),
                 ],
               ),
             ),
 
-            // ── Sprite ────────────────────────────────────────────────
+            // ── Top-right: favourite button ────────────────────────────
             Positioned(
-              right: 4,
-              bottom: 4,
-              child: Hero(
-                tag: 'pokemon-${pokemon.id}',
-                child: CachedNetworkImage(
-                  imageUrl: pokemon.imageUrl,
-                  width: 72,
-                  height: 72,
-                  fit: BoxFit.contain,
-                  placeholder: (_, __) => Shimmer.fromColors(
-                    baseColor: context.isDark
-                        ? Colors.grey.shade800
-                        : Colors.grey.shade200,
-                    highlightColor: context.isDark
-                        ? Colors.grey.shade700
-                        : Colors.grey.shade100,
-                    child: Container(
-                      width: 72,
-                      height: 72,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(36),
-                      ),
+              top: 8,
+              right: 8,
+              child: GestureDetector(
+                onTap: () {
+                  if (typeToUse.isEmpty) return; // Wait for type info
+                  ref
+                      .read(favoritesProvider.notifier)
+                      .toggleFromList(
+                        id: pokemon.id,
+                        name: pokemon.name,
+                        primaryType: typeToUse,
+                      );
+                },
+                child: Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.22),
+                    shape: BoxShape.circle,
+                  ),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    transitionBuilder: (child, anim) =>
+                        ScaleTransition(scale: anim, child: child),
+                    child: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      key: ValueKey(isFavorite),
+                      size: 18,
+                      color: isFavorite ? Colors.red.shade300 : Colors.white,
                     ),
                   ),
-                  errorWidget: (_, __, ___) => Icon(
-                    Icons.catching_pokemon,
-                    size: 48,
-                    color: context.textSecondary,
+                ),
+              ),
+            ),
+
+            // ── Right: Pokémon image inside translucent circle ─────────
+            Positioned(
+              right: 14,
+              bottom: 0,
+              top: 0,
+              child: Center(
+                child: Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.18),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Hero(
+                    tag: 'pokemon-${pokemon.id}',
+                    child: CachedNetworkImage(
+                      imageUrl: pokemon.imageUrl,
+                      fit: BoxFit.contain,
+                      fadeInDuration: const Duration(milliseconds: 200),
+                      errorWidget: (_, __, ___) => Icon(
+                        Icons.catching_pokemon,
+                        size: 44,
+                        color: Colors.white.withValues(alpha: 0.6),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -136,25 +180,29 @@ class PokemonCard extends ConsumerWidget {
   }
 }
 
-class _TypeBadge extends StatelessWidget {
-  const _TypeBadge({required this.type, required this.color});
+// ── Type chip ─────────────────────────────────────────────────────────────────
+
+class _TypeChip extends StatelessWidget {
+  const _TypeChip({required this.type});
   final String type;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
+    final label = type.isEmpty
+        ? ''
+        : '${type[0].toUpperCase()}${type.substring(1)}';
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: context.isDark ? 0.30 : 0.22),
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.white.withValues(alpha: 0.28),
+        borderRadius: BorderRadius.circular(50),
       ),
       child: Text(
-        '${type[0].toUpperCase()}${type.substring(1)}',
-        style: TextStyle(
-          fontSize: 10,
+        label,
+        style: const TextStyle(
+          fontSize: 11,
           fontWeight: FontWeight.w600,
-          color: context.isDark ? color.withValues(alpha: 0.9) : color,
+          color: Colors.white,
         ),
       ),
     );

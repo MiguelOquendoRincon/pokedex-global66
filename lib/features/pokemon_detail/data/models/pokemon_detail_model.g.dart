@@ -10,7 +10,7 @@ _PokemonDetailModel _$PokemonDetailModelFromJson(Map<String, dynamic> json) =>
     _PokemonDetailModel(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
-      baseExperience: (json['baseExperience'] as num).toInt(),
+      baseExperience: (json['base_experience'] as num).toInt(),
       height: (json['height'] as num).toInt(),
       weight: (json['weight'] as num).toInt(),
       types: (json['types'] as List<dynamic>)
@@ -33,7 +33,7 @@ Map<String, dynamic> _$PokemonDetailModelToJson(_PokemonDetailModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'baseExperience': instance.baseExperience,
+      'base_experience': instance.baseExperience,
       'height': instance.height,
       'weight': instance.weight,
       'types': instance.types,

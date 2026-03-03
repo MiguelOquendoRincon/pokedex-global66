@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_summary.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_list_provider.dart';
-import 'pokemon_card.dart';
+import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_card.dart';
 
-class PokemonGrid extends ConsumerWidget {
-  const PokemonGrid({
+class PokemonList extends ConsumerWidget {
+  const PokemonList({
     required this.pokemon,
     required this.typeFilter,
     required this.isLoadingMore,
@@ -25,7 +24,6 @@ class PokemonGrid extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final typeCache = ref.watch(pokemonTypeCacheProvider);
 
-    // Apply type filter using the cache (populated lazily by cards).
     final filtered = typeFilter.isEmpty
         ? pokemon
         : pokemon.where((p) => typeCache[p.name] == typeFilter).toList();
@@ -40,27 +38,35 @@ class PokemonGrid extends ConsumerWidget {
         }
         return false;
       },
-      child: GridView.builder(
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 32),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 1.4,
-        ),
-        itemCount: filtered.length + (isLoadingMore ? 2 : 0),
+      child: ListView.builder(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
+        itemCount: filtered.length + (isLoadingMore ? 1 : 0),
         itemBuilder: (context, i) {
           if (i >= filtered.length) {
-            return Container(
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(12),
-              ),
-            );
+            return const _LoadingMoreIndicator();
           }
-          return PokemonCard(pokemon: filtered[i]);
+          return PokemonCard(
+            pokemon: filtered[i],
+            primaryType: typeCache[filtered[i].name] ?? '',
+          );
         },
       ),
+    );
+  }
+}
+
+// ── Private Card ──────────────────────────────────────────────────────────────
+
+// ── Loading-more indicator ─────────────────────────────────────────────────────
+
+class _LoadingMoreIndicator extends StatelessWidget {
+  const _LoadingMoreIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 }

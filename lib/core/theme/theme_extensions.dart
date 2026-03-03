@@ -26,6 +26,26 @@ extension AppThemeX on BuildContext {
   /// Search bar / input fill.
   Color get inputFill => isDark ? AppColorsDark.inputFill : Colors.white;
 
+  /// Border color.
+  Color get borderColor =>
+      isDark ? AppColorsDark.darkBorder : AppColors.lightBorder;
+
+  /// Border color focus.
+  Color get focusBorderColor =>
+      isDark ? AppColorsDark.darkBorderFocus : AppColors.lightBorderFocus;
+
+  /// Border color hover.
+  Color get hoverBorderColor =>
+      isDark ? AppColorsDark.darkBorderHover : AppColors.lightBorderHover;
+
+  /// Border color pressed.
+  Color get pressedBorderColor =>
+      isDark ? AppColorsDark.darkBorderPressed : AppColors.lightBorderPressed;
+
+  /// Border color disabled.
+  Color get disabledBorderColor =>
+      isDark ? AppColorsDark.darkBorderDisabled : AppColors.lightBorderDisabled;
+
   /// Subtle icon / watermark overlay.
   Color get watermarkColor => isDark
       ? Colors.white.withValues(alpha: 0.04)
