@@ -44,11 +44,11 @@ void main() {
     mockFavorites = MockFavoritesNotifier();
     mockCache = MockPokemonTypeCache();
 
-    // ignore: invalid_use_of_protected_member
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockListNotifier.build()).thenReturn(const PokemonListState());
-    // ignore: invalid_use_of_protected_member
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockFavorites.build()).thenReturn([]);
-    // ignore: invalid_use_of_protected_member
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockCache.build()).thenReturn({});
   });
 
@@ -65,7 +65,7 @@ void main() {
 
   testWidgets('shows skeleton items when loading initially', (tester) async {
     when(
-      // ignore: invalid_use_of_protected_member
+      // ignore: invalid_use_of_visible_for_overriding_member
       () => mockListNotifier.build(),
     ).thenReturn(const PokemonListState(isInitialLoading: true));
 
@@ -79,7 +79,7 @@ void main() {
     tester,
   ) async {
     when(
-      // ignore: invalid_use_of_protected_member
+      // ignore: invalid_use_of_visible_for_overriding_member
       () => mockListNotifier.build(),
     ).thenReturn(
       const PokemonListState(isInitialLoading: false, previews: [tPokemon]),
@@ -97,7 +97,7 @@ void main() {
   ) async {
     const tException = AppException.network(message: 'Connection failed');
     when(
-      // ignore: invalid_use_of_protected_member
+      // ignore: invalid_use_of_visible_for_overriding_member
       () => mockListNotifier.build(),
     ).thenReturn(
       const PokemonListState(

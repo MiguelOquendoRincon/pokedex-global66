@@ -35,7 +35,9 @@ void main() {
     mockFavorites = MockFavoritesNotifier();
     mockCache = MockPokemonTypeCache();
 
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockFavorites.build()).thenReturn([]);
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockCache.build()).thenReturn({});
   });
 
@@ -75,6 +77,7 @@ void main() {
       name: 'pikachu',
       primaryType: 'electric',
     );
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockFavorites.build()).thenReturn([tFavorite]);
 
     await tester.pumpWidget(createWidgetUnderTest());
@@ -86,6 +89,7 @@ void main() {
   testWidgets('calls toggleFromList when favorite button is tapped', (
     tester,
   ) async {
+    // ignore: invalid_use_of_visible_for_overriding_member
     when(() => mockFavorites.build()).thenReturn([]);
     when(
       () => mockFavorites.toggleFromList(
