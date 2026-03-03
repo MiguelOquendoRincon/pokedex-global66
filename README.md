@@ -4,14 +4,6 @@
   <img src="assets/images/onboarding_1.png" alt="Pokédex Favorites" width="120"/>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Flutter-3.22+-02569B?logo=flutter" />
-  <img src="https://img.shields.io/badge/Dart-3.3+-0175C2?logo=dart" />
-  <img src="https://img.shields.io/badge/Architecture-Clean%20Architecture-brightgreen" />
-  <img src="https://img.shields.io/badge/State-Riverpod-purple" />
-  <img src="https://img.shields.io/badge/License-MIT-blue" />
-</p>
-
 > Prueba técnica — **Global66 · Front End Developer (Flutter)**
 > Aplicación móvil para explorar Pokémon, ver su detalle y gestionar una lista
 > de favoritos persistida de forma segura en el dispositivo.
@@ -36,9 +28,9 @@
 
 ## 1. Demo
 
-| Lista | Detalle | Favoritos | Perfil |
-|:---:|:---:|:---:|:---:|
-| ![list](docs/screenshots/list.png) | ![detail](docs/screenshots/detail.png) | ![favorites](docs/screenshots/favorites.png) | ![profile](docs/screenshots/profile.png) |
+| Lista | Detalle | Favoritos | Perfil | Filtro | Regiones |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| ![list](assets/demo/home-screen.PNG) | ![detail](assets/demo/details-screen-1.PNG) | ![favorites](assets/demo/favorites-screen.PNG) | ![profile](assets/demo/profile-screen.PNG) | ![filter](assets/demo/filter-screen.PNG) | ![regions](assets/demo/regions-screen.PNG) |
 
 ---
 
