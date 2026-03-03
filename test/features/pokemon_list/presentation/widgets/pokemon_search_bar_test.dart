@@ -4,14 +4,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_search_bar.dart';
+import '../../../../helpers/test_utils.dart';
 
 void main() {
   testWidgets('renders hint text and responds to user input', (tester) async {
     String changedValue = '';
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
+      wrapWithMaterial(
+        Scaffold(
           body: PokemonSearchBar(
             hint: 'Search...',
             onChanged: (v) => changedValue = v,
@@ -37,8 +38,8 @@ void main() {
     String changedValue = 'initial';
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
+      wrapWithMaterial(
+        Scaffold(
           body: PokemonSearchBar(
             hint: 'Search...',
             onChanged: (v) => changedValue = v,

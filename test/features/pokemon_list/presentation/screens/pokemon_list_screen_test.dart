@@ -13,6 +13,7 @@ import 'package:pokedex_global66/features/pokemon_list/presentation/providers/po
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_list_skeleton.dart';
+import '../../../../helpers/test_utils.dart';
 
 class MockPokemonListNotifier extends Notifier<PokemonListState>
     with Mock
@@ -43,8 +44,11 @@ void main() {
     mockFavorites = MockFavoritesNotifier();
     mockCache = MockPokemonTypeCache();
 
+    // ignore: invalid_use_of_protected_member
     when(() => mockListNotifier.build()).thenReturn(const PokemonListState());
+    // ignore: invalid_use_of_protected_member
     when(() => mockFavorites.build()).thenReturn([]);
+    // ignore: invalid_use_of_protected_member
     when(() => mockCache.build()).thenReturn({});
   });
 
@@ -55,17 +59,17 @@ void main() {
         favoritesProvider.overrideWith(() => mockFavorites),
         pokemonTypeCacheProvider.overrideWith(() => mockCache),
       ],
-      child: const MaterialApp(home: PokemonListScreen()),
+      child: wrapWithMaterial(const PokemonListScreen()),
     );
   }
 
   testWidgets('shows skeleton items when loading initially', (tester) async {
     when(
+      // ignore: invalid_use_of_protected_member
       () => mockListNotifier.build(),
     ).thenReturn(const PokemonListState(isInitialLoading: true));
 
     await tester.pumpWidget(createWidgetUnderTest());
-    // Use pump with duration to settle initial microtasks but avoid infinite shimmers failing the test
     await tester.pump(const Duration(milliseconds: 500));
 
     expect(find.byType(PokemonListSkeletonItem), findsWidgets);
@@ -74,7 +78,10 @@ void main() {
   testWidgets('displays list of pokemon when loading is complete', (
     tester,
   ) async {
-    when(() => mockListNotifier.build()).thenReturn(
+    when(
+      // ignore: invalid_use_of_protected_member
+      () => mockListNotifier.build(),
+    ).thenReturn(
       const PokemonListState(isInitialLoading: false, previews: [tPokemon]),
     );
 
@@ -89,7 +96,10 @@ void main() {
     tester,
   ) async {
     const tException = AppException.network(message: 'Connection failed');
-    when(() => mockListNotifier.build()).thenReturn(
+    when(
+      // ignore: invalid_use_of_protected_member
+      () => mockListNotifier.build(),
+    ).thenReturn(
       const PokemonListState(
         isInitialLoading: false,
         error: tException,
@@ -100,6 +110,8 @@ void main() {
     await tester.pumpWidget(createWidgetUnderTest());
     await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.text('Oops! Something went wrong'), findsOneWidget);
+    // The error widget should show a retry button
+    expect(find.byType(FilledButton), findsOneWidget);
+    expect(find.text('Retry'), findsOneWidget);
   });
 }

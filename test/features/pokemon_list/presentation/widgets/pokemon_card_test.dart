@@ -10,6 +10,7 @@ import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_p
 import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/presentation/widgets/pokemon_card.dart';
 import 'package:pokedex_global66/features/favorites/domain/entities/favorite_pokemon.dart';
+import '../../../../helpers/test_utils.dart';
 
 class MockFavoritesNotifier extends Notifier<List<FavoritePokemon>>
     with Mock
@@ -44,9 +45,14 @@ void main() {
         favoritesProvider.overrideWith(() => mockFavorites),
         pokemonTypeCacheProvider.overrideWith(() => mockCache),
       ],
-      child: const MaterialApp(
-        home: Scaffold(
-          body: PokemonCard(pokemon: tPokemon, types: ['electric']),
+      child: wrapWithMaterial(
+        Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 375,
+              child: PokemonCard(pokemon: tPokemon, types: const ['electric']),
+            ),
+          ),
         ),
       ),
     );
