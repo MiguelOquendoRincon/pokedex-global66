@@ -140,7 +140,7 @@ class PokemonListScreen extends ConsumerWidget {
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
               // ── Content ──────────────────────────────────────────────────
-              ..._buildSlivers(context, ref, state, filtered),
+              ..._buildSlivers(context, ref, state, filtered, typeCache),
 
               const SliverToBoxAdapter(child: SizedBox(height: 32)),
             ],
@@ -155,6 +155,7 @@ class PokemonListScreen extends ConsumerWidget {
     WidgetRef ref,
     PokemonListState state,
     List<PokemonPreview> filtered,
+    Map<String, List<String>> typeCache,
   ) {
     if (state.isInitialLoading) {
       return [
@@ -188,7 +189,15 @@ class PokemonListScreen extends ConsumerWidget {
         sliver: SliverList(
           delegate: SliverChildBuilderDelegate((context, i) {
             final pokemon = filtered[i];
-            return PokemonCard(pokemon: pokemon, types: pokemon.types);
+            // Fix: Pass the cached types from the screen to ensures the card
+            // constructor parameters change when data arrives, forcing a rebuild.
+            // Also add a stable ValueKey to help with widget identification.
+            final actualTypes = typeCache[pokemon.name] ?? pokemon.types;
+            return PokemonCard(
+              key: ValueKey(pokemon.id),
+              pokemon: pokemon,
+              types: actualTypes,
+            );
           }, childCount: filtered.length),
         ),
       ),

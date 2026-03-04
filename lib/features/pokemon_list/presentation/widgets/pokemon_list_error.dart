@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
-import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
+import 'package:pokedex_global66/core/widgets/custom_button.dart';
 
 class PokemonListError extends StatelessWidget {
   const PokemonListError({
@@ -58,12 +58,9 @@ class PokemonListError extends StatelessWidget {
             // ─── Retry button (full width) ──────────────────────────────────
             SizedBox(
               width: double.infinity,
-              child: FilledButton(
+              child: CustomButton.primary(
                 onPressed: onRetry,
-                style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                ),
-                child: Text(l10n.retryButton),
+                text: l10n.retryButton,
               ),
             ),
           ],

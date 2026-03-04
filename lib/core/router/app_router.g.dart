@@ -8,13 +8,26 @@ part of 'app_router.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes the application's [GoRouter] configuration.
+///
+/// It handles navigation state, redirects (e.g., forcing onboarding if not done),
+/// and defines all the routes in the app, including the main shell with tabs.
 
 @ProviderFor(appRouter)
 final appRouterProvider = AppRouterProvider._();
 
+/// A provider that exposes the application's [GoRouter] configuration.
+///
+/// It handles navigation state, redirects (e.g., forcing onboarding if not done),
+/// and defines all the routes in the app, including the main shell with tabs.
+
 final class AppRouterProvider
     extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
     with $Provider<GoRouter> {
+  /// A provider that exposes the application's [GoRouter] configuration.
+  ///
+  /// It handles navigation state, redirects (e.g., forcing onboarding if not done),
+  /// and defines all the routes in the app, including the main shell with tabs.
   AppRouterProvider._()
     : super(
         from: null,

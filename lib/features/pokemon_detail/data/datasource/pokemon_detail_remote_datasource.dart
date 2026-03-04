@@ -27,6 +27,10 @@ abstract interface class IPokemonDetailRemoteDatasource {
     String typeName, {
     String? language,
   });
+  TaskEither<AppException, AbilityDetailsModel> fetchAbilityDetails(
+    String abilityName, {
+    String? language,
+  });
 }
 
 /// Implementation — depends on [Dio], injected via Riverpod.
@@ -68,6 +72,18 @@ class PokemonDetailRemoteDatasource implements IPokemonDetailRemoteDatasource {
       queryParameters: language != null ? {'lang': language} : null,
     );
     return PokemonTypeDetailsModel.fromJson(response.data!);
+  }, (e, _) => FailureHandler.fromObject(e));
+
+  @override
+  TaskEither<AppException, AbilityDetailsModel> fetchAbilityDetails(
+    String abilityName, {
+    String? language,
+  }) => TaskEither.tryCatch(() async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      ApiConstants.abilityDetail(abilityName),
+      queryParameters: language != null ? {'lang': language} : null,
+    );
+    return AbilityDetailsModel.fromJson(response.data!);
   }, (e, _) => FailureHandler.fromObject(e));
 }
 

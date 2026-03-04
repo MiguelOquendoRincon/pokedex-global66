@@ -42,7 +42,7 @@ class FavoritesScreen extends ConsumerWidget {
                   onPressed: () => context.go('/pokedex'),
                 ),
                 title: Text(
-                  l10n.favoritesTitle,
+                  l10n.navFavorites,
                   style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w900,
                     color: context.textPrimary,

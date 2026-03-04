@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
@@ -43,10 +42,8 @@ class RegionsScreen extends StatelessWidget {
               Text(
                 l10n.regionsComingSoon,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.outfit(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: context.textPrimary,
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 16),
@@ -55,12 +52,7 @@ class RegionsScreen extends StatelessWidget {
               Text(
                 l10n.regionsComingSoonSubtitle,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.outfit(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: context.textSecondary,
-                  height: 1.5,
-                ),
+                style: context.textTheme.bodyMedium?.copyWith(height: 1.5),
               ),
             ],
           ),

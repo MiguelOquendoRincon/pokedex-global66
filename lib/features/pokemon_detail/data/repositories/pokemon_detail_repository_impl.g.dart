@@ -8,9 +8,12 @@ part of 'pokemon_detail_repository_impl.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes the [IPokemonDetailRepository] implementation.
 
 @ProviderFor(pokemonDetailRepository)
 final pokemonDetailRepositoryProvider = PokemonDetailRepositoryProvider._();
+
+/// A provider that exposes the [IPokemonDetailRepository] implementation.
 
 final class PokemonDetailRepositoryProvider
     extends
@@ -20,6 +23,7 @@ final class PokemonDetailRepositoryProvider
           IPokemonDetailRepository
         >
     with $Provider<IPokemonDetailRepository> {
+  /// A provider that exposes the [IPokemonDetailRepository] implementation.
   PokemonDetailRepositoryProvider._()
     : super(
         from: null,

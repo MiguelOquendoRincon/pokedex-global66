@@ -7,7 +7,6 @@ import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_list/domain/entities/pokemon_preview.dart';
-import 'package:pokedex_global66/features/pokemon_list/presentation/providers/pokemon_type_cache_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/pokemon_type_chip.dart';
 
 class PokemonCard extends ConsumerWidget {
@@ -18,14 +17,9 @@ class PokemonCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Reactive Cache: Watch for this pokemon's types in the global cache.
-    // When the background enrichment completes, this specific card will rebuild.
-    final cachedTypes = ref.watch(
-      pokemonTypeCacheProvider.select((c) => c[pokemon.name]),
-    );
-
-    // Prioritize cached types over the ones passed in (which might be empty)
-    final effectiveTypes = cachedTypes ?? types;
+    // Use the types passed from parent (which now handles the cache lookup).
+    // This reduces redundant watches and ensures constructor changes trigger rebuilds.
+    final effectiveTypes = types;
     final hasTypes = effectiveTypes.isNotEmpty;
 
     final primaryType = hasTypes ? effectiveTypes.first : 'normal';

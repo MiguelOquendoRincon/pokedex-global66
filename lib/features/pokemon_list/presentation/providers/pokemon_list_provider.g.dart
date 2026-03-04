@@ -8,12 +8,24 @@ part of 'pokemon_list_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A notifier that manages the state of the Pokémon list.
+///
+/// It handles fetching pages of Pokémon, retrying on failure, and
+/// updating filters. It uses [GetPokemonPageUseCase] for data retrieval.
 
 @ProviderFor(PokemonListNotifier)
 final pokemonListProvider = PokemonListNotifierProvider._();
 
+/// A notifier that manages the state of the Pokémon list.
+///
+/// It handles fetching pages of Pokémon, retrying on failure, and
+/// updating filters. It uses [GetPokemonPageUseCase] for data retrieval.
 final class PokemonListNotifierProvider
     extends $NotifierProvider<PokemonListNotifier, PokemonListState> {
+  /// A notifier that manages the state of the Pokémon list.
+  ///
+  /// It handles fetching pages of Pokémon, retrying on failure, and
+  /// updating filters. It uses [GetPokemonPageUseCase] for data retrieval.
   PokemonListNotifierProvider._()
     : super(
         from: null,
@@ -43,6 +55,11 @@ final class PokemonListNotifierProvider
 
 String _$pokemonListNotifierHash() =>
     r'08165e9b9128372380c68bf64afe25d453737ff4';
+
+/// A notifier that manages the state of the Pokémon list.
+///
+/// It handles fetching pages of Pokémon, retrying on failure, and
+/// updating filters. It uses [GetPokemonPageUseCase] for data retrieval.
 
 abstract class _$PokemonListNotifier extends $Notifier<PokemonListState> {
   PokemonListState build();

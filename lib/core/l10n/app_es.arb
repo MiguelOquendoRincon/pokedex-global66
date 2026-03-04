@@ -3,7 +3,7 @@
 
   "appTitle": "Pokédex",
   "navPokemonList": "Pokedex",
-  "navFavorites": "favoritos",
+  "navFavorites": "Favoritos",
   "searchHint": "Buscar Pokémon...",
 
   "favoritesTitle": "Mis Favoritos",
@@ -51,8 +51,8 @@
   "languageSpanish": "ES",
 
   "onboardingSkip": "Omitir",
-  "onboardingNext": "Siguiente",
-  "onboardingStart": "Comenzar",
+  "onboardingNext": "Continuar",
+  "onboardingStart": "Empecemos",
   "onboarding1Title": "Todos los Pokémon en un solo lugar",
   "onboarding1Description": "Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo",
   "onboarding2Title": "Mantén tu Pokédex actualizada",

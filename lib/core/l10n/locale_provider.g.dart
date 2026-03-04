@@ -8,21 +8,24 @@ part of 'locale_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Holds the current [Locale] for the app.
-/// Default: device locale (null) → Flutter resolves automatically.
-/// Set explicitly to force a language (e.g. from a Settings screen).
+/// A notifier that manages the application's current locale.
+///
+/// It defaults to Spanish ('es') and allows forcing a specific language
+/// (English or Spanish) or resetting to the device's locale.
 
 @ProviderFor(LocaleNotifier)
 final localeProvider = LocaleNotifierProvider._();
 
-/// Holds the current [Locale] for the app.
-/// Default: device locale (null) → Flutter resolves automatically.
-/// Set explicitly to force a language (e.g. from a Settings screen).
+/// A notifier that manages the application's current locale.
+///
+/// It defaults to Spanish ('es') and allows forcing a specific language
+/// (English or Spanish) or resetting to the device's locale.
 final class LocaleNotifierProvider
     extends $NotifierProvider<LocaleNotifier, Locale?> {
-  /// Holds the current [Locale] for the app.
-  /// Default: device locale (null) → Flutter resolves automatically.
-  /// Set explicitly to force a language (e.g. from a Settings screen).
+  /// A notifier that manages the application's current locale.
+  ///
+  /// It defaults to Spanish ('es') and allows forcing a specific language
+  /// (English or Spanish) or resetting to the device's locale.
   LocaleNotifierProvider._()
     : super(
         from: null,
@@ -50,11 +53,12 @@ final class LocaleNotifierProvider
   }
 }
 
-String _$localeNotifierHash() => r'b2e4cfff11ece743286704617ffdaf24f271e6fc';
+String _$localeNotifierHash() => r'bdc748d395ffbdf84fa8ce21e03403732359c53c';
 
-/// Holds the current [Locale] for the app.
-/// Default: device locale (null) → Flutter resolves automatically.
-/// Set explicitly to force a language (e.g. from a Settings screen).
+/// A notifier that manages the application's current locale.
+///
+/// It defaults to Spanish ('es') and allows forcing a specific language
+/// (English or Spanish) or resetting to the device's locale.
 
 abstract class _$LocaleNotifier extends $Notifier<Locale?> {
   Locale? build();

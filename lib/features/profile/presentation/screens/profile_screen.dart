@@ -4,9 +4,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/l10n/locale_provider.dart';
+import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/theme_provider.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/features/profile/presentation/providers/profile_providers.dart';
@@ -122,11 +122,7 @@ class ProfileScreen extends ConsumerWidget {
                         packageInfo.when(
                           data: (info) => Text(
                             '${l10n.profileVersion}: ${info.version} (${info.buildNumber})',
-                            style: GoogleFonts.outfit(
-                              fontSize: 13,
-                              color: isDark
-                                  ? Colors.white54
-                                  : AppColors.textMedium,
+                            style: context.textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -137,8 +133,8 @@ class ProfileScreen extends ConsumerWidget {
                         const SizedBox(height: 4),
                         Text(
                           '© 2026 Global66 Pokédex',
-                          style: GoogleFonts.outfit(
-                            fontSize: 11,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
                             color: isDark ? Colors.white24 : AppColors.gray30,
                             letterSpacing: 0.5,
                           ),
@@ -164,11 +160,11 @@ class _ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFFDC0A2D), Color(0xFFB71C1C)],
+          colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
         ),
       ),
       child: Stack(
@@ -222,7 +218,7 @@ class _ProfileHeader extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(
                   'Pokémon Master',
-                  style: GoogleFonts.outfit(
+                  style: context.textTheme.titleLarge?.copyWith(
                     color: Colors.white,
                     fontSize: 26,
                     fontWeight: FontWeight.w800,
@@ -231,7 +227,7 @@ class _ProfileHeader extends StatelessWidget {
                 ),
                 Text(
                   'Global66 Elite Trainer',
-                  style: GoogleFonts.outfit(
+                  style: context.textTheme.bodyMedium?.copyWith(
                     color: Colors.white.withValues(alpha: 0.7),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -288,7 +284,7 @@ class _StatItem extends StatelessWidget {
         children: [
           Text(
             label.toUpperCase(),
-            style: GoogleFonts.outfit(
+            style: context.textTheme.bodyMedium?.copyWith(
               fontSize: 10,
               fontWeight: FontWeight.w700,
               color: AppColors.textMedium,
@@ -298,7 +294,7 @@ class _StatItem extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: GoogleFonts.outfit(
+            style: context.textTheme.bodyMedium?.copyWith(
               fontSize: 18,
               fontWeight: FontWeight.w800,
               color: AppColors.textDark,
@@ -318,7 +314,7 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: GoogleFonts.outfit(
+      style: context.textTheme.titleLarge?.copyWith(
         fontSize: 18,
         fontWeight: FontWeight.w800,
         color: AppColors.primary,
@@ -371,7 +367,7 @@ class _SettingRow extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: GoogleFonts.outfit(
+              style: context.textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -438,7 +434,7 @@ class _LangToggle extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: GoogleFonts.outfit(
+          style: context.textTheme.bodyMedium?.copyWith(
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: isActive ? Colors.white : AppColors.textMedium,

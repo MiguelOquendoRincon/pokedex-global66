@@ -14,7 +14,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PokemonDetailState {
 
- PokemonDetail? get detail; bool get isLoading; AppException? get error;
+/// The detailed information of the Pokémon, if loaded.
+ PokemonDetail? get detail;/// True while the details are being fetched from the API.
+ bool get isLoading;/// Non-null if the fetch operation failed.
+ AppException? get error;
 /// Create a copy of PokemonDetailState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -229,8 +232,11 @@ class _PokemonDetailState implements PokemonDetailState {
   const _PokemonDetailState({this.detail, this.isLoading = false, this.error});
   
 
+/// The detailed information of the Pokémon, if loaded.
 @override final  PokemonDetail? detail;
+/// True while the details are being fetched from the API.
 @override@JsonKey() final  bool isLoading;
+/// Non-null if the fetch operation failed.
 @override final  AppException? error;
 
 /// Create a copy of PokemonDetailState

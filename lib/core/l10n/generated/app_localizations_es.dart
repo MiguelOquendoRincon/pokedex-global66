@@ -15,7 +15,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navPokemonList => 'Pokedex';
 
   @override
-  String get navFavorites => 'favoritos';
+  String get navFavorites => 'Favoritos';
 
   @override
   String get searchHint => 'Buscar Pokémon...';
@@ -138,10 +138,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingSkip => 'Omitir';
 
   @override
-  String get onboardingNext => 'Siguiente';
+  String get onboardingNext => 'Continuar';
 
   @override
-  String get onboardingStart => 'Comenzar';
+  String get onboardingStart => 'Empecemos';
 
   @override
   String get onboarding1Title => 'Todos los Pokémon en un solo lugar';

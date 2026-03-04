@@ -8,9 +8,12 @@ part of 'get_favorites_usecase.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes an instance of [GetFavoritesUseCase].
 
 @ProviderFor(getFavoritesUseCase)
 final getFavoritesUseCaseProvider = GetFavoritesUseCaseProvider._();
+
+/// A provider that exposes an instance of [GetFavoritesUseCase].
 
 final class GetFavoritesUseCaseProvider
     extends
@@ -20,6 +23,7 @@ final class GetFavoritesUseCaseProvider
           GetFavoritesUseCase
         >
     with $Provider<GetFavoritesUseCase> {
+  /// A provider that exposes an instance of [GetFavoritesUseCase].
   GetFavoritesUseCaseProvider._()
     : super(
         from: null,

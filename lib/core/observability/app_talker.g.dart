@@ -8,12 +8,16 @@ part of 'app_talker.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes the global [Talker] instance for logging and error handling.
 
 @ProviderFor(talker)
 final talkerProvider = TalkerProvider._();
 
+/// A provider that exposes the global [Talker] instance for logging and error handling.
+
 final class TalkerProvider extends $FunctionalProvider<Talker, Talker, Talker>
     with $Provider<Talker> {
+  /// A provider that exposes the global [Talker] instance for logging and error handling.
   TalkerProvider._()
     : super(
         from: null,
