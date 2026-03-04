@@ -8,9 +8,12 @@ part of 'get_pokemon_detail_usecase.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes an instance of [GetPokemonDetailUseCase].
 
 @ProviderFor(getPokemonDetailUseCase)
 final getPokemonDetailUseCaseProvider = GetPokemonDetailUseCaseProvider._();
+
+/// A provider that exposes an instance of [GetPokemonDetailUseCase].
 
 final class GetPokemonDetailUseCaseProvider
     extends
@@ -20,6 +23,7 @@ final class GetPokemonDetailUseCaseProvider
           GetPokemonDetailUseCase
         >
     with $Provider<GetPokemonDetailUseCase> {
+  /// A provider that exposes an instance of [GetPokemonDetailUseCase].
   GetPokemonDetailUseCaseProvider._()
     : super(
         from: null,

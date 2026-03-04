@@ -70,8 +70,16 @@ abstract class _$OnboardingDone extends $Notifier<bool> {
   }
 }
 
+/// Internal provider for [SharedPreferences].
+///
+/// It must be overridden in the [ProviderScope] (e.g., in `bootstrap.dart`).
+
 @ProviderFor(sharedPrefs)
 final sharedPrefsProvider = SharedPrefsProvider._();
+
+/// Internal provider for [SharedPreferences].
+///
+/// It must be overridden in the [ProviderScope] (e.g., in `bootstrap.dart`).
 
 final class SharedPrefsProvider
     extends
@@ -81,6 +89,9 @@ final class SharedPrefsProvider
           SharedPreferences
         >
     with $Provider<SharedPreferences> {
+  /// Internal provider for [SharedPreferences].
+  ///
+  /// It must be overridden in the [ProviderScope] (e.g., in `bootstrap.dart`).
   SharedPrefsProvider._()
     : super(
         from: null,

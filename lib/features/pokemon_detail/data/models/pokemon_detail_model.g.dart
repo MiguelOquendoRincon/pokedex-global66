@@ -257,3 +257,31 @@ Map<String, dynamic> _$TypeDamageRelationsModelToJson(
   'half_damage_from': instance.halfDamageFrom,
   'no_damage_from': instance.noDamageFrom,
 };
+
+_AbilityDetailsModel _$AbilityDetailsModelFromJson(Map<String, dynamic> json) =>
+    _AbilityDetailsModel(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      names: (json['names'] as List<dynamic>)
+          .map((e) => AbilityNameModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$AbilityDetailsModelToJson(
+  _AbilityDetailsModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'names': instance.names,
+};
+
+_AbilityNameModel _$AbilityNameModelFromJson(Map<String, dynamic> json) =>
+    _AbilityNameModel(
+      name: json['name'] as String,
+      language: NamedAPIResourceModel.fromJson(
+        json['language'] as Map<String, dynamic>,
+      ),
+    );
+
+Map<String, dynamic> _$AbilityNameModelToJson(_AbilityNameModel instance) =>
+    <String, dynamic>{'name': instance.name, 'language': instance.language};

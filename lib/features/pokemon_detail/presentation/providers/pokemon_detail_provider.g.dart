@@ -8,12 +8,24 @@ part of 'pokemon_detail_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A notifier that manages the state of the Pokémon detail screen.
+///
+/// It fetches details based on the [pokemonName] and the current locale.
+/// It also populates the [PokemonTypeCache] upon successful data retrieval.
 
 @ProviderFor(PokemonDetailNotifier)
 final pokemonDetailProvider = PokemonDetailNotifierFamily._();
 
+/// A notifier that manages the state of the Pokémon detail screen.
+///
+/// It fetches details based on the [pokemonName] and the current locale.
+/// It also populates the [PokemonTypeCache] upon successful data retrieval.
 final class PokemonDetailNotifierProvider
     extends $NotifierProvider<PokemonDetailNotifier, PokemonDetailState> {
+  /// A notifier that manages the state of the Pokémon detail screen.
+  ///
+  /// It fetches details based on the [pokemonName] and the current locale.
+  /// It also populates the [PokemonTypeCache] upon successful data retrieval.
   PokemonDetailNotifierProvider._({
     required PokemonDetailNotifierFamily super.from,
     required String super.argument,
@@ -59,7 +71,12 @@ final class PokemonDetailNotifierProvider
 }
 
 String _$pokemonDetailNotifierHash() =>
-    r'8424f89626759ff87cd96c6e1278dfb47def0f14';
+    r'b4a97c4ba2bb578323047b69060f034734d87fcd';
+
+/// A notifier that manages the state of the Pokémon detail screen.
+///
+/// It fetches details based on the [pokemonName] and the current locale.
+/// It also populates the [PokemonTypeCache] upon successful data retrieval.
 
 final class PokemonDetailNotifierFamily extends $Family
     with
@@ -79,12 +96,22 @@ final class PokemonDetailNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
+  /// A notifier that manages the state of the Pokémon detail screen.
+  ///
+  /// It fetches details based on the [pokemonName] and the current locale.
+  /// It also populates the [PokemonTypeCache] upon successful data retrieval.
+
   PokemonDetailNotifierProvider call(String pokemonName) =>
       PokemonDetailNotifierProvider._(argument: pokemonName, from: this);
 
   @override
   String toString() => r'pokemonDetailProvider';
 }
+
+/// A notifier that manages the state of the Pokémon detail screen.
+///
+/// It fetches details based on the [pokemonName] and the current locale.
+/// It also populates the [PokemonTypeCache] upon successful data retrieval.
 
 abstract class _$PokemonDetailNotifier extends $Notifier<PokemonDetailState> {
   late final _$args = ref.$arg as String;

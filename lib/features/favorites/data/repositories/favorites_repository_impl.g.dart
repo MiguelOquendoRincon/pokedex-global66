@@ -8,9 +8,12 @@ part of 'favorites_repository_impl.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes the [IFavoritesRepository] implementation.
 
 @ProviderFor(favoritesRepository)
 final favoritesRepositoryProvider = FavoritesRepositoryProvider._();
+
+/// A provider that exposes the [IFavoritesRepository] implementation.
 
 final class FavoritesRepositoryProvider
     extends
@@ -20,6 +23,7 @@ final class FavoritesRepositoryProvider
           IFavoritesRepository
         >
     with $Provider<IFavoritesRepository> {
+  /// A provider that exposes the [IFavoritesRepository] implementation.
   FavoritesRepositoryProvider._()
     : super(
         from: null,

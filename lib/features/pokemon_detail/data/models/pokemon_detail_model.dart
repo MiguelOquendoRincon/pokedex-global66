@@ -208,3 +208,28 @@ abstract class TypeDamageRelationsModel with _$TypeDamageRelationsModel {
   factory TypeDamageRelationsModel.fromJson(Map<String, dynamic> json) =>
       _$TypeDamageRelationsModelFromJson(json);
 }
+
+// ─── Ability Details ──────────────────────────────────────────────────────────
+
+@freezed
+abstract class AbilityDetailsModel with _$AbilityDetailsModel {
+  const factory AbilityDetailsModel({
+    required int id,
+    required String name,
+    required List<AbilityNameModel> names,
+  }) = _AbilityDetailsModel;
+
+  factory AbilityDetailsModel.fromJson(Map<String, dynamic> json) =>
+      _$AbilityDetailsModelFromJson(json);
+}
+
+@freezed
+abstract class AbilityNameModel with _$AbilityNameModel {
+  const factory AbilityNameModel({
+    required String name,
+    required NamedAPIResourceModel language,
+  }) = _AbilityNameModel;
+
+  factory AbilityNameModel.fromJson(Map<String, dynamic> json) =>
+      _$AbilityNameModelFromJson(json);
+}

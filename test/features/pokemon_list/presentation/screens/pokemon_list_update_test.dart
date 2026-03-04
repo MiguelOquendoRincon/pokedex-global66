@@ -47,6 +47,7 @@ void main() {
 
     // ignore: invalid_use_of_visible_for_overriding_member
     when(
+      // ignore: invalid_use_of_visible_for_overriding_member
       () => mockListNotifier.build(),
     ).thenReturn(PokemonListState(previews: tPreviews));
     // ignore: invalid_use_of_visible_for_overriding_member

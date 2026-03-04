@@ -8,12 +8,21 @@ part of 'theme_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A notifier that manages the application's theme mode (light or dark).
+///
+/// It persists the user's preference in [SharedPreferences].
 
 @ProviderFor(ThemeNotifier)
 final themeProvider = ThemeNotifierProvider._();
 
+/// A notifier that manages the application's theme mode (light or dark).
+///
+/// It persists the user's preference in [SharedPreferences].
 final class ThemeNotifierProvider
     extends $NotifierProvider<ThemeNotifier, ThemeMode> {
+  /// A notifier that manages the application's theme mode (light or dark).
+  ///
+  /// It persists the user's preference in [SharedPreferences].
   ThemeNotifierProvider._()
     : super(
         from: null,
@@ -42,6 +51,10 @@ final class ThemeNotifierProvider
 }
 
 String _$themeNotifierHash() => r'1fcd2afc7798e37ff7acc2d644312a3e652d6414';
+
+/// A notifier that manages the application's theme mode (light or dark).
+///
+/// It persists the user's preference in [SharedPreferences].
 
 abstract class _$ThemeNotifier extends $Notifier<ThemeMode> {
   ThemeMode build();

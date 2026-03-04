@@ -4543,4 +4543,563 @@ as List<NamedAPIResourceModel>,
 
 }
 
+
+/// @nodoc
+mixin _$AbilityDetailsModel {
+
+ int get id; String get name; List<AbilityNameModel> get names;
+/// Create a copy of AbilityDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AbilityDetailsModelCopyWith<AbilityDetailsModel> get copyWith => _$AbilityDetailsModelCopyWithImpl<AbilityDetailsModel>(this as AbilityDetailsModel, _$identity);
+
+  /// Serializes this AbilityDetailsModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AbilityDetailsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.names, names));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(names));
+
+@override
+String toString() {
+  return 'AbilityDetailsModel(id: $id, name: $name, names: $names)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AbilityDetailsModelCopyWith<$Res>  {
+  factory $AbilityDetailsModelCopyWith(AbilityDetailsModel value, $Res Function(AbilityDetailsModel) _then) = _$AbilityDetailsModelCopyWithImpl;
+@useResult
+$Res call({
+ int id, String name, List<AbilityNameModel> names
+});
+
+
+
+
+}
+/// @nodoc
+class _$AbilityDetailsModelCopyWithImpl<$Res>
+    implements $AbilityDetailsModelCopyWith<$Res> {
+  _$AbilityDetailsModelCopyWithImpl(this._self, this._then);
+
+  final AbilityDetailsModel _self;
+  final $Res Function(AbilityDetailsModel) _then;
+
+/// Create a copy of AbilityDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? names = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,names: null == names ? _self.names : names // ignore: cast_nullable_to_non_nullable
+as List<AbilityNameModel>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AbilityDetailsModel].
+extension AbilityDetailsModelPatterns on AbilityDetailsModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AbilityDetailsModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AbilityDetailsModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AbilityDetailsModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _AbilityDetailsModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AbilityDetailsModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AbilityDetailsModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<AbilityNameModel> names)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AbilityDetailsModel() when $default != null:
+return $default(_that.id,_that.name,_that.names);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<AbilityNameModel> names)  $default,) {final _that = this;
+switch (_that) {
+case _AbilityDetailsModel():
+return $default(_that.id,_that.name,_that.names);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<AbilityNameModel> names)?  $default,) {final _that = this;
+switch (_that) {
+case _AbilityDetailsModel() when $default != null:
+return $default(_that.id,_that.name,_that.names);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AbilityDetailsModel implements AbilityDetailsModel {
+  const _AbilityDetailsModel({required this.id, required this.name, required final  List<AbilityNameModel> names}): _names = names;
+  factory _AbilityDetailsModel.fromJson(Map<String, dynamic> json) => _$AbilityDetailsModelFromJson(json);
+
+@override final  int id;
+@override final  String name;
+ final  List<AbilityNameModel> _names;
+@override List<AbilityNameModel> get names {
+  if (_names is EqualUnmodifiableListView) return _names;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_names);
+}
+
+
+/// Create a copy of AbilityDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AbilityDetailsModelCopyWith<_AbilityDetailsModel> get copyWith => __$AbilityDetailsModelCopyWithImpl<_AbilityDetailsModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AbilityDetailsModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AbilityDetailsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._names, _names));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_names));
+
+@override
+String toString() {
+  return 'AbilityDetailsModel(id: $id, name: $name, names: $names)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AbilityDetailsModelCopyWith<$Res> implements $AbilityDetailsModelCopyWith<$Res> {
+  factory _$AbilityDetailsModelCopyWith(_AbilityDetailsModel value, $Res Function(_AbilityDetailsModel) _then) = __$AbilityDetailsModelCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String name, List<AbilityNameModel> names
+});
+
+
+
+
+}
+/// @nodoc
+class __$AbilityDetailsModelCopyWithImpl<$Res>
+    implements _$AbilityDetailsModelCopyWith<$Res> {
+  __$AbilityDetailsModelCopyWithImpl(this._self, this._then);
+
+  final _AbilityDetailsModel _self;
+  final $Res Function(_AbilityDetailsModel) _then;
+
+/// Create a copy of AbilityDetailsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? names = null,}) {
+  return _then(_AbilityDetailsModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,names: null == names ? _self._names : names // ignore: cast_nullable_to_non_nullable
+as List<AbilityNameModel>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$AbilityNameModel {
+
+ String get name; NamedAPIResourceModel get language;
+/// Create a copy of AbilityNameModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AbilityNameModelCopyWith<AbilityNameModel> get copyWith => _$AbilityNameModelCopyWithImpl<AbilityNameModel>(this as AbilityNameModel, _$identity);
+
+  /// Serializes this AbilityNameModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AbilityNameModel&&(identical(other.name, name) || other.name == name)&&(identical(other.language, language) || other.language == language));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,language);
+
+@override
+String toString() {
+  return 'AbilityNameModel(name: $name, language: $language)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AbilityNameModelCopyWith<$Res>  {
+  factory $AbilityNameModelCopyWith(AbilityNameModel value, $Res Function(AbilityNameModel) _then) = _$AbilityNameModelCopyWithImpl;
+@useResult
+$Res call({
+ String name, NamedAPIResourceModel language
+});
+
+
+$NamedAPIResourceModelCopyWith<$Res> get language;
+
+}
+/// @nodoc
+class _$AbilityNameModelCopyWithImpl<$Res>
+    implements $AbilityNameModelCopyWith<$Res> {
+  _$AbilityNameModelCopyWithImpl(this._self, this._then);
+
+  final AbilityNameModel _self;
+  final $Res Function(AbilityNameModel) _then;
+
+/// Create a copy of AbilityNameModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? language = null,}) {
+  return _then(_self.copyWith(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,
+  ));
+}
+/// Create a copy of AbilityNameModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get language {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.language, (value) {
+    return _then(_self.copyWith(language: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [AbilityNameModel].
+extension AbilityNameModelPatterns on AbilityNameModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AbilityNameModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AbilityNameModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AbilityNameModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _AbilityNameModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AbilityNameModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AbilityNameModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  NamedAPIResourceModel language)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AbilityNameModel() when $default != null:
+return $default(_that.name,_that.language);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  NamedAPIResourceModel language)  $default,) {final _that = this;
+switch (_that) {
+case _AbilityNameModel():
+return $default(_that.name,_that.language);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  NamedAPIResourceModel language)?  $default,) {final _that = this;
+switch (_that) {
+case _AbilityNameModel() when $default != null:
+return $default(_that.name,_that.language);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AbilityNameModel implements AbilityNameModel {
+  const _AbilityNameModel({required this.name, required this.language});
+  factory _AbilityNameModel.fromJson(Map<String, dynamic> json) => _$AbilityNameModelFromJson(json);
+
+@override final  String name;
+@override final  NamedAPIResourceModel language;
+
+/// Create a copy of AbilityNameModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AbilityNameModelCopyWith<_AbilityNameModel> get copyWith => __$AbilityNameModelCopyWithImpl<_AbilityNameModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AbilityNameModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AbilityNameModel&&(identical(other.name, name) || other.name == name)&&(identical(other.language, language) || other.language == language));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,language);
+
+@override
+String toString() {
+  return 'AbilityNameModel(name: $name, language: $language)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AbilityNameModelCopyWith<$Res> implements $AbilityNameModelCopyWith<$Res> {
+  factory _$AbilityNameModelCopyWith(_AbilityNameModel value, $Res Function(_AbilityNameModel) _then) = __$AbilityNameModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, NamedAPIResourceModel language
+});
+
+
+@override $NamedAPIResourceModelCopyWith<$Res> get language;
+
+}
+/// @nodoc
+class __$AbilityNameModelCopyWithImpl<$Res>
+    implements _$AbilityNameModelCopyWith<$Res> {
+  __$AbilityNameModelCopyWithImpl(this._self, this._then);
+
+  final _AbilityNameModel _self;
+  final $Res Function(_AbilityNameModel) _then;
+
+/// Create a copy of AbilityNameModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? language = null,}) {
+  return _then(_AbilityNameModel(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as NamedAPIResourceModel,
+  ));
+}
+
+/// Create a copy of AbilityNameModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NamedAPIResourceModelCopyWith<$Res> get language {
+  
+  return $NamedAPIResourceModelCopyWith<$Res>(_self.language, (value) {
+    return _then(_self.copyWith(language: value));
+  });
+}
+}
+
 // dart format on

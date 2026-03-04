@@ -8,9 +8,12 @@ part of 'toggle_favorite_usecase.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A provider that exposes an instance of [ToggleFavoriteUseCase].
 
 @ProviderFor(toggleFavoriteUseCase)
 final toggleFavoriteUseCaseProvider = ToggleFavoriteUseCaseProvider._();
+
+/// A provider that exposes an instance of [ToggleFavoriteUseCase].
 
 final class ToggleFavoriteUseCaseProvider
     extends
@@ -20,6 +23,7 @@ final class ToggleFavoriteUseCaseProvider
           ToggleFavoriteUseCase
         >
     with $Provider<ToggleFavoriteUseCase> {
+  /// A provider that exposes an instance of [ToggleFavoriteUseCase].
   ToggleFavoriteUseCaseProvider._()
     : super(
         from: null,

@@ -15,6 +15,7 @@ abstract final class ApiConstants {
   static String pokemonDetail(String name) => 'pokemon/$name';
   static String pokemonSpecies(int id) => 'pokemon-species/$id';
   static String typeDetail(String typeName) => 'type/$typeName';
+  static String abilityDetail(String nameOrId) => 'ability/$nameOrId';
 
   // Pagination defaults
   static const int splashPreloadLimit = 10;

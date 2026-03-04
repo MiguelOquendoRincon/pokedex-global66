@@ -7,7 +7,7 @@
   "navPokemonList": "Pokedex",
   "@navPokemonList": { "description": "Bottom nav label for the Pokémon list tab" },
 
-  "navFavorites": "favorites",
+  "navFavorites": "Favorites",
   "@navFavorites": { "description": "Bottom nav label for the favorites tab" },
 
   "searchHint": "Search Pokémon...",

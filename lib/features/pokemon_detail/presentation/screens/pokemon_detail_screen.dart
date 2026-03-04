@@ -11,6 +11,7 @@ import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/providers/pokemon_detail_provider.dart';
+import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/ability_info_card.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/favorite_button.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/gender_bar.dart';
 import 'package:pokedex_global66/features/pokemon_detail/presentation/widgets/info_card.dart';
@@ -210,9 +211,9 @@ class _DetailView extends ConsumerWidget {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: InfoCard(
+                        child: AbilityInfoCard(
                           label: l10n.detailAbility,
-                          value: detail.primaryAbility,
+                          abilityName: detail.abilities.firstOrNull ?? '—',
                           icon: Icons.catching_pokemon_rounded,
                         ),
                       ),

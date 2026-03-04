@@ -8,12 +8,24 @@ part of 'favorites_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// A notifier that manages the list of favorite Pokémon.
+///
+/// It handles loading favorites from local storage on initialization and
+/// providing methods to toggle the favorite status of a Pokémon.
 
 @ProviderFor(FavoritesNotifier)
 final favoritesProvider = FavoritesNotifierProvider._();
 
+/// A notifier that manages the list of favorite Pokémon.
+///
+/// It handles loading favorites from local storage on initialization and
+/// providing methods to toggle the favorite status of a Pokémon.
 final class FavoritesNotifierProvider
     extends $NotifierProvider<FavoritesNotifier, List<FavoritePokemon>> {
+  /// A notifier that manages the list of favorite Pokémon.
+  ///
+  /// It handles loading favorites from local storage on initialization and
+  /// providing methods to toggle the favorite status of a Pokémon.
   FavoritesNotifierProvider._()
     : super(
         from: null,
@@ -42,6 +54,11 @@ final class FavoritesNotifierProvider
 }
 
 String _$favoritesNotifierHash() => r'c98013ce5b8d62bb9cf71e47ef77205f54d6f97b';
+
+/// A notifier that manages the list of favorite Pokémon.
+///
+/// It handles loading favorites from local storage on initialization and
+/// providing methods to toggle the favorite status of a Pokémon.
 
 abstract class _$FavoritesNotifier extends $Notifier<List<FavoritePokemon>> {
   List<FavoritePokemon> build();
