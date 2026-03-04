@@ -8,6 +8,7 @@ import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/router/app_router.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
 import 'package:pokedex_global66/core/theme/tokens/icons_svg.dart';
+import 'package:pokedex_global66/core/widgets/custom_button.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/providers/onboarding_provider.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/widgets/onboarding_indicator.dart';
 import 'package:pokedex_global66/features/onboarding/presentation/widgets/onboarding_page_widget.dart';
@@ -102,23 +103,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               child: SizedBox(
                 width: double.infinity,
                 height: 58.0,
-                child: FilledButton(
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.onPrimary,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
+                child: CustomButton.primary(
                   onPressed: _onNext,
-                  child: Text(
-                    isLast ? l10n.onboardingStart : l10n.onboardingNext,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  text: isLast ? l10n.onboardingStart : l10n.onboardingNext,
                 ),
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:pokedex_global66/core/l10n/generated/app_localizations.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/widgets/custom_button.dart';
 
 // ── Public API ────────────────────────────────────────────────────────────────
 
@@ -172,10 +173,8 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                           children: [
                             Text(
                               AppLocalizations.of(context).filterType,
-                              style: GoogleFonts.outfit(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                                color: textPrimary,
+                              style: context.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const Spacer(),
@@ -222,11 +221,10 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                                     children: [
                                       Text(
                                         translatedLabel,
-                                        style: GoogleFonts.outfit(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: textPrimary,
-                                        ),
+                                        style: context.textTheme.bodyMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                       ),
                                       const Spacer(),
                                       // Custom styled checkbox
@@ -300,23 +298,9 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                     SizedBox(
                       width: double.infinity,
                       height: 52,
-                      child: ElevatedButton(
+                      child: CustomButton.primary(
                         onPressed: () => Navigator.pop(context, _selected),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context).filterApply,
-                          style: GoogleFonts.outfit(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        text: AppLocalizations.of(context).filterApply,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -324,22 +308,10 @@ class _PokemonFilterSheetState extends State<_PokemonFilterSheet> {
                     // Cancelar
                     SizedBox(
                       width: double.infinity,
-                      height: 48,
-                      child: TextButton(
+                      height: 52,
+                      child: CustomButton.secondary(
                         onPressed: () => Navigator.pop(context),
-                        style: TextButton.styleFrom(
-                          foregroundColor: textPrimary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context).filterCancel,
-                          style: GoogleFonts.outfit(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        text: AppLocalizations.of(context).filterCancel,
                       ),
                     ),
                   ],

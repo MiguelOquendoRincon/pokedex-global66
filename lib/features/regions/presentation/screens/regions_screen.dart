@@ -43,10 +43,8 @@ class RegionsScreen extends StatelessWidget {
               Text(
                 l10n.regionsComingSoon,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.outfit(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: context.textPrimary,
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 16),
@@ -55,12 +53,7 @@ class RegionsScreen extends StatelessWidget {
               Text(
                 l10n.regionsComingSoonSubtitle,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.outfit(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: context.textSecondary,
-                  height: 1.5,
-                ),
+                style: context.textTheme.bodyMedium?.copyWith(height: 1.5),
               ),
             ],
           ),

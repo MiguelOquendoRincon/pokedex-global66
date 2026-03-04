@@ -138,10 +138,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingSkip => 'Omitir';
 
   @override
-  String get onboardingNext => 'Siguiente';
+  String get onboardingNext => 'Continuar';
 
   @override
-  String get onboardingStart => 'Comenzar';
+  String get onboardingStart => 'Empecemos';
 
   @override
   String get onboarding1Title => 'Todos los Pokémon en un solo lugar';

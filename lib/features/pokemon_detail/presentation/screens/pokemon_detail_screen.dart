@@ -6,6 +6,7 @@ import 'package:pokedex_global66/core/error/app_exception.dart';
 import 'package:pokedex_global66/core/l10n/l10n_extension.dart';
 import 'package:pokedex_global66/core/theme/theme_extensions.dart';
 import 'package:pokedex_global66/core/theme/tokens/colors.dart';
+import 'package:pokedex_global66/core/widgets/custom_button.dart';
 import 'package:pokedex_global66/core/widgets/pokeball_loader.dart';
 import 'package:pokedex_global66/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:pokedex_global66/features/pokemon_detail/domain/entities/pokemon_details.dart';
@@ -73,7 +74,7 @@ class _ErrorView extends StatelessWidget {
         children: [
           Text(message, style: const TextStyle(fontSize: 16)),
           const SizedBox(height: 16),
-          FilledButton(onPressed: onRetry, child: Text(l10n.retryButton)),
+          CustomButton.primary(onPressed: onRetry, text: l10n.retryButton),
         ],
       ),
     );

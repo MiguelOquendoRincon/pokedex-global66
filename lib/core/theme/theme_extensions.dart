@@ -58,4 +58,8 @@ extension AppThemeX on BuildContext {
   /// Gender colors.
   Color get maleColor => const Color(0xFF2551C3);
   Color get femaleColor => const Color(0xFFFF7596);
+
+  /// Secondary button background color.
+  Color get secondaryButtonBg =>
+      isDark ? AppColorsDark.surfaceVar : AppColorsDark.textPrimary;
 }
