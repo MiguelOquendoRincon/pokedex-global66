@@ -317,18 +317,18 @@ Decisiones de simplicidad consciente:
 
 | Paquete | Versión | Rol | Por qué este y no otro |
 |---|---|---|---|
-| `flutter_riverpod` | ^2.5 | Estado + DI | Type-safe, sin BuildContext en lógica, overrides en tests, observer integrado |
-| `riverpod_annotation` | ^2.3 | Generación de providers | Elimina boilerplate; `riverpod_lint` detecta errores en análisis estático |
-| `freezed` | ^2.5 | Inmutabilidad + sealed unions | `copyWith`, `==`, `hashCode`, pattern matching — todo generado |
-| `fpdart` | ^1.1 | `Either` / `TaskEither` | Railway-Oriented Programming; errores explícitos en tipos |
-| `dio` | ^5.4 | Cliente HTTP | Interceptores, cancelación, transformers; más composable que `http` |
-| `go_router` | ^14.2 | Navegación | Paquete oficial Flutter; `ShellRoute`, deep links, redirect reactivo |
-| `talker_flutter` | ^4.3 | Observabilidad | Logger estructurado + viewer in-app + adaptadores para Dio y Riverpod |
+| `flutter_riverpod` | ^3.2.1 | Estado + DI | Type-safe, sin BuildContext en lógica, overrides en tests, observer integrado |
+| `riverpod_annotation` | ^4.0.2 | Generación de providers | Elimina boilerplate; `riverpod_lint` detecta errores en análisis estático |
+| `freezed` | ^3.2.5 | Inmutabilidad + sealed unions | `copyWith`, `==`, `hashCode`, pattern matching — todo generado |
+| `fpdart` | ^1.2.0 | `Either` / `TaskEither` | Railway-Oriented Programming; errores explícitos en tipos |
+| `dio` | ^5.9.2 | Cliente HTTP | Interceptores, cancelación, transformers; más composable que `http` |
+| `go_router` | ^17.1.0 | Navegación | Paquete oficial Flutter; `ShellRoute`, deep links, redirect reactivo |
+| `talker_flutter` | ^5.1.14 | Observabilidad | Logger estructurado + viewer in-app + adaptadores para Dio y Riverpod |
 | `flutter_secure_storage` | ^10.0.0 | Persistencia cifrada | Keychain (iOS) + AES-GCM/RSA OAEP (Android Keystore) |
-| `cached_network_image` | ^3.3 | Caché de imágenes | Evita descargas repetidas; shimmer integrado con placeholder |
-| `shimmer` | ^3.0 | Skeleton loaders | UX de carga percibida sin implementación manual |
-| `go_router` | ^14.2 | Navegación declarativa | ShellRoute para bottom nav, deep links, redirect reactivo |
-| `lottie` | ^3.1 | Animaciones | Pokeball animada durante cargas sin assets de video |
+| `cached_network_image` | ^3.4.1 | Caché de imágenes | Evita descargas repetidas; shimmer integrado con placeholder |
+| `shimmer` | ^3.0.0 | Skeleton loaders | UX de carga percibida sin implementación manual |
+| `go_router` | ^17.1.0 | Navegación declarativa | ShellRoute para bottom nav, deep links, redirect reactivo |
+| `lottie` | ^3.3.2 | Animaciones | Pokeball animada durante cargas sin assets de video |
 
 ---
 

@@ -65,8 +65,8 @@ flutter pub get
 
 ### 3.3 Generar código
 
-Los archivos `.g.dart` y `.freezed.dart` **no se suben al repositorio** (ver `.gitignore`).
-Deben generarse localmente antes de compilar:
+Los archivos `.g.dart` y `.freezed.dart` **no deben subirse al repositorio** (ver `.gitignore`). Sin embargo, por temas de practicidad en el desarrollo, se han subido al repositorio.
+Deberían generarse localmente antes de compilar:
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs

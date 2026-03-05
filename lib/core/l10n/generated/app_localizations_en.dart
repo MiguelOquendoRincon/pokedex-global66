@@ -15,7 +15,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navPokemonList => 'Pokedex';
 
   @override
-  String get navFavorites => 'favorites';
+  String get navFavorites => 'Favorites';
 
   @override
   String get searchHint => 'Search Pokémon...';
