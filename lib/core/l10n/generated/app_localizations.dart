@@ -113,7 +113,7 @@ abstract class AppLocalizations {
   /// Bottom nav label for the favorites tab
   ///
   /// In en, this message translates to:
-  /// **'favorites'**
+  /// **'Favorites'**
   String get navFavorites;
 
   /// Hint text inside the search bar
